@@ -1,0 +1,1 @@
+enum ClayTextVariants { display, title, body, label }
