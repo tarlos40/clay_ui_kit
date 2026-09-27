@@ -9,7 +9,37 @@ import './class/random_color.dart';
 
 class RandomColors {
   static List<ClayPalette> palettes() {
-    return [ClayColors.sky, ClayColors.mint, ClayColors.rose, ClayColors.peach];
+    return [
+      ClayColors.aqua,
+      ClayColors.sky,
+      ClayColors.ocean,
+      ClayColors.cobalt,
+      ClayColors.lavender,
+      ClayColors.violet,
+      ClayColors.grape,
+      ClayColors.mint,
+      ClayColors.forest,
+      ClayColors.lime,
+      ClayColors.lemon,
+      ClayColors.amber,
+      ClayColors.tangerine,
+      ClayColors.coral,
+      ClayColors.peach,
+      ClayColors.ruby,
+      ClayColors.mocha,
+      ClayColors.bubblegum,
+      ClayColors.rose,
+      ClayColors.ivory,
+      ClayColors.cream,
+      ClayColors.cloud,
+      ClayColors.sage,
+      ClayColors.sand,
+      ClayColors.silver,
+      ClayColors.stone,
+      ClayColors.slate,
+      ClayColors.charcoal,
+      ClayColors.obsidian,
+    ];
   }
 
   static List<RandomColor> _colors(
@@ -18,9 +48,18 @@ class RandomColors {
   }) {
     if (!isDark) {
       return [
-        RandomColor(backgroundColor: palette.s400, foregroundColor: palette.s50),
-        RandomColor(backgroundColor: palette.s300, foregroundColor: palette.s50),
-        RandomColor(backgroundColor: palette.s200, foregroundColor: palette.s950),
+        RandomColor(
+          backgroundColor: palette.s400,
+          foregroundColor: palette.s50,
+        ),
+        RandomColor(
+          backgroundColor: palette.s300,
+          foregroundColor: palette.s50,
+        ),
+        RandomColor(
+          backgroundColor: palette.s200,
+          foregroundColor: palette.s950,
+        ),
       ];
     }
 

@@ -1,54 +1,122 @@
 import 'package:flutter/material.dart';
 
 import "../types/palette.dart";
+import '../../utils/create_palette_from_base.dart';
 
 abstract final class ClayColors {
-  static ClayPalette createPaletteFromBase(Color base500) {
-    final hsl = HSLColor.fromColor(base500);
+  static final ClayPalette aqua = CreatePalette.createPaletteFromBase(
+    const Color.fromRGBO(0, 255, 240, 1.0),
+  );
 
-    Color getShade(double saturationFactor, double lightness) {
-      return hsl
-          .withSaturation((hsl.saturation * saturationFactor).clamp(0.0, 1.0))
-          .withLightness(lightness)
-          .toColor();
-    }
-
-    final swatch = <int, Color>{
-      50: getShade(0.88, 0.96),
-      100: getShade(0.92, 0.91),
-      200: getShade(0.95, 0.81),
-      300: getShade(0.98, 0.71),
-      400: getShade(1.00, 0.64),
-      500: base500,
-      600: getShade(1.00, 0.48),
-      700: getShade(0.98, 0.38),
-      800: getShade(0.92, 0.28),
-      900: getShade(0.85, 0.18),
-      950: getShade(0.78, 0.10),
-    };
-
-    return ClayPalette.fromRGBO(
-      (base500.r * 255).round(),
-      (base500.g * 255).round(),
-      (base500.b * 255).round(),
-      1.0,
-      swatch,
-    );
-  }
-
-  static final ClayPalette sky = createPaletteFromBase(
+  static final ClayPalette sky = CreatePalette.createPaletteFromBase(
     const Color.fromRGBO(56, 189, 248, 1.0),
   );
 
-  static final ClayPalette peach = createPaletteFromBase(
+  static final ClayPalette ocean = CreatePalette.createPaletteFromBase(
+    const Color.fromRGBO(0, 119, 190, 1.0),
+  );
+
+  static final ClayPalette cobalt = CreatePalette.createPaletteFromBase(
+    const Color.fromRGBO(0, 71, 171, 1.0),
+  );
+
+  static final ClayPalette lavender = CreatePalette.createPaletteFromBase(
+    const Color.fromRGBO(211, 211, 255, 1.0),
+  );
+
+  static final ClayPalette violet = CreatePalette.createPaletteFromBase(
+    const Color.fromRGBO(127, 0, 255, 1.0),
+  );
+
+  static final ClayPalette grape = CreatePalette.createPaletteFromBase(
+    const Color.fromRGBO(111, 45, 168, 1.0),
+  );
+
+  static final ClayPalette mint = CreatePalette.createPaletteFromBase(
+    const Color.fromRGBO(173, 235, 179, 1.0),
+  );
+
+  static final ClayPalette forest = CreatePalette.createPaletteFromBase(
+    const Color.fromRGBO(46, 111, 64, 1.0),
+  );
+
+  static final ClayPalette lime = CreatePalette.createPaletteFromBase(
+    const Color.fromRGBO(0, 255, 0, 1.0),
+  );
+
+  static final ClayPalette lemon = CreatePalette.createPaletteFromBase(
+    const Color.fromRGBO(255, 247, 0, 1.0),
+  );
+
+  static final ClayPalette amber = CreatePalette.createPaletteFromBase(
+    const Color.fromRGBO(255, 191, 0, 1.0),
+  );
+
+  static final ClayPalette tangerine = CreatePalette.createPaletteFromBase(
+    const Color.fromRGBO(255, 168, 0, 1.0),
+  );
+
+  static final ClayPalette coral = CreatePalette.createPaletteFromBase(
+    const Color.fromRGBO(255, 133, 89, 1.0),
+  );
+
+  static final ClayPalette peach = CreatePalette.createPaletteFromBase(
     const Color.fromRGBO(245, 73, 39, 1.0),
   );
 
-  static final ClayPalette rose = createPaletteFromBase(
+  static final ClayPalette ruby = CreatePalette.createPaletteFromBase(
+    const Color.fromRGBO(132, 25, 34, 1.0),
+  );
+
+  static final ClayPalette mocha = CreatePalette.createPaletteFromBase(
+    const Color.fromRGBO(109, 59, 7, 1.0),
+  );
+
+  static final ClayPalette bubblegum = CreatePalette.createPaletteFromBase(
+    const Color.fromRGBO(255, 193, 204, 1.0),
+  );
+
+  static final ClayPalette rose = CreatePalette.createPaletteFromBase(
     const Color.fromRGBO(255, 0, 127, 1.0),
   );
 
-  static final ClayPalette mint = createPaletteFromBase(
-    const Color.fromRGBO(173, 235, 179, 1.0),
+  static final ClayPalette ivory = CreatePalette.createPaletteFromBase(
+    const Color.fromRGBO(255, 255, 227, 1.0),
+  );
+
+  static final ClayPalette cream = CreatePalette.createPaletteFromBase(
+    const Color.fromRGBO(253, 251, 212, 1.0),
+  );
+
+  static final ClayPalette cloud = CreatePalette.createPaletteFromBase(
+    const Color.fromRGBO(246, 246, 246, 1.0),
+  );
+
+  static final ClayPalette sage = CreatePalette.createPaletteFromBase(
+    const Color.fromRGBO(187, 183, 145, 1.0),
+  );
+
+  static final ClayPalette sand = CreatePalette.createPaletteFromBase(
+    const Color.fromRGBO(203, 189, 147, 1.0),
+  );
+
+  static final ClayPalette silver = CreatePalette.createPaletteFromBase(
+    const Color.fromRGBO(196, 196, 196, 1.0),
+  );
+
+  static final ClayPalette stone = CreatePalette.createPaletteFromBase(
+    const Color.fromRGBO(173, 165, 135, 1.0),
+  );
+
+  static final ClayPalette slate = CreatePalette.createPaletteFromBase(
+    const Color.fromRGBO(109, 129, 150, 1.0),
+  );
+
+  static final ClayPalette charcoal = CreatePalette.createPaletteFromBase(
+    const Color.fromRGBO(74, 74, 74, 1.0),
+  );
+
+  static final ClayPalette obsidian = CreatePalette.createPaletteFromBase(
+    const Color.fromRGBO(6, 3, 12, 1.0),
   );
 }

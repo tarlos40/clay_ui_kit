@@ -151,7 +151,6 @@ class _LabLayoutState extends State<LabLayout> {
           SizedBox(height: 8),
 
           ClayCard(
-            onTap: () {},
             children: [
               ClayCard.header(
                 title: 'Fight Metrics',
@@ -183,6 +182,7 @@ class _LabLayoutState extends State<LabLayout> {
                 image: const NetworkImage('https://picsum.photos/800/400'),
                 width: double.infinity,
                 height: 220,
+                margin: EdgeInsetsGeometry.symmetric(horizontal: 8),
               ),
 
               ClayCard.body(
@@ -208,7 +208,7 @@ class _LabLayoutState extends State<LabLayout> {
 
           SizedBox(height: 8),
 
-          ClayBadge(label: 'Testando badge', onClose: () {},),
+          ClayBadge(label: 'Testando badge', onClose: () {}),
 
           SizedBox(height: 8),
 
@@ -224,6 +224,7 @@ class _LabLayoutState extends State<LabLayout> {
 
           ClayBadge.circle(
             label: '99+',
+            backgroundColor: ClayColors.ruby,
             position: ClayBadgePosition.topRight,
             target: ClayAvatar(name: "Teste"),
           ),

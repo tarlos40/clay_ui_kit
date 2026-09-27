@@ -202,7 +202,7 @@ class _ClayInputState extends State<ClayInput>
   Widget build(BuildContext context) {
     final theme = context.clayTheme;
 
-    final errorColor = widget.errorColor ?? ClayColors.rose;
+    final errorColor = widget.errorColor ?? ClayColors.ruby;
 
     final background = widget.backgroundColor ?? theme.container;
 
