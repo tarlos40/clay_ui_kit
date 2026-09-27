@@ -140,6 +140,71 @@ class _LabLayoutState extends State<LabLayout> {
             minLines: 5,
             maxLines: 8,
           ),
+
+          SizedBox(height: 8),
+
+          ClayContainer(
+            padding: const EdgeInsets.all(20),
+            child: Column(children: [Text('Qualquer coisa'), Icon(Icons.star)]),
+          ),
+
+          SizedBox(height: 8),
+
+          ClayCard(
+            onTap: () {},
+            children: [
+              ClayCard.header(
+                title: 'Fight Metrics',
+                subtitle: 'UFC 320',
+
+                action: ClayCard.action(
+                  menu: [
+                    ClayCard.menu(
+                      title: 'Editar',
+                      subtitle: 'Alterar informações',
+                      icon: const Icon(Icons.edit_rounded),
+                      onPressed: () {},
+                    ),
+                    ClayCard.menu(
+                      title: 'Compartilhar',
+                      icon: const Icon(Icons.share_rounded),
+                      onPressed: () {},
+                    ),
+                    ClayCard.menu(
+                      title: 'Excluir',
+                      icon: const Icon(Icons.delete_outline_rounded),
+                      onPressed: () {},
+                    ),
+                  ],
+                ),
+              ),
+
+              ClayCard.image(
+                image: const NetworkImage('https://picsum.photos/800/400'),
+                width: double.infinity,
+                height: 220,
+              ),
+
+              ClayCard.body(
+                children: [
+                  ClayCard.title('Alexander Volkanovski'),
+                  ClayCard.subtitle('vs. Ilia Topuria'),
+                  ClayCard.label('Main Event'),
+                ],
+              ),
+
+              ClayCard.footer(
+                buttons: [
+                  ClayCard.button(label: 'Cancelar', onPressed: () {}),
+                  ClayCard.button(
+                    label: 'Analisar',
+                    primary: true,
+                    onPressed: () {},
+                  ),
+                ],
+              ),
+            ],
+          ),
         ],
       ),
     );

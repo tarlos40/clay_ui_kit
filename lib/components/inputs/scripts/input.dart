@@ -218,7 +218,7 @@ class _ClayInputState extends State<ClayInput>
     final borderRadius = BorderRadius.circular(widget.borderRadius);
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -442,10 +442,6 @@ class _ClayInputState extends State<ClayInput>
     return Row(mainAxisSize: MainAxisSize.min, children: actions);
   }
 }
-
-// =============================================================================
-// INPUT ICON BUTTON
-// =============================================================================
 
 class _ClayInputIconButton extends StatelessWidget {
   final IconData icon;
