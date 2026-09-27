@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../appbar/scripts/appbar.dart';
 import '../../navigationbar/scripts/navigationbar.dart';
 import '../scripts/background.dart';
+import '../../fab/scripts/fab.dart';
 
 class ClayScaffold extends StatefulWidget {
   final Color? backgroundColor;
@@ -11,6 +12,7 @@ class ClayScaffold extends StatefulWidget {
   final ClayAppBar? clayAppBar;
   final Widget? body;
   final ClayNavigationBar? clayNavigationBar;
+  final ClayFloatingActionButton? clayFloatingActionButton;
 
   final bool extendBody;
   final bool extendBodyBehindAppBar;
@@ -22,6 +24,7 @@ class ClayScaffold extends StatefulWidget {
     this.clayAppBar,
     this.body,
     this.clayNavigationBar,
+    this.clayFloatingActionButton,
     this.extendBody = false,
     this.extendBodyBehindAppBar = false,
   }) : assert(
@@ -45,6 +48,7 @@ class _ClayScaffoldState extends State<ClayScaffold> {
         appBar: widget.clayAppBar,
         body: widget.body,
         bottomNavigationBar: widget.clayNavigationBar,
+        floatingActionButton: widget.clayFloatingActionButton,
 
         extendBody: widget.extendBody,
         extendBodyBehindAppBar: widget.extendBodyBehindAppBar,

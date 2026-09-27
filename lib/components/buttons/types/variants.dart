@@ -1,1 +1,1 @@
-enum ClayButtonVariants { base, primary, secondary, third, text, icon }
+enum ClayButtonVariant { base, primary, secondary, third, text, icon }

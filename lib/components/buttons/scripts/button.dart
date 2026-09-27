@@ -8,8 +8,8 @@ import '../../../theme/scripts/shadows.dart';
 
 class ClayButton extends StatefulWidget {
   final String text;
-  final ClayButtonVariants _variant;
-  final ClayButtonSizes? size;
+  final ClayButtonVariant _variant;
+  final ClayButtonSize? size;
   final VoidCallback? onPressed;
   final Color? backgroundColor, foregroundColor, iconColor;
   final bool? isLoading;
@@ -21,14 +21,14 @@ class ClayButton extends StatefulWidget {
     super.key,
     this.onPressed,
     this.isLoading = false,
-    this.size = ClayButtonSizes.base,
+    this.size = ClayButtonSize.base,
     this.backgroundColor,
     this.foregroundColor,
     this.iconLeft,
     this.iconRight,
   }) : icon = null,
        iconColor = null,
-       _variant = ClayButtonVariants.base,
+       _variant = ClayButtonVariant.base,
        gradient = null;
 
   const ClayButton.primary(
@@ -36,14 +36,14 @@ class ClayButton extends StatefulWidget {
     super.key,
     this.onPressed,
     this.isLoading = false,
-    this.size = ClayButtonSizes.base,
+    this.size = ClayButtonSize.base,
     this.backgroundColor,
     this.foregroundColor,
     this.iconLeft,
     this.iconRight,
   }) : icon = null,
        iconColor = null,
-       _variant = ClayButtonVariants.primary,
+       _variant = ClayButtonVariant.primary,
        gradient = null;
 
   const ClayButton.secondary(
@@ -51,14 +51,14 @@ class ClayButton extends StatefulWidget {
     super.key,
     this.onPressed,
     this.isLoading = false,
-    this.size = ClayButtonSizes.base,
+    this.size = ClayButtonSize.base,
     this.backgroundColor,
     this.foregroundColor,
     this.iconLeft,
     this.iconRight,
   }) : icon = null,
        iconColor = null,
-       _variant = ClayButtonVariants.secondary,
+       _variant = ClayButtonVariant.secondary,
        gradient = null;
 
   const ClayButton.third(
@@ -66,14 +66,14 @@ class ClayButton extends StatefulWidget {
     super.key,
     this.onPressed,
     this.isLoading = false,
-    this.size = ClayButtonSizes.base,
+    this.size = ClayButtonSize.base,
     this.backgroundColor,
     this.foregroundColor,
     this.iconLeft,
     this.iconRight,
   }) : icon = null,
        iconColor = null,
-       _variant = ClayButtonVariants.third,
+       _variant = ClayButtonVariant.third,
        gradient = null;
 
   const ClayButton.text(
@@ -81,14 +81,14 @@ class ClayButton extends StatefulWidget {
     super.key,
     this.onPressed,
     this.isLoading = false,
-    this.size = ClayButtonSizes.base,
+    this.size = ClayButtonSize.base,
     this.backgroundColor,
     this.foregroundColor,
     this.iconLeft,
     this.iconRight,
   }) : icon = null,
        iconColor = null,
-       _variant = ClayButtonVariants.text,
+       _variant = ClayButtonVariant.text,
        gradient = null;
 
   const ClayButton.icon(
@@ -96,14 +96,14 @@ class ClayButton extends StatefulWidget {
     super.key,
     this.onPressed,
     this.isLoading = false,
-    this.size = ClayButtonSizes.base,
+    this.size = ClayButtonSize.base,
     this.backgroundColor,
     this.iconColor,
   }) : text = '',
        iconLeft = null,
        iconRight = null,
        foregroundColor = null,
-       _variant = ClayButtonVariants.icon,
+       _variant = ClayButtonVariant.icon,
        gradient = null;
 
   ClayButton.gradient(
@@ -114,13 +114,13 @@ class ClayButton extends StatefulWidget {
     AlignmentGeometry end = Alignment.bottomRight,
     this.onPressed,
     this.isLoading = false,
-    this.size = ClayButtonSizes.base,
+    this.size = ClayButtonSize.base,
     this.foregroundColor,
     this.iconLeft,
     this.iconRight,
   }) : icon = null,
        iconColor = null,
-       _variant = ClayButtonVariants.primary,
+       _variant = ClayButtonVariant.primary,
        backgroundColor = null,
        gradient = LinearGradient(colors: colors, begin: begin, end: end);
 
@@ -152,7 +152,7 @@ class _ClayButtonState extends State<ClayButton> {
   Widget build(BuildContext context) {
     final theme = context.clayTheme;
     final isDisabled = widget.onPressed == null || (widget.isLoading ?? false);
-    final isTextVariant = widget._variant == ClayButtonVariants.text;
+    final isTextVariant = widget._variant == ClayButtonVariant.text;
 
     Color backgroundColor;
     Color textColor;
@@ -161,42 +161,42 @@ class _ClayButtonState extends State<ClayButton> {
     Color borderColor;
 
     switch (widget._variant) {
-      case ClayButtonVariants.base:
+      case ClayButtonVariant.base:
         backgroundColor = widget.backgroundColor ?? theme.container;
         textColor = widget.foregroundColor ?? theme.onContainer;
         shadowColor = theme.shadow;
         lightColor = theme.light;
         borderColor = theme.border;
         break;
-      case ClayButtonVariants.primary:
+      case ClayButtonVariant.primary:
         backgroundColor = widget.backgroundColor ?? theme.primary;
         textColor = widget.foregroundColor ?? theme.onPrimary;
         shadowColor = theme.shadow;
         lightColor = theme.light;
         borderColor = theme.border;
         break;
-      case ClayButtonVariants.secondary:
+      case ClayButtonVariant.secondary:
         backgroundColor = widget.backgroundColor ?? theme.secondary;
         textColor = widget.foregroundColor ?? theme.onSecondary;
         shadowColor = theme.shadow;
         lightColor = theme.light;
         borderColor = theme.border;
         break;
-      case ClayButtonVariants.third:
+      case ClayButtonVariant.third:
         backgroundColor = widget.backgroundColor ?? theme.third;
         textColor = widget.foregroundColor ?? theme.onThird;
         shadowColor = theme.shadow;
         lightColor = theme.light;
         borderColor = theme.border;
         break;
-      case ClayButtonVariants.text:
+      case ClayButtonVariant.text:
         backgroundColor = widget.backgroundColor ?? Colors.transparent;
         textColor = widget.foregroundColor ?? theme.primary;
         shadowColor = Colors.transparent;
         lightColor = Colors.transparent;
         borderColor = Colors.transparent;
         break;
-      case ClayButtonVariants.icon:
+      case ClayButtonVariant.icon:
         backgroundColor = widget.backgroundColor ?? theme.container;
         textColor = widget.iconColor ?? theme.primary;
         shadowColor = theme.shadow;
@@ -210,20 +210,20 @@ class _ClayButtonState extends State<ClayButton> {
     double loaderSize;
     double iconSpacing;
 
-    switch (widget.size ?? ClayButtonSizes.base) {
-      case ClayButtonSizes.base:
+    switch (widget.size ?? ClayButtonSize.base) {
+      case ClayButtonSize.base:
         padding = const EdgeInsets.symmetric(horizontal: 22, vertical: 14);
         borderRadius = 38.0;
         loaderSize = 20.0;
         iconSpacing = 8.0;
         break;
-      case ClayButtonSizes.small:
+      case ClayButtonSize.small:
         padding = const EdgeInsets.symmetric(horizontal: 14, vertical: 8);
         borderRadius = 28.0;
         loaderSize = 16.0;
         iconSpacing = 6.0;
         break;
-      case ClayButtonSizes.large:
+      case ClayButtonSize.large:
         padding = const EdgeInsets.symmetric(horizontal: 28, vertical: 18);
         borderRadius = 44.0;
         loaderSize = 24.0;
@@ -231,15 +231,15 @@ class _ClayButtonState extends State<ClayButton> {
         break;
     }
 
-    if (widget._variant == ClayButtonVariants.icon) {
-      switch (widget.size ?? ClayButtonSizes.base) {
-        case ClayButtonSizes.small:
+    if (widget._variant == ClayButtonVariant.icon) {
+      switch (widget.size ?? ClayButtonSize.base) {
+        case ClayButtonSize.small:
           padding = const EdgeInsets.all(8);
           break;
-        case ClayButtonSizes.base:
+        case ClayButtonSize.base:
           padding = const EdgeInsets.all(12);
           break;
-        case ClayButtonSizes.large:
+        case ClayButtonSize.large:
           padding = const EdgeInsets.all(16);
           break;
       }
@@ -268,7 +268,7 @@ class _ClayButtonState extends State<ClayButton> {
           curve: Curves.easeOut,
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 100),
-            padding: widget._variant == ClayButtonVariants.icon
+            padding: widget._variant == ClayButtonVariant.icon
                 ? EdgeInsets.all(12)
                 : padding,
             decoration: BoxDecoration(
@@ -331,7 +331,7 @@ class _ClayButtonState extends State<ClayButton> {
   Widget _buildContent(Color textColor, bool isDisabled, double iconSpacing) {
     final finalColor = isDisabled ? textColor.withAlpha(173) : textColor;
 
-    if (widget._variant == ClayButtonVariants.icon) {
+    if (widget._variant == ClayButtonVariant.icon) {
       return IconTheme(
         data: IconThemeData(color: finalColor, size: _getIconSize()),
         child: widget.isLoading ?? false
@@ -370,31 +370,31 @@ class _ClayButtonState extends State<ClayButton> {
   }
 
   double _getIconSize() {
-    switch (widget.size ?? ClayButtonSizes.base) {
-      case ClayButtonSizes.small:
+    switch (widget.size ?? ClayButtonSize.base) {
+      case ClayButtonSize.small:
         return 16.0;
-      case ClayButtonSizes.base:
+      case ClayButtonSize.base:
         return 20.0;
-      case ClayButtonSizes.large:
+      case ClayButtonSize.large:
         return 24.0;
     }
   }
 
   Widget _buildText(Color finalColor) {
-    switch (widget.size ?? ClayButtonSizes.base) {
-      case ClayButtonSizes.small:
+    switch (widget.size ?? ClayButtonSize.base) {
+      case ClayButtonSize.small:
         return ClayText.label(
           widget.text,
           color: finalColor,
           fontWeight: FontWeight.w700,
         );
-      case ClayButtonSizes.base:
+      case ClayButtonSize.base:
         return ClayText.body(
           widget.text,
           color: finalColor,
           fontWeight: FontWeight.w700,
         );
-      case ClayButtonSizes.large:
+      case ClayButtonSize.large:
         return ClayText.title(
           widget.text,
           color: finalColor,

@@ -1,1 +1,1 @@
-enum ClayButtonSizes { base, small, large }
+enum ClayButtonSize { base, small, large }

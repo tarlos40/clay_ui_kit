@@ -13,7 +13,7 @@ class ClayAppBar extends StatefulWidget implements PreferredSizeWidget {
   final VoidCallback? onPressed;
   final Widget? icon, leading;
   final bool? isLoading, transparent;
-  final ClayButtonSizes? size;
+  final ClayButtonSize? size;
   final double? elevation;
 
   const ClayAppBar({
@@ -137,7 +137,7 @@ class _ClayAppBarState extends State<ClayAppBar> {
                 ),
               ),
 
-          Flexible(
+          Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: widget.subtitle != null
@@ -157,21 +157,26 @@ class _ClayAppBarState extends State<ClayAppBar> {
       actions: widget.actions == null
           ? null
           : [
-              Padding(
-                padding: const EdgeInsets.only(right: 16),
-                child: Flexible(
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: widget.actions!
-                        .map(
-                          (action) => Padding(
-                            padding: const EdgeInsets.only(left: 8),
-                            child: action,
-                          ),
-                        )
-                        .toList(),
+              Flex(
+                direction: Axis.vertical,
+                children: [
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 16),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: widget.actions!
+                            .map(
+                              (action) => Padding(
+                                padding: const EdgeInsets.only(left: 8),
+                                child: action,
+                              ),
+                            )
+                            .toList(),
+                      ),
+                    ),
                   ),
-                ),
+                ],
               ),
             ],
 
