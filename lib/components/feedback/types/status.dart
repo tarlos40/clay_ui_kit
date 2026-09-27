@@ -1,0 +1,1 @@
+enum ClayFeedbackStatus { success, error, warning, info, empty, loading }

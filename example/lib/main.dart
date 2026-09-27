@@ -22,6 +22,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return ClayApp(
       clayThemeData: ClayThemeData(seedColor: ClayColors.cobalt, isDark: false),
+      debugShowCheckedModeBanner: false,
       home: const MyHomePage(title: "Clay App"),
     );
   }

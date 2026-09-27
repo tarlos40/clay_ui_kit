@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../app/scripts/context.dart';
 import '../../../theme/scripts/shadows.dart';
-import '../../../components/texts/scripts/text.dart';
+import '../../../components/text/scripts/text.dart';
 import '../types/sizes.dart';
 
 class ClayFloatingActionButton extends StatefulWidget {

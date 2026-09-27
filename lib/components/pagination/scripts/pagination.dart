@@ -247,25 +247,8 @@ class ClayPagination extends StatelessWidget {
                       : foreground.withValues(alpha: 0.055),
                 ),
                 boxShadow: selected
-                    ? [
-                        BoxShadow(
-                          color: active.withValues(alpha: 0.22),
-                          offset: const Offset(0, 3),
-                          blurRadius: 7,
-                        ),
-                      ]
-                    : [
-                        BoxShadow(
-                          color: Colors.black.withValues(alpha: 0.045),
-                          offset: const Offset(2, 2),
-                          blurRadius: 4,
-                        ),
-                        BoxShadow(
-                          color: Colors.white.withValues(alpha: 0.35),
-                          offset: const Offset(-1, -1),
-                          blurRadius: 3,
-                        ),
-                      ],
+                    ? ClayShadows.external(theme: theme, offset: 2.5, blur: 7)
+                    : ClayShadows.external(theme: theme, offset: 2.5, blur: 7),
               ),
               child: AnimatedDefaultTextStyle(
                 duration: const Duration(milliseconds: 180),
@@ -318,18 +301,11 @@ class ClayPagination extends StatelessWidget {
                 color: background,
                 borderRadius: BorderRadius.circular(borderRadius),
                 border: Border.all(color: foreground.withValues(alpha: 0.055)),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.045),
-                    offset: const Offset(2, 2),
-                    blurRadius: 4,
-                  ),
-                  BoxShadow(
-                    color: Colors.white.withValues(alpha: 0.35),
-                    offset: const Offset(-1, -1),
-                    blurRadius: 3,
-                  ),
-                ],
+                boxShadow: ClayShadows.external(
+                  theme: theme,
+                  offset: 2.5,
+                  blur: 7,
+                ),
               ),
               child: Icon(
                 icon,

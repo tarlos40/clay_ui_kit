@@ -176,18 +176,6 @@ class _ClayProgressState extends State<ClayProgress>
             decoration: BoxDecoration(
               color: track,
               borderRadius: BorderRadius.circular(widget.radius),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.06),
-                  offset: const Offset(2, 3),
-                  blurRadius: 5,
-                ),
-                BoxShadow(
-                  color: Colors.white.withValues(alpha: 0.55),
-                  offset: const Offset(-2, -2),
-                  blurRadius: 5,
-                ),
-              ],
             ),
             clipBehavior: Clip.antiAlias,
             child: widget.value == null

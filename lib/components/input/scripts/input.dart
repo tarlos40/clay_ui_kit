@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../../../app/scripts/context.dart';
-import '../../../components/texts/scripts/text.dart';
+import '../../text/scripts/text.dart';
 import '../../../theme/scripts/shadows.dart';
-import './search.dart';
+import 'search.dart';
 
 class ClayInput extends StatefulWidget {
   final TextEditingController? controller;

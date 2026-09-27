@@ -76,18 +76,7 @@ class ClayLoading extends StatefulWidget {
                       alpha: .07,
                     ),
                   ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withValues(alpha: .16),
-                      blurRadius: 28,
-                      offset: const Offset(0, 12),
-                    ),
-                    BoxShadow(
-                      color: Colors.white.withValues(alpha: .24),
-                      blurRadius: 8,
-                      offset: const Offset(-2, -2),
-                    ),
-                  ],
+                  boxShadow: ClayShadows.external(theme: theme, offset: 2.5, blur: 7)
                 ),
                 child: ClayLoading(
                   label: label,

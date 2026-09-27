@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../../app/scripts/context.dart';
-import '../../../components/buttons/scripts/button.dart';
-import '../../../components/texts/scripts/text.dart';
+import '../../../components/button/scripts/button.dart';
+import '../../../components/text/scripts/text.dart';
 import '../../../theme/scripts/shadows.dart';
 
 class ClayDrawer extends StatelessWidget {

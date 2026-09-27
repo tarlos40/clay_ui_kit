@@ -11,6 +11,9 @@ class LabLayout extends StatefulWidget {
 
 class _LabLayoutState extends State<LabLayout> {
   int _currentPage = 1;
+  double _volume = 1;
+  bool _accepted = false, _notificationsEnabled = false;
+  String? _selectedTheme = 'light';
 
   @override
   void didChangeDependencies() {
@@ -24,6 +27,8 @@ class _LabLayoutState extends State<LabLayout> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = context.clayTheme;
+
     return Center(
       child: Column(
         mainAxisAlignment: .center,
@@ -200,7 +205,12 @@ class _LabLayoutState extends State<LabLayout> {
 
           ClayContainer(
             padding: const EdgeInsets.all(20),
-            child: Column(children: [Text('Qualquer coisa'), Icon(Icons.star)]),
+            child: Column(
+              children: [
+                ClayText.body('Qualquer coisa'),
+                Icon(Icons.star, color: theme.onContainer),
+              ],
+            ),
           ),
 
           SizedBox(height: 8),
@@ -238,6 +248,7 @@ class _LabLayoutState extends State<LabLayout> {
                 width: double.infinity,
                 height: 220,
                 margin: EdgeInsetsGeometry.symmetric(horizontal: 8),
+                expandable: true
               ),
 
               ClayCard.body(
@@ -378,8 +389,11 @@ ClayButton.primary('Continue', onPressed: () {})
                 context: context,
                 title: 'Excluir item?',
                 description: 'Esta ação não pode ser desfeita.',
-                child: const Text('Deseja realmente continuar?'),
-                leading: const Icon(Icons.warning_amber_rounded),
+                child: const ClayText.body('Deseja realmente continuar?'),
+                leading: Icon(
+                  Icons.warning_amber_rounded,
+                  color: theme.onContainer,
+                ),
                 actions: [
                   ClayButton.success('Continuar', onPressed: () {}),
                   ClayButton.warning('Atenção', onPressed: () {}),
@@ -407,7 +421,7 @@ ClayButton.primary('Continue', onPressed: () {})
                 context,
                 initialSnapPoint: 0.5,
                 snapPoints: const [0.25, 0.5, 0.9],
-                child: const Center(child: Text('Conteúdo do painel')),
+                child: const Center(child: ClayText.body('Conteúdo do painel')),
               );
             },
           ),
@@ -503,7 +517,7 @@ ClayButton.primary('Continue', onPressed: () {})
               ClayAccordionItem(
                 title: 'Configurações',
                 subtitle: 'Preferências da conta',
-                content: const Text('Conteúdo da seção.'),
+                content: const ClayText.label('Conteúdo da seção.'),
               ),
             ],
           ),
@@ -520,9 +534,9 @@ ClayButton.primary('Continue', onPressed: () {})
 
           SizedBox(height: 8),
 
-          const ClayLoading(
+          ClayLoading(
             label: 'Carregando dados...',
-            icon: Icon(Icons.cloud_download_rounded),
+            icon: Icon(Icons.cloud_download_rounded, color: theme.onContainer),
             style: ClayLoadingStyle.orbit,
           ),
 
@@ -539,6 +553,70 @@ ClayButton.primary('Continue', onPressed: () {})
               );
             },
           ),
+
+          SizedBox(height: 8),
+
+          ClayCheckbox(
+            value: _accepted,
+            onChanged: (value) => setState(() => _accepted = value),
+            label: 'Aceito os termos',
+            description: 'Li e concordo com as condições.',
+          ),
+
+          SizedBox(height: 8),
+
+          ClayRadio<String>(
+            value: 'light',
+            groupValue: _selectedTheme,
+            onChanged: (value) {
+              setState(() => _selectedTheme = value);
+            },
+            label: 'Claro',
+          ),
+
+          ClayRadio<String>(
+            value: 'dark',
+            groupValue: _selectedTheme,
+            onChanged: (value) {
+              setState(() => _selectedTheme = value);
+            },
+            label: 'Escuro',
+          ),
+
+          SizedBox(height: 8),
+
+          ClaySlider(
+            value: _volume,
+            onChanged: (value) => setState(() => _volume = value),
+            min: 0,
+            max: 100,
+            divisions: 20,
+            label: 'Volume',
+            showValue: true,
+            showMinMax: true,
+          ),
+
+          SizedBox(height: 8),
+
+          ClaySwitch(
+            value: _notificationsEnabled,
+            onChanged: (value) {
+              setState(() => _notificationsEnabled = value);
+            },
+            label: 'Notificações',
+            description: 'Receba alertas de atualizações.',
+          ),
+
+          SizedBox(height: 8),
+
+          ClayFeedback(
+            status: ClayFeedbackStatus.info,
+            title: 'Nova atualização',
+            message: 'Uma nova versão está disponível.',
+            compact: true,
+          ),
+
+          SizedBox(height: 8),
         ],
       ),
     );

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 import '../../../app/scripts/context.dart';
-import '../../../components/buttons/scripts/button.dart';
-import '../../../components/texts/scripts/text.dart';
+import '../../button/scripts/button.dart';
+import '../../text/scripts/text.dart';
 import '../../../theme/scripts/shadows.dart';
+import './image_viewer.dart';
 
 class ClayCard extends StatefulWidget {
   final List<Widget> children;
@@ -232,6 +233,9 @@ class ClayCard extends StatefulWidget {
     EdgeInsetsGeometry margin = EdgeInsets.zero,
     Color? color,
     BlendMode? colorBlendMode,
+    bool expandable = false,
+    String? heroTag,
+    bool showCloseButton = true,
   }) {
     assert(
       image != null || child != null,
@@ -243,24 +247,85 @@ class ClayCard extends StatefulWidget {
       'ClayCard.image cannot receive both image and child.',
     );
 
-    return Padding(
-      padding: margin,
-      child: ClipRRect(
-        borderRadius: borderRadius,
-        child: SizedBox(
+    Widget content =
+        child ??
+        Image(
+          image: image!,
           width: width,
           height: height,
-          child:
-              child ??
-              Image(
-                image: image!,
-                fit: fit,
-                alignment: alignment,
-                color: color,
-                colorBlendMode: colorBlendMode,
+          fit: fit,
+          alignment: alignment,
+          color: color,
+          colorBlendMode: colorBlendMode,
+        );
+
+    if (image != null && heroTag != null) {
+      content = Hero(tag: heroTag, child: content);
+    }
+
+    content = SizedBox(width: width, height: height, child: content);
+
+    if (expandable) {
+      final imageContent = content;
+
+      content = Builder(
+        builder: (context) {
+          return Stack(
+            alignment: Alignment.center,
+            children: [
+              GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: () {
+                  showDialog<void>(
+                    context: context,
+                    useSafeArea: false,
+                    barrierDismissible: false,
+                    barrierColor: Colors.transparent,
+                    builder: (_) => ClayImageViewer(
+                      image: image,
+                      alignment: alignment,
+                      color: color,
+                      colorBlendMode: colorBlendMode,
+                      heroTag: heroTag,
+                      showCloseButton: showCloseButton,
+                      child: child,
+                    ),
+                  );
+                },
+                child: MouseRegion(
+                  cursor: SystemMouseCursors.zoomIn,
+                  child: imageContent,
+                ),
               ),
-        ),
-      ),
+              const Positioned(
+                right: 10,
+                bottom: 10,
+                child: IgnorePointer(
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      color: Color(0x99000000),
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.all(8),
+                      child: Icon(
+                        Icons.zoom_out_map_rounded,
+                        color: Colors.white,
+                        size: 18,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          );
+        },
+      );
+    }
+
+    return Padding(
+      padding: margin,
+      child: ClipRRect(borderRadius: borderRadius, child: content),
     );
   }
 

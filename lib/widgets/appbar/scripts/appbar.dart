@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../../../components/texts/scripts/text.dart';
+import '../../../components/text/scripts/text.dart';
 import '../../../app/scripts/context.dart';
 import '../../../theme/scripts/shadows.dart';
-import '../../../components/buttons/scripts/button.dart';
-import '../../../components/buttons/types/sizes.dart';
+import '../../../components/button/scripts/button.dart';
+import '../../../components/button/types/sizes.dart';
 
 class ClayAppBar extends StatefulWidget implements PreferredSizeWidget {
   final String? title, subtitle;

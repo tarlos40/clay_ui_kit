@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../app/scripts/context.dart';
-import '../../../components/texts/scripts/text.dart';
+import '../../text/scripts/text.dart';
 import '../../../theme/scripts/shadows.dart';
 import '../class/props_table.dart';
 

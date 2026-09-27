@@ -218,18 +218,7 @@ class _ClayTableState<T> extends State<ClayTable<T>> {
           color: surface,
           borderRadius: BorderRadius.circular(widget.borderRadius),
           border: Border.all(color: border.withValues(alpha: 0.65)),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withValues(alpha: 0.045),
-              offset: const Offset(3, 4),
-              blurRadius: 10,
-            ),
-            BoxShadow(
-              color: Colors.white.withValues(alpha: 0.42),
-              offset: const Offset(-3, -3),
-              blurRadius: 10,
-            ),
-          ],
+          boxShadow: ClayShadows.external(theme: theme, offset: 1.5, blur: 4),
         ),
         clipBehavior: Clip.antiAlias,
         child: LayoutBuilder(

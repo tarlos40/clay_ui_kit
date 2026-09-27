@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../../app/scripts/context.dart';
-import '../../../components/texts/scripts/text.dart';
+import '../../text/scripts/text.dart';
 import '../../../theme/scripts/shadows.dart';
 
 class ClayShowcase extends StatefulWidget {

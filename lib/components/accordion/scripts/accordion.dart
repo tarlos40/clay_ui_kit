@@ -147,105 +147,97 @@ class _ClayAccordionState extends State<ClayAccordion> {
         blurRadius: 7.0,
       ),
       child: AnimatedContainer(
-      duration: const Duration(milliseconds: 240),
-      curve: Curves.easeOutCubic,
-      padding: widget.padding,
-      decoration: BoxDecoration(
-        color: isExpanded ? expanded : base,
-        borderRadius: BorderRadius.circular(widget.borderRadius),
-        border: Border.all(
-          color: title.withValues(alpha: isExpanded ? .10 : .055),
+        duration: const Duration(milliseconds: 240),
+        curve: Curves.easeOutCubic,
+        padding: widget.padding,
+        decoration: BoxDecoration(
+          color: isExpanded ? expanded : base,
+          borderRadius: BorderRadius.circular(widget.borderRadius),
+          border: Border.all(
+            color: title.withValues(alpha: isExpanded ? .10 : .055),
+          ),
+          boxShadow: ClayShadows.external(theme: theme, offset: 2.5, blur: 7),
         ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: .035),
-            offset: const Offset(2, 3),
-            blurRadius: 7,
-          ),
-          BoxShadow(
-            color: Colors.white.withValues(alpha: .28),
-            offset: const Offset(-2, -2),
-            blurRadius: 5,
-          ),
-        ],
-      ),
-      child: Column(
-        children: [
-          Semantics(
-            button: true,
-            expanded: isExpanded,
-            child: Material(
-              color: Colors.transparent,
-              child: InkWell(
-                onTap: item.enabled ? () => _toggle(index) : null,
-                borderRadius: BorderRadius.circular(widget.borderRadius - 4),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 10,
-                  ),
-                  child: Row(
-                    children: [
-                      if (item.leading != null) ...[
-                        item.leading!,
-                        const SizedBox(width: 12),
-                      ],
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              item.title,
-                              style: TextStyle(
-                                color: item.enabled
-                                    ? title
-                                    : title.withValues(alpha: .45),
-                                fontWeight: FontWeight.w700,
-                                fontSize: 14,
-                              ),
-                            ),
-                            if (item.subtitle != null) ...[
-                              const SizedBox(height: 3),
+        child: Column(
+          children: [
+            Semantics(
+              button: true,
+              expanded: isExpanded,
+              child: Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  onTap: item.enabled ? () => _toggle(index) : null,
+                  borderRadius: BorderRadius.circular(widget.borderRadius - 4),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 10,
+                    ),
+                    child: Row(
+                      children: [
+                        if (item.leading != null) ...[
+                          item.leading!,
+                          const SizedBox(width: 12),
+                        ],
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
                               Text(
-                                item.subtitle!,
-                                style: TextStyle(color: subtitle, fontSize: 12),
+                                item.title,
+                                style: TextStyle(
+                                  color: item.enabled
+                                      ? title
+                                      : title.withValues(alpha: .45),
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 14,
+                                ),
                               ),
+                              if (item.subtitle != null) ...[
+                                const SizedBox(height: 3),
+                                Text(
+                                  item.subtitle!,
+                                  style: TextStyle(
+                                    color: subtitle,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ],
                             ],
-                          ],
+                          ),
                         ),
-                      ),
-                      const SizedBox(width: 8),
-                      AnimatedRotation(
-                        turns: isExpanded ? .5 : 0,
-                        duration: const Duration(milliseconds: 220),
-                        child: Icon(
-                          Icons.keyboard_arrow_down_rounded,
-                          color: icon,
+                        const SizedBox(width: 8),
+                        AnimatedRotation(
+                          turns: isExpanded ? .5 : 0,
+                          duration: const Duration(milliseconds: 220),
+                          child: Icon(
+                            Icons.keyboard_arrow_down_rounded,
+                            color: icon,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-          AnimatedSize(
-            duration: const Duration(milliseconds: 260),
-            curve: Curves.easeInOutCubic,
-            alignment: Alignment.topCenter,
-            child: isExpanded
-                ? Padding(
-                    padding: widget.contentPadding,
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: item.content,
-                    ),
-                  )
-                : const SizedBox(width: double.infinity, height: 0),
-          ),
-        ],
+            AnimatedSize(
+              duration: const Duration(milliseconds: 260),
+              curve: Curves.easeInOutCubic,
+              alignment: Alignment.topCenter,
+              child: isExpanded
+                  ? Padding(
+                      padding: widget.contentPadding,
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: item.content,
+                      ),
+                    )
+                  : const SizedBox(width: double.infinity, height: 0),
+            ),
+          ],
+        ),
       ),
-      )
     );
   }
 }

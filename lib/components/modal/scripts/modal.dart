@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 import '../../../app/scripts/context.dart';
-import '../../../components/texts/scripts/text.dart';
+import '../../text/scripts/text.dart';
 import '../../../theme/scripts/shadows.dart';
-import '../../buttons/scripts/button.dart';
-import '../../buttons/types/sizes.dart';
+import '../../button/scripts/button.dart';
+import '../../button/types/sizes.dart';
 
 class ClayModal {
   ClayModal._();

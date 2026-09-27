@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../app/scripts/context.dart';
-import '../../../components/texts/scripts/text.dart';
+import '../../text/scripts/text.dart';
 import '../../../utils/random_colors.dart';
 import '../types/size.dart';
 import '../../../theme/scripts/shadows.dart';
