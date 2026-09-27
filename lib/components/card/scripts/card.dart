@@ -214,7 +214,7 @@ class ClayCard extends StatefulWidget {
       );
     }
 
-    return ClayButton.secondary(
+    return ClayButton.third(
       label,
       iconLeft: iconLeft,
       iconRight: iconRight,

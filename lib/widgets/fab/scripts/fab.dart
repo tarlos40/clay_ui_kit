@@ -11,7 +11,7 @@ class ClayFloatingActionButton extends StatefulWidget {
   final Widget? icon;
   final String? label;
   final Color? backgroundColor;
-  final Color? onBackgroundColor;
+  final Color? foregroundColor;
   final ClayFloatingActionButtonSize size;
   final String? tooltip;
   final Object? heroTag;
@@ -25,7 +25,7 @@ class ClayFloatingActionButton extends StatefulWidget {
     this.icon,
     this.label,
     this.backgroundColor,
-    this.onBackgroundColor,
+    this.foregroundColor,
     this.size = ClayFloatingActionButtonSize.base,
     this.tooltip,
     this.heroTag,
@@ -114,7 +114,7 @@ class _ClayFloatingActionButtonState extends State<ClayFloatingActionButton>
   Widget build(BuildContext context) {
     final theme = context.clayTheme;
     final backgroundColor = widget.backgroundColor ?? theme.primary;
-    final onBackground = widget.onBackgroundColor ?? theme.onPrimary;
+    final foregroundColor = widget.foregroundColor ?? theme.onPrimary;
     final size = _size();
 
     final content = AnimatedBuilder(
@@ -128,7 +128,7 @@ class _ClayFloatingActionButtonState extends State<ClayFloatingActionButton>
       child: _buildButton(
         context,
         background: backgroundColor,
-        onBackground: onBackground,
+        foreround: foregroundColor,
         size: size,
       ),
     );
@@ -156,7 +156,7 @@ class _ClayFloatingActionButtonState extends State<ClayFloatingActionButton>
   Widget _buildButton(
     BuildContext context, {
     required Color background,
-    required Color onBackground,
+    required Color foreround,
     required double size,
   }) {
     final theme = context.clayTheme;
@@ -190,18 +190,18 @@ class _ClayFloatingActionButtonState extends State<ClayFloatingActionButton>
               ? ClayShadows.external(theme: theme, offset: 1, blur: 3)
               : ClayShadows.external(theme: theme, offset: 3, blur: 8),
         ),
-        child: _buildContent(onBackground, isExtended),
+        child: _buildContent(foreround, isExtended),
       ),
     );
   }
 
-  Widget _buildContent(Color onBackground, bool isExtended) {
+  Widget _buildContent(Color foreground, bool isExtended) {
     final icon = widget.icon ?? widget.child ?? const SizedBox.shrink();
 
     if (!isExtended) {
       return Center(
         child: IconTheme(
-          data: IconThemeData(size: 24, color: onBackground),
+          data: IconThemeData(size: 24, color: foreground),
           child: icon,
         ),
       );
@@ -212,7 +212,7 @@ class _ClayFloatingActionButtonState extends State<ClayFloatingActionButton>
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         IconTheme(
-          data: IconThemeData(color: onBackground),
+          data: IconThemeData(color: foreground),
           child: icon,
         ),
 
@@ -221,7 +221,7 @@ class _ClayFloatingActionButtonState extends State<ClayFloatingActionButton>
 
           ClayText.label(
             widget.label!,
-            color: onBackground,
+            color: foreground,
             fontWeight: FontWeight.w800,
           ),
         ],

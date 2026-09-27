@@ -205,6 +205,43 @@ class _LabLayoutState extends State<LabLayout> {
               ),
             ],
           ),
+
+          SizedBox(height: 8),
+
+          ClayBadge(label: 'Testando badge', onClose: () {},),
+
+          SizedBox(height: 8),
+
+          ClayBadge.circle(
+            backgroundColor: ClayColors.mint,
+            position: ClayBadgePosition.bottomRight,
+            target: ClayAvatar(
+              image: NetworkImage('https://picsum.photos/800/400'),
+            ),
+          ),
+
+          SizedBox(height: 8),
+
+          ClayBadge.circle(
+            label: '99+',
+            position: ClayBadgePosition.topRight,
+            target: ClayAvatar(name: "Teste"),
+          ),
+
+          SizedBox(height: 8),
+
+          ClayAvatar.group(
+            overlap: 24,
+            children: [
+              ClayAvatar(name: 'Carlos Eduardo', randomColor: true),
+              ClayAvatar(name: 'João Silva', randomColor: true),
+              ClayAvatar(name: 'Maria Souza', randomColor: true),
+            ],
+          ),
+
+          SizedBox(height: 8),
+
+          SizedBox(height: 8),
         ],
       ),
     );
