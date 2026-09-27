@@ -65,7 +65,7 @@ class ClayAppBar extends StatefulWidget implements PreferredSizeWidget {
   State<ClayAppBar> createState() => _ClayAppBarState();
 
   @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => const Size.fromHeight(80);
 }
 
 class _ClayAppBarState extends State<ClayAppBar> {
@@ -87,7 +87,8 @@ class _ClayAppBarState extends State<ClayAppBar> {
     return AppBar(
       backgroundColor: widget.transparent == true
           ? Colors.transparent
-          : widget.backgroundColor ?? theme.background,
+          : widget.backgroundColor ?? theme.background.withAlpha(0),
+      toolbarHeight: widget.preferredSize.height,
 
       title: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -136,17 +137,19 @@ class _ClayAppBarState extends State<ClayAppBar> {
                 ),
               ),
 
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: widget.subtitle != null
-                ? [
-                    ClayText.label(
-                      widget.subtitle!,
-                      color: theme.onBackground.withAlpha(160),
-                    ),
-                    ClayText.title(widget.title!),
-                  ]
-                : [ClayText.display(widget.title!)],
+          Flexible(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: widget.subtitle != null
+                  ? [
+                      ClayText.label(
+                        widget.subtitle!,
+                        color: theme.onBackground.withAlpha(160),
+                      ),
+                      ClayText.title(widget.title!),
+                    ]
+                  : [ClayText.display(widget.title!)],
+            ),
           ),
         ],
       ),
@@ -156,17 +159,18 @@ class _ClayAppBarState extends State<ClayAppBar> {
           : [
               Padding(
                 padding: const EdgeInsets.only(right: 16),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: widget.actions!
-                      .take(3)
-                      .map(
-                        (action) => Padding(
-                          padding: const EdgeInsets.only(left: 8),
-                          child: action,
-                        ),
-                      )
-                      .toList(),
+                child: Flexible(
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: widget.actions!
+                        .map(
+                          (action) => Padding(
+                            padding: const EdgeInsets.only(left: 8),
+                            child: action,
+                          ),
+                        )
+                        .toList(),
+                  ),
                 ),
               ),
             ],

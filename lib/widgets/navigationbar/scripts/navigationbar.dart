@@ -47,7 +47,7 @@ class ClayNavigationBar extends StatelessWidget {
     }
 
     return Padding(
-      padding: const EdgeInsets.only(bottom: 16, left: 16, right: 16),
+      padding: const EdgeInsets.only(bottom: 12, left: 16, right: 16),
       child: CustomPaint(
         foregroundPainter: ClayInnerShadowPainter(
           shadowColor: theme.shadow,
@@ -56,7 +56,7 @@ class ClayNavigationBar extends StatelessWidget {
           borderRadius: 100,
         ),
         child: Container(
-          height: 64,
+          height: 72,
           decoration: BoxDecoration(
             color: backgroundColor ?? theme.container,
             borderRadius: BorderRadius.circular(100),
@@ -65,8 +65,10 @@ class ClayNavigationBar extends StatelessWidget {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(100),
             child: Padding(
-              padding: const EdgeInsets.only(right: 8),
+              padding: const EdgeInsetsGeometry.only(top: 8),
               child: Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: List.generate(destinations.length, (index) {
                   final destination = destinations[index];
                   return Expanded(
@@ -97,37 +99,36 @@ class ClayNavigationBar extends StatelessWidget {
       behavior: HitTestBehavior.opaque,
       onTap: () => onDestinationSelected(index),
       child: Center(
-        child: CustomPaint(
-          foregroundPainter: selected
-              ? ClayInnerShadowPainter(
-                  shadowColor: theme.shadow,
-                  lightColor: theme.light,
-                  shadowSize: 2,
-                  blurRadius: 8,
-                  borderRadius: 40,
-                )
-              : null,
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 200),
-            curve: Curves.easeOut,
-            padding: EdgeInsets.symmetric(
-              horizontal: selected ? 32 : 24,
-              vertical: 8,
-            ),
-            decoration: BoxDecoration(
-              color: selected
-                  ? indicatorColor ?? theme.primary
-                  : Colors.transparent,
-              borderRadius: BorderRadius.circular(40),
-              boxShadow: selected
-                  ? ClayShadows.external(theme: theme, offset: 2, blur: 5)
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            CustomPaint(
+              foregroundPainter: selected
+                  ? ClayInnerShadowPainter(
+                      shadowColor: theme.shadow,
+                      lightColor: theme.light,
+                      shadowSize: 2,
+                      blurRadius: 8,
+                      borderRadius: 40,
+                    )
                   : null,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                IconTheme(
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 200),
+                curve: Curves.easeOut,
+                padding: EdgeInsets.symmetric(
+                  horizontal: selected ? 16 : 0,
+                  vertical: 4,
+                ),
+                decoration: BoxDecoration(
+                  color: selected
+                      ? indicatorColor ?? theme.primary
+                      : Colors.transparent,
+                  borderRadius: BorderRadius.circular(40),
+                  boxShadow: selected
+                      ? ClayShadows.external(theme: theme, offset: 2, blur: 5)
+                      : null,
+                ),
+                child: IconTheme(
                   data: IconThemeData(
                     size: 24,
                     color: selected
@@ -137,19 +138,25 @@ class ClayNavigationBar extends StatelessWidget {
                   ),
                   child: destination.icon ?? const SizedBox.shrink(),
                 ),
-
-                const SizedBox(height: 4),
-
-                ClayText.label(
-                  destination.label ?? '',
-                  color: selected
-                      ? onIndicatorColor ?? theme.onPrimary
-                      : onUnindicatorColor?.withAlpha(200) ??
-                            theme.onContainer.withAlpha(200),
-                ),
-              ],
+              ),
             ),
-          ),
+
+            const SizedBox(height: 4),
+
+            Expanded(
+              child: ClayText.label(
+                destination.label ?? '',
+                color: selected
+                    ? onIndicatorColor ?? theme.primary
+                    : onUnindicatorColor?.withAlpha(200) ??
+                          theme.onContainer.withAlpha(200),
+                maxLines: 1,
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
+          ],
         ),
       ),
     );

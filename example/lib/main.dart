@@ -17,7 +17,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return ClayApp(
-      clayThemeData: ClayThemeData(seedColor: ClayColors.rose, isDark: false),
+      clayThemeData: ClayThemeData(seedColor: ClayColors.sky, isDark: false),
       home: const MyHomePage(title: "Clay App"),
       debugShowCheckedModeBanner: false,
     );
@@ -53,14 +53,16 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     final theme = context.clayTheme;
 
-    return Scaffold(
-      backgroundColor: theme.background,
-      appBar: ClayAppBar(
-        title: "Inicio",
-        subtitle: "Bem vindo",
+    return ClayScaffold(
+      clayAppBar: ClayAppBar(
+        title: "Clay UI Kit",
         actions: [
-          ClayAppBar.action(Icon(Icons.abc), onPressed: () {}),
-          ClayAppBar.action(Icon(Icons.home), onPressed: () {}),
+          ClayAppBar.action(Icon(Icons.wb_sunny_rounded), onPressed: () {}),
+          ClayButton.primary(
+            "Start",
+            iconRight: Icon(Icons.arrow_forward_rounded),
+            onPressed: () {},
+          ),
         ],
       ),
 
@@ -213,7 +215,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
 
-      bottomNavigationBar: ClayNavigationBar(
+      clayNavigationBar: ClayNavigationBar(
         selectedIndex: currentIndex,
         onDestinationSelected: (index) {
           setState(() {
@@ -221,18 +223,30 @@ class _MyHomePageState extends State<MyHomePage> {
           });
         },
         destinations: const [
-          ClayNavigationBar.destination(icon: Icon(Icons.home), label: 'Home', ),
-          ClayNavigationBar.destination(icon: Icon(Icons.search), label: 'Search'),
-          ClayNavigationBar.destination(icon: Icon(Icons.settings), label: 'Settings'),
+          ClayNavigationBar.destination(
+            icon: Icon(Icons.home_rounded),
+            label: 'Home',
+          ),
+          ClayNavigationBar.destination(
+            icon: Icon(Icons.import_contacts_rounded),
+            label: 'Documentation',
+          ),
+          ClayNavigationBar.destination(
+            icon: Icon(Icons.layers_rounded),
+            label: 'Components',
+          ),
         ],
       ),
-
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        backgroundColor: theme.primary,
-        child: Icon(Icons.add, color: theme.onPrimary),
-      ),
     );
+
+    // return Scaffold(
+
+    //   floatingActionButton: FloatingActionButton(
+    //     onPressed: _incrementCounter,
+    //     tooltip: 'Increment',
+    //     backgroundColor: theme.primary,
+    //     child: Icon(Icons.add, color: theme.onPrimary),
+    //   ),
+    // );
   }
 }
