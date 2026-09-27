@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../app/scripts/context.dart';
 import '../../../theme/scripts/shadows.dart';
+import '../../text/scripts/text.dart';
 
 class ClayTableColumn<T> {
   const ClayTableColumn({
@@ -218,7 +220,7 @@ class _ClayTableState<T> extends State<ClayTable<T>> {
           color: surface,
           borderRadius: BorderRadius.circular(widget.borderRadius),
           border: Border.all(color: border.withValues(alpha: 0.65)),
-          boxShadow: ClayShadows.external(theme: theme, offset: 1.5, blur: 4),
+          boxShadow: ClayShadows.external(theme: theme, offset: 1, blur: 4),
         ),
         clipBehavior: Clip.antiAlias,
         child: LayoutBuilder(
@@ -321,15 +323,13 @@ class _ClayTableState<T> extends State<ClayTable<T>> {
                         Flexible(
                           child:
                               column.header ??
-                              Text(
+                              ClayText.label(
                                 column.title,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  color: theme.onBackground,
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 12.5,
-                                ),
+                                color: theme.onBackground,
+                                fontWeight: FontWeight.w700,
+                                fontSize: 12.5,
                               ),
                         ),
                         if (column.sortable) ...[
@@ -425,22 +425,18 @@ class _ClayTableState<T> extends State<ClayTable<T>> {
             ),
             const SizedBox(width: 7),
             Expanded(
-              child: Text(
+              child: ClayText.label(
                 group.title,
-                style: TextStyle(
-                  color: theme.onBackground,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 12.5,
-                ),
+                color: theme.onBackground,
+                fontWeight: FontWeight.w700,
+                fontSize: 12.5,
               ),
             ),
             if (group.subtitle != null) ...[
-              Text(
+              ClayText.label(
                 group.subtitle!,
-                style: TextStyle(
-                  color: theme.onBackground.withValues(alpha: 0.65),
-                  fontSize: 11.5,
-                ),
+                color: theme.onBackground.withValues(alpha: 0.65),
+                fontSize: 11.5,
               ),
               const SizedBox(width: 10),
             ],
@@ -450,13 +446,11 @@ class _ClayTableState<T> extends State<ClayTable<T>> {
                 color: theme.container,
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Text(
+              child: ClayText.label(
                 '${group.rows.length}',
-                style: TextStyle(
-                  color: theme.onBackground,
-                  fontSize: 11,
-                  fontWeight: FontWeight.w600,
-                ),
+                color: theme.onBackground,
+                fontSize: 11,
+                fontWeight: FontWeight.w600,
               ),
             ),
           ],
@@ -509,7 +503,7 @@ class _ClayTableState<T> extends State<ClayTable<T>> {
                     child: Padding(
                       padding: widget.padding,
                       child: DefaultTextStyle(
-                        style: TextStyle(
+                        style: GoogleFonts.inter(
                           color: theme.onBackground,
                           fontSize: 13,
                         ),
@@ -534,11 +528,9 @@ class _ClayTableState<T> extends State<ClayTable<T>> {
       child: Center(
         child:
             widget.empty ??
-            Text(
-              'Nenhum registro encontrado',
-              style: TextStyle(
-                color: theme.onBackground.withValues(alpha: 0.65),
-              ),
+            ClayText.label(
+              'No records found',
+              color: theme.onBackground.withValues(alpha: 0.65),
             ),
       ),
     );

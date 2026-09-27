@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../app/scripts/context.dart';
 import '../../../theme/scripts/shadows.dart';
+import '../../text/scripts/text.dart';
 
 class ClaySearchSuggestion {
   final String title;
@@ -206,13 +208,11 @@ class _ClaySearchInputState extends State<ClaySearchInput> {
           if (widget.label != null) ...[
             Padding(
               padding: const EdgeInsets.only(left: 4, bottom: 8),
-              child: Text(
+              child: ClayText.label(
                 widget.label!,
-                style: TextStyle(
-                  color: theme.onBackground,
-                  fontSize: 13,
-                  fontWeight: FontWeight.w600,
-                ),
+                color: theme.onBackground,
+                fontSize: 13,
+                fontWeight: FontWeight.w600,
               ),
             ),
           ],
@@ -263,7 +263,7 @@ class _ClaySearchInputState extends State<ClaySearchInput> {
                           widget.onQueryChanged?.call(value);
                         },
                         onSubmitted: (_) => _submit(),
-                        style: TextStyle(
+                        style: GoogleFonts.inter(
                           color: foreground,
                           fontSize: 15,
                           fontWeight: FontWeight.w500,
@@ -271,7 +271,11 @@ class _ClaySearchInputState extends State<ClaySearchInput> {
                         cursorColor: accent,
                         decoration: InputDecoration(
                           hintText: widget.hintText,
-                          hintStyle: TextStyle(color: hint, fontSize: 14),
+                          hintStyle: GoogleFonts.inter(
+                            color: hint,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w500,
+                          ),
                           border: InputBorder.none,
                           enabledBorder: InputBorder.none,
                           focusedBorder: InputBorder.none,
@@ -343,13 +347,11 @@ class _ClaySearchInputState extends State<ClaySearchInput> {
                                           .searchButtonLabel
                                           .isNotEmpty) ...[
                                         const SizedBox(width: 7),
-                                        Text(
+                                        ClayText.body(
                                           widget.searchButtonLabel,
-                                          style: TextStyle(
-                                            color: theme.onPrimary,
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 13,
-                                          ),
+                                          color: theme.onPrimary,
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 13,
                                         ),
                                       ],
                                     ],
@@ -387,7 +389,7 @@ class _ClaySearchInputState extends State<ClaySearchInput> {
                           boxShadow: ClayShadows.external(
                             theme: theme,
                             offset: 1,
-                            blur: 7,
+                            blur: 4,
                           ),
                         ),
                         child: ClipRRect(
@@ -472,23 +474,22 @@ class _SuggestionTile extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text(
+                    ClayText.body(
                       suggestion.title,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        color: foreground,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                      ),
+                      color: foreground,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
                     ),
                     if (suggestion.subtitle != null) ...[
                       const SizedBox(height: 3),
-                      Text(
+                      ClayText.label(
                         suggestion.subtitle!,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(color: secondary, fontSize: 12),
+                        color: secondary,
+                        fontSize: 12,
                       ),
                     ],
                   ],

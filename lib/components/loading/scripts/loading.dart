@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../../../app/scripts/context.dart';
 import '../types/styles.dart';
 import '../../../theme/scripts/shadows.dart';
+import '../../text/scripts/text.dart';
 
 class ClayLoading extends StatefulWidget {
   const ClayLoading({
@@ -76,7 +77,11 @@ class ClayLoading extends StatefulWidget {
                       alpha: .07,
                     ),
                   ),
-                  boxShadow: ClayShadows.external(theme: theme, offset: 2.5, blur: 7)
+                  boxShadow: ClayShadows.external(
+                    theme: theme,
+                    offset: 2.5,
+                    blur: 7,
+                  ),
                 ),
                 child: ClayLoading(
                   label: label,
@@ -138,14 +143,12 @@ class _ClayLoadingState extends State<ClayLoading>
         ),
         if (widget.label != null && widget.label!.trim().isNotEmpty) ...[
           SizedBox(height: widget.gap),
-          Text(
+          ClayText.label(
             widget.label!,
             textAlign: TextAlign.center,
-            style: TextStyle(
-              color: labelColor,
-              fontSize: 13,
-              fontWeight: FontWeight.w600,
-            ),
+            color: labelColor,
+            fontSize: 13,
+            fontWeight: FontWeight.w600,
           ),
         ],
       ],

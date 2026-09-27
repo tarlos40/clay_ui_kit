@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../../../app/scripts/context.dart';
 import '../types/variants.dart';
 import '../../../theme/scripts/shadows.dart';
+import '../../text/scripts/text.dart';
 
 class ClayProgress extends StatefulWidget {
   const ClayProgress.bar({
@@ -153,19 +154,18 @@ class _ClayProgressState extends State<ClayProgress>
               children: [
                 if (widget.label != null)
                   Flexible(
-                    child: Text(
+                    child: ClayText.label(
                       widget.label!,
-                      style: TextStyle(color: theme.onBackground, fontSize: 12),
+                      color: theme.onBackground,
+                      fontSize: 12,
                     ),
                   ),
                 if (widget.showPercentage)
-                  Text(
+                  ClayText.label(
                     widget.value == null ? '…' : '${(value * 100).round()}%',
-                    style: TextStyle(
-                      color: theme.onBackground,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600,
-                    ),
+                    color: theme.onBackground,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
                   ),
               ],
             ),
@@ -260,13 +260,11 @@ class _ClayProgressState extends State<ClayProgress>
           if (widget.child != null)
             widget.child!
           else if (widget.showPercentage)
-            Text(
+            ClayText.label(
               widget.value == null ? '…' : '${(value * 100).round()}%',
-              style: TextStyle(
-                color: context.clayTheme.onBackground,
-                fontSize: widget.size * 0.19,
-                fontWeight: FontWeight.w700,
-              ),
+              color: context.clayTheme.onBackground,
+              fontSize: widget.size * 0.19,
+              fontWeight: FontWeight.w700,
             ),
         ],
       ),
@@ -336,15 +334,13 @@ class _ClayProgressState extends State<ClayProgress>
                 if (widget.child != null)
                   widget.child!
                 else
-                  Text(
+                  ClayText.label(
                     widget.value == null ? '…' : '${(value * 100).round()}%',
-                    style: TextStyle(
-                      color: value > 0.55
-                          ? Colors.white
-                          : context.clayTheme.onBackground,
-                      fontWeight: FontWeight.w700,
-                      fontSize: widget.size * 0.18,
-                    ),
+                    color: value > 0.55
+                        ? Colors.white
+                        : context.clayTheme.onBackground,
+                    fontWeight: FontWeight.w700,
+                    fontSize: widget.size * 0.18,
                   ),
               ],
             ),

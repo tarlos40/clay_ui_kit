@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../app/scripts/context.dart';
 import '../../text/scripts/text.dart';
@@ -252,7 +253,7 @@ class _ClayTooltipState extends State<ClayTooltip> {
             boxShadow: ClayShadows.external(theme: theme, offset: 3, blur: 9),
           ),
           child: DefaultTextStyle(
-            style: TextStyle(color: foreground, fontSize: 12, height: 1.35),
+            style: GoogleFonts.inter(color: foreground, fontSize: 12, height: 1.35),
             child: IconTheme(
               data: IconThemeData(color: foreground, size: 16),
               child:

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import '../../../app/scripts/context.dart';
 import '../types/status.dart';
 import '../../../theme/scripts/shadows.dart';
+import '../../text/scripts/text.dart';
+import '../../button/scripts/button.dart';
 
 class ClayFeedback extends StatefulWidget {
   final ClayFeedbackStatus status;
@@ -109,9 +111,28 @@ class _ClayFeedbackState extends State<ClayFeedback>
       case ClayFeedbackStatus.info:
         return context.clayTheme.primary;
       case ClayFeedbackStatus.empty:
-        return context.clayTheme.secondary;
+        return context.clayTheme.third;
       case ClayFeedbackStatus.loading:
         return context.clayTheme.primary;
+    }
+  }
+
+  Color _statusForegroundColor() {
+    if (widget.color != null) return widget.color!;
+
+    switch (widget.status) {
+      case ClayFeedbackStatus.success:
+        return context.clayTheme.onSuccess;
+      case ClayFeedbackStatus.error:
+        return context.clayTheme.onError;
+      case ClayFeedbackStatus.warning:
+        return context.clayTheme.onWarning;
+      case ClayFeedbackStatus.info:
+        return context.clayTheme.onPrimary;
+      case ClayFeedbackStatus.empty:
+        return context.clayTheme.onThird;
+      case ClayFeedbackStatus.loading:
+        return context.clayTheme.onPrimary;
     }
   }
 
@@ -155,6 +176,7 @@ class _ClayFeedbackState extends State<ClayFeedback>
   Widget build(BuildContext context) {
     final theme = context.clayTheme;
     final accent = _statusColor();
+    final accentForeground = _statusForegroundColor();
     final isCompact = widget.compact;
 
     final title = widget.title ?? _defaultTitle();
@@ -176,7 +198,7 @@ class _ClayFeedbackState extends State<ClayFeedback>
             color: theme.container,
             borderRadius: BorderRadius.circular(widget.borderRadius),
             border: Border.all(color: (theme.border).withValues(alpha: 0.65)),
-            boxShadow: ClayShadows.external(theme: theme, offset: 2.5, blur: 4),
+            boxShadow: ClayShadows.external(theme: theme, offset: 1, blur: 4),
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -194,69 +216,59 @@ class _ClayFeedbackState extends State<ClayFeedback>
                     ),
                   )
                 else
-                  Container(
-                    width: isCompact ? 42 : 68,
-                    height: isCompact ? 42 : 68,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: accent.withValues(alpha: 0.12),
-                      border: Border.all(color: accent.withValues(alpha: 0.18)),
-                      boxShadow: [
-                        BoxShadow(
-                          color: accent.withValues(alpha: 0.10),
-                          blurRadius: 14,
-                          spreadRadius: 1,
-                        ),
-                      ],
+                  CustomPaint(
+                    foregroundPainter: ClayInnerShadowPainter(
+                      shadowColor: theme.shadow,
+                      lightColor: theme.light,
+                      borderRadius: 100,
+                      shadowSize: 2.5,
+                      blurRadius: 7.0,
                     ),
-                    child: Icon(
-                      _statusIcon(),
-                      color: accent,
-                      size: isCompact ? 23 : 34,
+                    child: Container(
+                      width: isCompact ? 40 : 64,
+                      height: isCompact ? 40 : 64,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: accent,
+                        border: Border.all(color: accent),
+                        boxShadow: ClayShadows.external(
+                          theme: theme,
+                          offset: 1,
+                          blur: 4,
+                        ),
+                      ),
+                      child: Icon(
+                        _statusIcon(),
+                        color: accentForeground,
+                        size: isCompact ? 23 : 34,
+                      ),
                     ),
                   ),
                 SizedBox(height: isCompact ? 12 : 20),
               ],
-              Text(
+              ClayText.title(
                 title,
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: theme.onContainer,
-                  fontSize: isCompact ? 16 : 20,
-                  fontWeight: FontWeight.w700,
-                  letterSpacing: -0.3,
-                ),
+                color: theme.onContainer,
+                fontSize: isCompact ? 20 : 24,
+                fontWeight: FontWeight.w700,
+                letterSpacing: -0.3,
               ),
               if (widget.message != null) ...[
                 const SizedBox(height: 8),
-                Text(
+                ClayText.body(
                   widget.message!,
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: theme.onBackgroundVariant,
-                    fontSize: isCompact ? 13 : 14,
-                    height: 1.55,
-                  ),
+                  color: theme.onBackgroundVariant,
+                  fontSize: isCompact ? 12 : 16,
+                  height: 1.55,
                 ),
               ],
               if (widget.actionLabel != null && widget.onAction != null) ...[
                 SizedBox(height: isCompact ? 14 : 22),
-                FilledButton.icon(
+                ClayButton.primary(
+                  widget.actionLabel!,
                   onPressed: widget.onAction,
-                  icon: const Icon(Icons.refresh_rounded, size: 18),
-                  label: Text(widget.actionLabel!),
-                  style: FilledButton.styleFrom(
-                    backgroundColor: accent,
-                    foregroundColor: Colors.white,
-                    elevation: 0,
-                    padding: EdgeInsets.symmetric(
-                      horizontal: isCompact ? 16 : 22,
-                      vertical: isCompact ? 10 : 13,
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                  ),
                 ),
               ],
             ],

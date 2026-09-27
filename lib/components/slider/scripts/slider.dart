@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../app/scripts/context.dart';
+import '../../text/scripts/text.dart';
 
 class ClaySlider extends StatelessWidget {
   final double value;
@@ -82,7 +84,7 @@ class ClaySlider extends StatelessWidget {
         activeTickMarkColor: active.withAlpha(0),
         inactiveTickMarkColor: theme.background.withAlpha(0),
         valueIndicatorColor: active,
-        valueIndicatorTextStyle: TextStyle(color: foreground),
+        valueIndicatorTextStyle: GoogleFonts.inter(color: foreground),
       ),
       child: Slider(
         value: value,
@@ -108,30 +110,27 @@ class ClaySlider extends StatelessWidget {
               children: [
                 if (label != null)
                   Flexible(
-                    child: Text(
+                    child: ClayText.label(
                       label!,
-                      style: TextStyle(
-                        color: theme.onBackground,
-                        fontWeight: FontWeight.w600,
-                      ),
+                      color: theme.onBackground,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                 if (showValue)
-                  Text(
+                  ClayText.label(
                     value.toStringAsFixed(0),
-                    style: TextStyle(
-                      color: active,
-                      fontWeight: FontWeight.w700,
-                      fontFeatures: const [FontFeature.tabularFigures()],
-                    ),
+                    color: active,
+                    fontWeight: FontWeight.w700,
+                    fontFeatures: const [FontFeature.tabularFigures()],
                   ),
               ],
             ),
           if (description != null) ...[
             const SizedBox(height: 4),
-            Text(
+            ClayText.label(
               description!,
-              style: TextStyle(color: theme.onBackgroundVariant, fontSize: 12),
+              color: theme.onBackgroundVariant,
+              fontSize: 12,
             ),
           ],
           SizedBox(height: height, child: slider),
@@ -141,19 +140,15 @@ class ClaySlider extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
+                  ClayText.label(
                     min.toStringAsFixed(0),
-                    style: TextStyle(
-                      color: theme.onBackgroundVariant,
-                      fontSize: 11,
-                    ),
+                    color: theme.onBackgroundVariant,
+                    fontSize: 11,
                   ),
-                  Text(
+                  ClayText.label(
                     max.toStringAsFixed(0),
-                    style: TextStyle(
-                      color: theme.onBackgroundVariant,
-                      fontSize: 11,
-                    ),
+                    color: theme.onBackgroundVariant,
+                    fontSize: 11,
                   ),
                 ],
               ),

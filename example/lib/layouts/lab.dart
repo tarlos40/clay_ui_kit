@@ -14,6 +14,7 @@ class _LabLayoutState extends State<LabLayout> {
   double _volume = 1;
   bool _accepted = false, _notificationsEnabled = false;
   String? _selectedTheme = 'light';
+  DateTime? _selectedDate;
 
   @override
   void didChangeDependencies() {
@@ -151,7 +152,7 @@ class _LabLayoutState extends State<LabLayout> {
           ClayInput(
             label: 'Email',
             errorText: 'Invalid email.',
-            errorColor: Colors.orange,
+            errorColor: ClayColors.peach,
           ),
 
           SizedBox(height: 8),
@@ -248,7 +249,7 @@ class _LabLayoutState extends State<LabLayout> {
                 width: double.infinity,
                 height: 220,
                 margin: EdgeInsetsGeometry.symmetric(horizontal: 8),
-                expandable: true
+                expandable: true,
               ),
 
               ClayCard.body(
@@ -469,14 +470,14 @@ ClayButton.primary('Continue', onPressed: () {})
                 title: 'Nome',
                 sortable: true,
                 sortValue: (row) => row['name'],
-                cellBuilder: (context, row) => Text(row['name']),
+                cellBuilder: (context, row) => ClayText.label(row['name']),
               ),
               ClayTableColumn<Map<String, dynamic>>(
                 id: 'old',
                 title: 'Idade',
                 sortable: true,
                 sortValue: (row) => row['old'],
-                cellBuilder: (context, row) => Text(row['old']),
+                cellBuilder: (context, row) => ClayText.label(row['old']),
               ),
             ],
             rows: [
@@ -615,6 +616,121 @@ ClayButton.primary('Continue', onPressed: () {})
             message: 'Uma nova versão está disponível.',
             compact: true,
           ),
+
+          SizedBox(height: 8),
+
+          ClayUpload(
+            multiple: true,
+            maxFiles: 10,
+            maxFileSize: 10 * 1024 * 1024,
+            allowedExtensions: const ['png', 'jpg', 'pdf'],
+            reorderable: true,
+
+            onFilesChanged: (files) {
+              debugPrint('${files.length} arquivos selecionados');
+            },
+            onUpload: (file, onProgress) async {
+              // Envie o arquivo para sua API.
+              onProgress(0.5);
+
+              // Atualize para 1.0 quando o envio terminar.
+              onProgress(1.0);
+            },
+          ),
+
+          SizedBox(height: 8),
+
+          ClayCarousel(
+            height: 340,
+            borderRadius: 24,
+            showArrows: true,
+            showDots: true,
+            infinite: true,
+            autoplay: false,
+            autoplayInterval: const Duration(seconds: 5),
+            items: [
+              ClayCarouselItem(
+                image: const NetworkImage(
+                  'https://picsum.photos/id/1018/1200/800',
+                ),
+                tag: 'DESTINO EM DESTAQUE',
+                subtitle: 'Descubra novos horizontes',
+                title: 'Explore o desconhecido',
+                description: 'Lugares extraordinários esperam por você.',
+                buttons: [
+                  ClayCarouselButton(
+                    label: 'Explorar',
+                    icon: const Icon(Icons.arrow_forward_rounded),
+                    primary: true,
+                    onPressed: () {
+                      debugPrint('Explorar');
+                    },
+                  ),
+                  ClayCarouselButton(
+                    label: 'Saiba mais',
+                    onPressed: () {
+                      debugPrint('Saiba mais');
+                    },
+                  ),
+                ],
+              ),
+
+              ClayCarouselItem(
+                image: const NetworkImage(
+                  'https://picsum.photos/id/1015/1200/800',
+                ),
+                tag: 'AVENTURA',
+                subtitle: 'Desconecte-se da rotina',
+                title: 'Encontre seu próximo destino',
+                description: 'Uma nova experiência começa com uma escolha.',
+                buttons: [
+                  ClayCarouselButton(
+                    label: 'Ver destinos',
+                    icon: const Icon(Icons.explore_rounded),
+                    primary: true,
+                    onPressed: () {},
+                  ),
+                ],
+              ),
+
+              ClayCarouselItem(
+                image: const NetworkImage(
+                  'https://picsum.photos/id/1016/1200/800',
+                ),
+                title: 'Momentos inesquecíveis',
+                description: 'Transforme suas viagens em histórias.',
+                gradient: true,
+                buttons: [
+                  ClayCarouselButton(
+                    label: 'Começar',
+                    primary: true,
+                    onPressed: () {},
+                  ),
+                ],
+              ),
+            ],
+            onPageChanged: (index) {
+              debugPrint('Slide atual: $index');
+            },
+          ),
+
+          SizedBox(height: 8),
+
+          ClayDatePick(
+            mode: ClayDatePickMode.dateTime,
+            initialDate: DateTime.now(),
+            use24HourFormat: true,
+            firstDate: DateTime(2020),
+            lastDate: DateTime(2035),
+            dateFormat: 'dd/MM/yyyy',
+            onChanged: (date) {
+              setState(() {
+                _selectedDate = date;
+              });
+            },
+          ),
+
+          ClayText.body('Data: $_selectedDate'),
 
           SizedBox(height: 8),
         ],

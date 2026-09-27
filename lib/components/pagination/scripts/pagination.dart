@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../app/scripts/context.dart';
 import '../../../theme/scripts/shadows.dart';
+import '../../text/scripts/text.dart';
 
 class ClayPagination extends StatelessWidget {
   const ClayPagination({
@@ -66,7 +68,7 @@ class ClayPagination extends StatelessWidget {
     final active = activeColor ?? theme.primary;
     final activeForeground = activeForegroundColor ?? theme.onPrimary;
     final background = backgroundColor ?? theme.container;
-    final foreground = foregroundColor ?? theme.onBackground;
+    final foreground = foregroundColor ?? theme.onContainer;
     final disabled =
         disabledColor ?? theme.onBackgroundVariant.withValues(alpha: 0.38);
 
@@ -162,13 +164,11 @@ class ClayPagination extends StatelessWidget {
                   constraints: const BoxConstraints(minWidth: 64),
                   alignment: Alignment.center,
                   padding: const EdgeInsets.symmetric(horizontal: 8),
-                  child: Text(
+                  child: ClayText.label(
                     '$_page / $totalPages',
-                    style: TextStyle(
-                      color: foreground,
-                      fontWeight: FontWeight.w700,
-                      fontSize: 13,
-                    ),
+                    color: foreground,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 13,
                   ),
                 ),
                 _iconButton(
@@ -193,9 +193,10 @@ class ClayPagination extends StatelessWidget {
             if (showPageInfo && !isNarrow)
               Padding(
                 padding: const EdgeInsets.only(left: 8),
-                child: Text(
+                child: ClayText.label(
                   'Página $_page de $totalPages',
-                  style: TextStyle(color: foreground, fontSize: 12),
+                  color: foreground,
+                  fontSize: 12,
                 ),
               ),
           ],
@@ -218,7 +219,7 @@ class ClayPagination extends StatelessWidget {
     return Semantics(
       button: true,
       selected: selected,
-      label: 'Página $page',
+      label: 'Page $page',
       child: CustomPaint(
         foregroundPainter: ClayInnerShadowPainter(
           shadowColor: theme.shadow,
@@ -252,12 +253,12 @@ class ClayPagination extends StatelessWidget {
               ),
               child: AnimatedDefaultTextStyle(
                 duration: const Duration(milliseconds: 180),
-                style: TextStyle(
+                style: GoogleFonts.inter(
                   color: selected ? activeForeground : foreground,
                   fontSize: 13,
                   fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
                 ),
-                child: Text('$page'),
+                child: ClayText.body('$page', color: selected ? activeForeground : foreground,),
               ),
             ),
           ),

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../app/scripts/context.dart';
 import '../types/styles.dart';
 import '../../../theme/scripts/shadows.dart';
+import '../../../components/text/scripts/text.dart';
 
 class ClayTabItem {
   const ClayTabItem({
@@ -339,7 +341,7 @@ class _ClayTabsState extends State<ClayTabs> {
                   ],
                   AnimatedDefaultTextStyle(
                     duration: widget.animationDuration,
-                    style: TextStyle(
+                    style: GoogleFonts.inter(
                       color: !tab.enabled
                           ? foreground.withValues(alpha: 0.4)
                           : selected
@@ -348,10 +350,12 @@ class _ClayTabsState extends State<ClayTabs> {
                       fontSize: 13,
                       fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
                     ),
-                    child: Text(
+                    child: ClayText.label(
                       tab.label,
+                      color: selected ? selectedForeground : foreground,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                   if (tab.badge != null) ...[

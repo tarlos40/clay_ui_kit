@@ -291,13 +291,10 @@ class ClayAvatarGroup extends StatelessWidget {
             fit: BoxFit.scaleDown,
             child: Padding(
               padding: const EdgeInsets.all(4),
-              child: Text(
+              child: ClayText.body(
                 '+$remaining',
-                style: TextStyle(
-                  color: theme.onPrimary,
-                  fontSize: size * 0.30,
-                  fontWeight: FontWeight.w700,
-                ),
+                color: theme.onPrimary,
+                fontSize: size * 0.30,
               ),
             ),
           ),

@@ -12,6 +12,11 @@ class ClayText extends StatelessWidget {
   final TextOverflow? overflow;
   final int? maxLines;
   final FontWeight? fontWeight;
+  final double? fontSize, height, letterSpacing;
+  final List<FontFeature>? fontFeatures;
+  final bool? softWrap;
+  final TextDirection? textDirection;
+  final TextHeightBehavior? textHeightBehavior;
 
   const ClayText.display(
     this.text, {
@@ -21,6 +26,13 @@ class ClayText extends StatelessWidget {
     this.overflow,
     this.maxLines,
     this.fontWeight,
+    this.fontSize,
+    this.height,
+    this.letterSpacing,
+    this.fontFeatures,
+    this.softWrap,
+    this.textDirection,
+    this.textHeightBehavior,
   }) : _variant = ClayTextVariants.display;
 
   const ClayText.title(
@@ -31,6 +43,13 @@ class ClayText extends StatelessWidget {
     this.overflow,
     this.maxLines,
     this.fontWeight,
+    this.fontSize,
+    this.height,
+    this.letterSpacing,
+    this.fontFeatures,
+    this.softWrap,
+    this.textDirection,
+    this.textHeightBehavior,
   }) : _variant = ClayTextVariants.title;
 
   const ClayText.body(
@@ -41,6 +60,13 @@ class ClayText extends StatelessWidget {
     this.overflow,
     this.maxLines,
     this.fontWeight,
+    this.fontSize,
+    this.height,
+    this.letterSpacing,
+    this.fontFeatures,
+    this.softWrap,
+    this.textDirection,
+    this.textHeightBehavior,
   }) : _variant = ClayTextVariants.body;
 
   const ClayText.label(
@@ -51,6 +77,13 @@ class ClayText extends StatelessWidget {
     this.overflow,
     this.maxLines,
     this.fontWeight,
+    this.fontSize,
+    this.height,
+    this.letterSpacing,
+    this.fontFeatures,
+    this.softWrap,
+    this.textDirection,
+    this.textHeightBehavior,
   }) : _variant = ClayTextVariants.label;
 
   @override
@@ -79,12 +112,31 @@ class ClayText extends StatelessWidget {
       baseStyle = baseStyle.copyWith(fontWeight: fontWeight);
     }
 
+    if (fontSize != null) {
+      baseStyle = baseStyle.copyWith(fontSize: fontSize);
+    }
+
+    if (height != null) {
+      baseStyle = baseStyle.copyWith(height: height);
+    }
+
+    if (letterSpacing != null) {
+      baseStyle = baseStyle.copyWith(letterSpacing: letterSpacing);
+    }
+
+    if (fontFeatures != null) {
+      baseStyle = baseStyle.copyWith(fontFeatures: fontFeatures);
+    }
+
     return Text(
       text,
       style: baseStyle,
       textAlign: textAlign,
       overflow: overflow,
       maxLines: maxLines,
+      softWrap: softWrap,
+      textDirection: textDirection,
+      textHeightBehavior: textHeightBehavior,
     );
   }
 }

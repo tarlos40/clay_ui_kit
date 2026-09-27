@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../app/scripts/context.dart';
+import '../../text/scripts/text.dart';
 
 class ClayBreadcrumbItem {
   const ClayBreadcrumbItem({
@@ -72,12 +73,10 @@ class ClayBreadcrumbs extends StatelessWidget {
             if (visible[i] == null)
               Padding(
                 padding: itemPadding,
-                child: Text(
+                child: ClayText.body(
                   overflowLabel,
-                  style: TextStyle(
-                    color: foreground,
-                    fontWeight: FontWeight.w600,
-                  ),
+                  color: foreground,
+                  fontWeight: FontWeight.w600,
                 ),
               )
             else
@@ -129,13 +128,11 @@ class ClayBreadcrumbs extends StatelessWidget {
             Icon(Icons.home_rounded, size: 16, color: color),
             const SizedBox(width: 6),
           ],
-          Text(
+          ClayText.body(
             item.label,
-            style: TextStyle(
-              color: color,
-              fontSize: 13,
-              fontWeight: isCurrent ? FontWeight.w700 : FontWeight.w500,
-            ),
+            color: color,
+            fontSize: 13,
+            fontWeight: isCurrent ? FontWeight.w600 : FontWeight.w500,
           ),
         ],
       ),

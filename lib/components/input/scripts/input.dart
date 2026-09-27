@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../app/scripts/context.dart';
 import '../../text/scripts/text.dart';
 import '../../../theme/scripts/shadows.dart';
-import 'search.dart';
+import './search.dart';
 
 class ClayInput extends StatefulWidget {
   final TextEditingController? controller;
@@ -357,9 +358,8 @@ class _ClayInputState extends State<ClayInput>
           if (widget.label != null) ...[
             ClayText.label(
               widget.label!,
-
+              fontSize: 13,
               color: labelColor.withValues(alpha: widget.enabled ? 1 : 0.45),
-
               fontWeight: FontWeight.w600,
             ),
 
@@ -530,7 +530,7 @@ class _ClayInputState extends State<ClayInput>
 
       onTap: widget.onTap,
 
-      style: TextStyle(
+      style: GoogleFonts.inter(
         color: textColor.withValues(alpha: widget.enabled ? 1 : 0.45),
 
         fontSize: 15,
@@ -543,7 +543,7 @@ class _ClayInputState extends State<ClayInput>
       decoration: InputDecoration(
         hintText: widget.hintText,
 
-        hintStyle: TextStyle(
+        hintStyle: GoogleFonts.inter(
           color: hintColor,
 
           fontSize: 15,

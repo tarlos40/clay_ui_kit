@@ -1,0 +1,1 @@
+enum ClayDatePickMode { date, dateRange, time, dateTime }

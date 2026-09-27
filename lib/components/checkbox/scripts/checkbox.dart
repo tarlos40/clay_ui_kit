@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../app/scripts/context.dart';
 import '../../../utils/random_colors.dart';
 import '../../../theme/scripts/shadows.dart';
+import '../../text/scripts/text.dart';
 
 class ClayCheckbox extends StatelessWidget {
   final bool value;
@@ -130,20 +131,16 @@ class ClayCheckbox extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           if (label != null)
-                            Text(
+                            ClayText.label(
                               label!,
-                              style: TextStyle(
-                                color: theme.onBackground,
-                                fontWeight: FontWeight.w600,
-                              ),
+                              color: theme.onBackground,
+                              fontWeight: FontWeight.w600,
                             ),
                           if (description != null)
-                            Text(
+                            ClayText.label(
                               description!,
-                              style: TextStyle(
-                                color: theme.onBackgroundVariant,
-                                fontSize: 12,
-                              ),
+                              color: theme.onBackgroundVariant,
+                              fontSize: 12,
                             ),
                         ],
                       ),

@@ -251,17 +251,15 @@ class _ClayBadgeState extends State<ClayBadge> {
 
     if (widget.label != null) {
       return Center(
-        child: Text(
+        child: ClayText.label(
           widget.label!,
           textAlign: TextAlign.center,
           maxLines: 1,
           overflow: TextOverflow.clip,
-          style: TextStyle(
-            color: foreground,
-            fontSize: _circleFontSize(),
-            fontWeight: FontWeight.w700,
-            height: 1,
-          ),
+          color: foreground,
+          fontSize: _circleFontSize(),
+          height: 1,
+          fontWeight: FontWeight.w700,
         ),
       );
     }

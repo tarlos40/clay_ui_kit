@@ -163,14 +163,11 @@ class ClayPropsTable extends StatelessWidget {
 
     return SizedBox(
       width: width,
-      child: Text(
+      child: ClayText.label(
         text,
-        style: TextStyle(
-          color: theme.primary,
-          fontFamily: 'monospace',
-          fontSize: 13,
-          fontWeight: FontWeight.w700,
-        ),
+        color: theme.primary,
+        fontSize: 13,
+        fontWeight: FontWeight.w700,
       ),
     );
   }
@@ -184,16 +181,13 @@ class ClayPropsTable extends StatelessWidget {
 
     return SizedBox(
       width: width,
-      child: Text(
+      child: ClayText.label(
         text,
         maxLines: 2,
         overflow: TextOverflow.ellipsis,
-        style: TextStyle(
-          color: theme.onBackground.withValues(alpha: 0.75),
-          fontFamily: 'monospace',
-          fontSize: 12,
-          fontWeight: FontWeight.w500,
-        ),
+        color: theme.onBackground.withValues(alpha: 0.75),
+        fontSize: 12,
+        fontWeight: FontWeight.w500,
       ),
     );
   }
@@ -217,15 +211,13 @@ class ClayPropsTable extends StatelessWidget {
                 : theme.background,
             borderRadius: BorderRadius.circular(8),
           ),
-          child: Text(
+          child: ClayText.label(
             required ? 'Yes' : 'No',
-            style: TextStyle(
-              color: required
-                  ? theme.primary
-                  : theme.onBackground.withValues(alpha: 0.5),
-              fontSize: 11,
-              fontWeight: FontWeight.w700,
-            ),
+            color: required
+                ? theme.primary
+                : theme.onBackground.withValues(alpha: 0.5),
+            fontSize: 11,
+            fontWeight: FontWeight.w700,
           ),
         ),
       ),

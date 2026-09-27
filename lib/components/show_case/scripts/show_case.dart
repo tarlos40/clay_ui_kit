@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../app/scripts/context.dart';
 import '../../text/scripts/text.dart';
@@ -225,9 +226,8 @@ class _ClayShowcaseState extends State<ClayShowcase> {
       padding: const EdgeInsets.fromLTRB(16, 4, 16, 18),
       child: SelectableText(
         widget.code.trim(),
-        style: TextStyle(
+        style: GoogleFonts.inter(
           color: theme.onBackground,
-          fontFamily: 'monospace',
           fontSize: 13,
           height: 1.6,
           fontWeight: FontWeight.w500,

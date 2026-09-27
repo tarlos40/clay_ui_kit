@@ -1,0 +1,1 @@
+enum ClayUploadStatus { queued, uploading, success, error }

@@ -715,14 +715,12 @@ class _ClayShortcutLabel extends StatelessWidget {
         ? _singleActivatorText(shortcut as SingleActivator)
         : shortcut.debugDescribeKeys();
 
-    return Text(
+    return ClayText.label(
       text,
-      style: TextStyle(
-        color: color,
-        fontSize: 11,
-        fontWeight: FontWeight.w600,
-        height: 1,
-      ),
+      color: color,
+      fontSize: 11,
+      fontWeight: FontWeight.w600,
+      height: 1,
     );
   }
 

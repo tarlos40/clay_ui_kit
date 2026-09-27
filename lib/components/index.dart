@@ -24,3 +24,6 @@ export './radio/scripts/radio.dart';
 export './slider/scripts/slider.dart';
 export './switch/scripts/switch.dart';
 export './feedback/index.dart';
+export './carousel/scripts/carousel.dart';
+export './datepick/index.dart';
+export './upload/scripts/upload.dart';

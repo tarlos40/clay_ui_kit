@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../app/scripts/context.dart';
 import '../../../theme/scripts/shadows.dart';
+import '../../text/scripts/text.dart';
 
 class ClayAccordionItem {
   const ClayAccordionItem({
@@ -138,104 +139,102 @@ class _ClayAccordionState extends State<ClayAccordion> {
     final isExpanded = _expanded.contains(index);
     final theme = context.clayTheme;
 
-    return CustomPaint(
-      foregroundPainter: ClayInnerShadowPainter(
-        shadowColor: theme.shadow,
-        lightColor: theme.light,
-        borderRadius: widget.borderRadius,
-        shadowSize: 2.5,
-        blurRadius: 7.0,
-      ),
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 240),
-        curve: Curves.easeOutCubic,
-        padding: widget.padding,
-        decoration: BoxDecoration(
-          color: isExpanded ? expanded : base,
-          borderRadius: BorderRadius.circular(widget.borderRadius),
-          border: Border.all(
-            color: title.withValues(alpha: isExpanded ? .10 : .055),
-          ),
-          boxShadow: ClayShadows.external(theme: theme, offset: 2.5, blur: 7),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 4),
+      child: CustomPaint(
+        foregroundPainter: ClayInnerShadowPainter(
+          shadowColor: theme.shadow,
+          lightColor: theme.light,
+          borderRadius: widget.borderRadius,
+          shadowSize: 2.5,
+          blurRadius: 7.0,
         ),
-        child: Column(
-          children: [
-            Semantics(
-              button: true,
-              expanded: isExpanded,
-              child: Material(
-                color: Colors.transparent,
-                child: InkWell(
-                  onTap: item.enabled ? () => _toggle(index) : null,
-                  borderRadius: BorderRadius.circular(widget.borderRadius - 4),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 10,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 240),
+          curve: Curves.easeOutCubic,
+          padding: widget.padding,
+          decoration: BoxDecoration(
+            color: isExpanded ? expanded : base,
+            borderRadius: BorderRadius.circular(widget.borderRadius),
+            border: Border.all(
+              color: title.withValues(alpha: isExpanded ? .10 : .055),
+            ),
+            boxShadow: ClayShadows.external(theme: theme, offset: 1, blur: 4),
+          ),
+          child: Column(
+            children: [
+              Semantics(
+                button: true,
+                expanded: isExpanded,
+                child: Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                    onTap: item.enabled ? () => _toggle(index) : null,
+                    borderRadius: BorderRadius.circular(
+                      widget.borderRadius - 4,
                     ),
-                    child: Row(
-                      children: [
-                        if (item.leading != null) ...[
-                          item.leading!,
-                          const SizedBox(width: 12),
-                        ],
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                item.title,
-                                style: TextStyle(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 10,
+                      ),
+                      child: Row(
+                        children: [
+                          if (item.leading != null) ...[
+                            item.leading!,
+                            const SizedBox(width: 12),
+                          ],
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                ClayText.body(
+                                  item.title,
                                   color: item.enabled
                                       ? title
                                       : title.withValues(alpha: .45),
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 14,
                                 ),
-                              ),
-                              if (item.subtitle != null) ...[
-                                const SizedBox(height: 3),
-                                Text(
-                                  item.subtitle!,
-                                  style: TextStyle(
+                                if (item.subtitle != null) ...[
+                                  const SizedBox(height: 3),
+                                  ClayText.label(
+                                    item.subtitle!,
                                     color: subtitle,
-                                    fontSize: 12,
                                   ),
-                                ),
+                                ],
                               ],
-                            ],
+                            ),
                           ),
-                        ),
-                        const SizedBox(width: 8),
-                        AnimatedRotation(
-                          turns: isExpanded ? .5 : 0,
-                          duration: const Duration(milliseconds: 220),
-                          child: Icon(
-                            Icons.keyboard_arrow_down_rounded,
-                            color: icon,
+                          const SizedBox(width: 8),
+                          AnimatedRotation(
+                            turns: isExpanded ? .5 : 0,
+                            duration: const Duration(milliseconds: 220),
+                            child: Icon(
+                              Icons.keyboard_arrow_down_rounded,
+                              color: icon,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-            AnimatedSize(
-              duration: const Duration(milliseconds: 260),
-              curve: Curves.easeInOutCubic,
-              alignment: Alignment.topCenter,
-              child: isExpanded
-                  ? Padding(
-                      padding: widget.contentPadding,
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: item.content,
-                      ),
-                    )
-                  : const SizedBox(width: double.infinity, height: 0),
-            ),
-          ],
+              AnimatedSize(
+                duration: const Duration(milliseconds: 260),
+                curve: Curves.easeInOutCubic,
+                alignment: Alignment.topCenter,
+                child: isExpanded
+                    ? Padding(
+                        padding: widget.contentPadding,
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: item.content,
+                        ),
+                      )
+                    : const SizedBox(width: double.infinity, height: 0),
+              ),
+            ],
+          ),
         ),
       ),
     );

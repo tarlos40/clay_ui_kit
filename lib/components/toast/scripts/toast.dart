@@ -7,6 +7,7 @@ import '../../../app/scripts/context.dart';
 import '../../../theme/scripts/shadows.dart';
 import '../types/positions.dart';
 import '../types/variants.dart';
+import '../../text/scripts/text.dart';
 
 class _ClayToastData {
   final int id;
@@ -519,13 +520,11 @@ class _ClayToastCardState extends State<_ClayToastCard>
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             if (widget.toast.title != null) ...[
-                              Text(
+                              ClayText.label(
                                 widget.toast.title!,
-                                style: TextStyle(
-                                  color: theme.onContainer,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w700,
-                                ),
+                                color: theme.onContainer,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w700,
                               ),
                               const SizedBox(height: 4),
                             ],
@@ -535,15 +534,11 @@ class _ClayToastCardState extends State<_ClayToastCard>
                                 color: theme.onContainer,
                               )
                             else
-                              Text(
+                              ClayText.label(
                                 widget.toast.message,
-                                style: TextStyle(
-                                  color: theme.onContainer.withValues(
-                                    alpha: 0.8,
-                                  ),
-                                  fontSize: 13,
-                                  height: 1.4,
-                                ),
+                                color: theme.onContainer.withValues(alpha: 0.8),
+                                fontSize: 13,
+                                height: 1.4,
                               ),
                           ],
                         ),
@@ -678,15 +673,13 @@ class _ClayMarqueeTextState extends State<_ClayMarqueeText> {
     return SingleChildScrollView(
       controller: _controller,
       scrollDirection: Axis.horizontal,
-      child: Text(
+      child: ClayText.label(
         widget.text,
         maxLines: 1,
         softWrap: false,
-        style: TextStyle(
-          color: widget.color.withValues(alpha: 0.8),
-          fontSize: 13,
-          height: 1.4,
-        ),
+        color: widget.color.withValues(alpha: 0.8),
+        fontSize: 13,
+        height: 1.4,
       ),
     );
   }

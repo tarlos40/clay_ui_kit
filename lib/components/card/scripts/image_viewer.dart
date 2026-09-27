@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../button/scripts/button.dart';
+
 class ClayImageViewer extends StatelessWidget {
   final ImageProvider? image;
   final Widget? child;
@@ -50,50 +52,48 @@ class ClayImageViewer extends StatelessWidget {
             content = Hero(tag: heroTag!, child: content);
           }
 
-          return Stack(
-            fit: StackFit.expand,
-            children: [
-              const ColoredBox(color: Colors.black87),
+          return GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: () => Navigator.of(context).maybePop(),
+            child: Stack(
+              alignment: Alignment.center,
 
-              Center(
-                child: SizedBox(
-                  width: maxWidth,
-                  height: maxHeight,
-                  child: InteractiveViewer(
-                    constrained: true,
-                    panEnabled: true,
-                    scaleEnabled: true,
-                    minScale: 1,
-                    maxScale: 4,
-                    boundaryMargin: const EdgeInsets.all(24),
-                    clipBehavior: Clip.hardEdge,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(16),
-                      child: content,
-                    ),
-                  ),
-                ),
-              ),
+              children: [
+                Positioned.fill(child: const ColoredBox(color: Colors.black87)),
 
-              if (showCloseButton)
-                Positioned(
-                  top: MediaQuery.paddingOf(context).top + 12,
-                  right: 16,
-                  child: Material(
-                    color: Colors.black.withValues(alpha: 0.65),
-                    shape: const CircleBorder(),
-                    clipBehavior: Clip.antiAlias,
-                    child: IconButton(
-                      tooltip: 'Fechar imagem',
-                      onPressed: () => Navigator.of(context).maybePop(),
-                      icon: const Icon(
-                        Icons.close_rounded,
-                        color: Colors.white,
+                Center(
+                  child: SizedBox(
+                    width: maxWidth,
+                    height: maxHeight,
+                    child: InteractiveViewer(
+                      constrained: true,
+                      panEnabled: true,
+                      scaleEnabled: true,
+                      minScale: 1,
+                      maxScale: 4,
+                      boundaryMargin: const EdgeInsets.all(24),
+                      clipBehavior: Clip.hardEdge,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(16),
+                        child: content,
                       ),
                     ),
                   ),
                 ),
-            ],
+
+                if (showCloseButton)
+                  Positioned(
+                    top: MediaQuery.paddingOf(context).top + 12,
+                    right: 16,
+                    child: ClayButton.icon(
+                      const Icon(Icons.close_rounded),
+                      onPressed: () => Navigator.of(context).maybePop(),
+                      backgroundColor: Colors.white,
+                      iconColor: Colors.black,
+                    ),
+                  ),
+              ],
+            ),
           );
         },
       ),
