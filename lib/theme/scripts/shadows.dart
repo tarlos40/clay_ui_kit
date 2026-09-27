@@ -49,18 +49,18 @@ class ClayInnerShadowPainter extends CustomPainter {
       ..maskFilter = MaskFilter.blur(BlurStyle.normal, blurRadius);
 
     final darkShadowRect = Rect.fromLTRB(
-      -blurRadius * 2,
-      -blurRadius * 2,
-      size.width + blurRadius,
-      shadowSize,
+      -blurRadius,
+      size.height - shadowSize,
+      size.width + blurRadius * 2,
+      size.height + blurRadius * 2,
     );
     canvas.drawRect(darkShadowRect, darkPaint);
 
     final darkLeftRect = Rect.fromLTRB(
-      -blurRadius * 2,
-      -blurRadius * 2,
-      shadowSize,
-      size.height + blurRadius,
+      size.width - shadowSize,
+      -blurRadius,
+      size.width + blurRadius * 2,
+      size.height + blurRadius * 2,
     );
     canvas.drawRect(darkLeftRect, darkPaint);
 
@@ -69,18 +69,18 @@ class ClayInnerShadowPainter extends CustomPainter {
       ..maskFilter = MaskFilter.blur(BlurStyle.normal, blurRadius);
 
     final lightBottomRect = Rect.fromLTRB(
-      -blurRadius,
-      size.height - shadowSize,
-      size.width + blurRadius * 2,
-      size.height + blurRadius * 2,
+      -blurRadius * 2,
+      -blurRadius * 2,
+      size.width + blurRadius,
+      shadowSize,
     );
     canvas.drawRect(lightBottomRect, lightPaint);
 
     final lightRightRect = Rect.fromLTRB(
-      size.width - shadowSize,
-      -blurRadius,
-      size.width + blurRadius * 2,
-      size.height + blurRadius * 2,
+      -blurRadius * 2,
+      -blurRadius * 2,
+      shadowSize,
+      size.height + blurRadius,
     );
     canvas.drawRect(lightRightRect, lightPaint);
   }

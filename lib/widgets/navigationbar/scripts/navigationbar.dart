@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../../app/scripts/context.dart';
-import '../../../components/texts/types/typography.dart';
 import '../../../theme/scripts/shadows.dart';
+import '../../../components/texts/scripts/text.dart';
 
 class ClayNavigationBar extends StatelessWidget {
   final int selectedIndex;
@@ -12,8 +12,8 @@ class ClayNavigationBar extends StatelessWidget {
   final String? label;
   final Color? backgroundColor,
       indicatorColor,
-      indicatorIconColor,
-      unindicatorColor;
+      onIndicatorColor,
+      onUnindicatorColor;
 
   const ClayNavigationBar({
     super.key,
@@ -22,8 +22,8 @@ class ClayNavigationBar extends StatelessWidget {
     required this.destinations,
     this.backgroundColor,
     this.indicatorColor,
-    this.indicatorIconColor,
-    this.unindicatorColor,
+    this.onIndicatorColor,
+    this.onUnindicatorColor,
   }) : icon = null,
        label = null;
 
@@ -33,8 +33,8 @@ class ClayNavigationBar extends StatelessWidget {
       destinations = const [],
       backgroundColor = null,
       indicatorColor = null,
-      indicatorIconColor = null,
-      unindicatorColor = null;
+      onIndicatorColor = null,
+      onUnindicatorColor = null;
 
   static void _emptyCallback(int index) {}
 
@@ -43,71 +43,111 @@ class ClayNavigationBar extends StatelessWidget {
     final theme = context.clayTheme;
 
     if (icon != null) {
-      return NavigationDestination(icon: icon!, label: label ?? "");
+      return const SizedBox.shrink();
     }
 
     return Padding(
       padding: const EdgeInsets.only(bottom: 16, left: 16, right: 16),
       child: CustomPaint(
         foregroundPainter: ClayInnerShadowPainter(
-          shadowColor: theme.light,
-          lightColor: theme.shadow,
+          shadowColor: theme.shadow,
+          lightColor: theme.light,
           shadowSize: 2,
           borderRadius: 100,
         ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(100),
-          child: NavigationBarTheme(
-            data: NavigationBarThemeData(
-              backgroundColor: backgroundColor ?? theme.container,
-              elevation: 0,
-              height: 44,
-
-              indicatorColor: indicatorColor ?? theme.primary,
-
-              labelTextStyle: WidgetStateProperty.resolveWith<TextStyle?>((
-                states,
-              ) {
-                if (states.contains(WidgetState.selected)) {
-                  return ClayTextTypography.label(
-                    color: indicatorColor ?? theme.primary,
-                  );
-                }
-
-                return ClayTextTypography.label(
-                  color:
-                      unindicatorColor?.withAlpha(200) ??
-                      theme.onContainer.withAlpha(200),
-                );
-              }),
-
-              iconTheme: WidgetStateProperty.resolveWith<IconThemeData?>((
-                states,
-              ) {
-                if (states.contains(WidgetState.selected)) {
-                  return IconThemeData(
-                    color: indicatorIconColor ?? theme.onPrimary,
-                  );
-                }
-
-                return IconThemeData(
-                  color:
-                      unindicatorColor?.withAlpha(200) ??
-                      theme.onContainer.withAlpha(200),
-                );
-              }),
-            ),
-            child: NavigationBar(
-              selectedIndex: selectedIndex,
-              onDestinationSelected: onDestinationSelected,
-              destinations: destinations
-                  .map(
-                    (destination) => NavigationDestination(
-                      icon: destination.icon ?? const SizedBox.shrink(),
-                      label: destination.label ?? '',
+        child: Container(
+          height: 64,
+          decoration: BoxDecoration(
+            color: backgroundColor ?? theme.container,
+            borderRadius: BorderRadius.circular(100),
+            boxShadow: ClayShadows.external(theme: theme, offset: 3, blur: 8),
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(100),
+            child: Padding(
+              padding: const EdgeInsets.only(right: 8),
+              child: Row(
+                children: List.generate(destinations.length, (index) {
+                  final destination = destinations[index];
+                  return Expanded(
+                    child: _buildDestination(
+                      context,
+                      index: index,
+                      destination: destination,
                     ),
-                  )
-                  .toList(),
+                  );
+                }),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDestination(
+    BuildContext context, {
+    required int index,
+    required ClayNavigationBar destination,
+  }) {
+    final theme = context.clayTheme;
+    final selected = selectedIndex == index;
+
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: () => onDestinationSelected(index),
+      child: Center(
+        child: CustomPaint(
+          foregroundPainter: selected
+              ? ClayInnerShadowPainter(
+                  shadowColor: theme.shadow,
+                  lightColor: theme.light,
+                  shadowSize: 2,
+                  blurRadius: 8,
+                  borderRadius: 40,
+                )
+              : null,
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 200),
+            curve: Curves.easeOut,
+            padding: EdgeInsets.symmetric(
+              horizontal: selected ? 32 : 24,
+              vertical: 8,
+            ),
+            decoration: BoxDecoration(
+              color: selected
+                  ? indicatorColor ?? theme.primary
+                  : Colors.transparent,
+              borderRadius: BorderRadius.circular(40),
+              boxShadow: selected
+                  ? ClayShadows.external(theme: theme, offset: 2, blur: 5)
+                  : null,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                IconTheme(
+                  data: IconThemeData(
+                    size: 24,
+                    color: selected
+                        ? onIndicatorColor ?? theme.onPrimary
+                        : onUnindicatorColor?.withAlpha(200) ??
+                              theme.onContainer.withAlpha(200),
+                  ),
+                  child: destination.icon ?? const SizedBox.shrink(),
+                ),
+
+                const SizedBox(height: 4),
+
+                ClayText.label(
+                  destination.label ?? '',
+                  color: selected
+                      ? onIndicatorColor ?? theme.onPrimary
+                      : onUnindicatorColor?.withAlpha(200) ??
+                            theme.onContainer.withAlpha(200),
+                ),
+              ],
             ),
           ),
         ),

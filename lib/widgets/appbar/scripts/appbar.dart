@@ -97,8 +97,8 @@ class _ClayAppBarState extends State<ClayAppBar> {
           widget.leading ??
               CustomPaint(
                 foregroundPainter: ClayInnerShadowPainter(
-                  shadowColor: theme.light,
-                  lightColor: theme.shadow,
+                  shadowColor: theme.shadow,
+                  lightColor: theme.light,
                   shadowSize: 2,
                   borderRadius: 100,
                 ),
@@ -119,8 +119,8 @@ class _ClayAppBarState extends State<ClayAppBar> {
 
                   child: CustomPaint(
                     foregroundPainter: ClayInnerShadowPainter(
-                      shadowColor: theme.light,
-                      lightColor: theme.shadow,
+                      shadowColor: theme.shadow,
+                      lightColor: theme.light,
                       shadowSize: 2,
                       borderRadius: 100,
                     ),

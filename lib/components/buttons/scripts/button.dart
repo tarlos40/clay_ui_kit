@@ -250,8 +250,8 @@ class _ClayButtonState extends State<ClayButton> {
     return CustomPaint(
       foregroundPainter: !isDisabled && !isTextVariant
           ? ClayInnerShadowPainter(
-              shadowColor: _isPressed ? shadowColor : lightColor,
-              lightColor: shadowColor,
+              shadowColor: shadowColor,
+              lightColor: _isPressed ? shadowColor : lightColor,
               borderRadius: borderRadius,
               shadowSize: 2.5,
               blurRadius: 7.0,
