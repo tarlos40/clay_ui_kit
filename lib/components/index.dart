@@ -8,3 +8,5 @@ export './badges/index.dart';
 export './menu/scrits/menu.dart';
 export './props_table/scripts/props_table.dart';
 export './show_case/scripts/show_case.dart';
+export './modal/scripts/modal.dart';
+export './tooltip/index.dart';

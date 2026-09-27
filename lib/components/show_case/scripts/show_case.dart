@@ -128,34 +128,57 @@ class _ClayShowcaseState extends State<ClayShowcase> {
   Widget _buildPreview(BuildContext context) {
     final theme = context.clayTheme;
 
-    return Container(
-      width: double.infinity,
-      margin: const EdgeInsets.fromLTRB(16, 4, 16, 16),
-      padding: widget.padding,
-      decoration: BoxDecoration(
-        color: theme.background,
-        borderRadius: BorderRadius.circular(18),
-        boxShadow: ClayShadows.external(theme: theme, offset: 2, blur: 5),
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 4, 16, 16),
+      child: CustomPaint(
+        foregroundPainter: ClayInnerShadowPainter(
+          shadowColor: theme.shadow,
+          lightColor: theme.light,
+          borderRadius: 18,
+          shadowSize: 2.5,
+          blurRadius: 7.0,
+        ),
+        child: Container(
+          width: double.infinity,
+          padding: widget.padding,
+          decoration: BoxDecoration(
+            color: theme.background,
+            borderRadius: BorderRadius.circular(18),
+            boxShadow: ClayShadows.external(theme: theme, offset: 2, blur: 5),
+          ),
+          child: Center(child: widget.preview),
+        ),
       ),
-      child: Center(child: widget.preview),
     );
   }
 
   Widget _buildCode(BuildContext context) {
     final theme = context.clayTheme;
 
-    return Container(
-      width: double.infinity,
-      margin: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-      decoration: BoxDecoration(
-        color: theme.background,
-        borderRadius: BorderRadius.circular(18),
-        boxShadow: ClayShadows.external(theme: theme, offset: 2, blur: 5),
-      ),
-      clipBehavior: Clip.antiAlias,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [_buildCodeHeader(context), _buildCodeContent(context)],
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 4, 16, 16),
+      child: CustomPaint(
+        foregroundPainter: ClayInnerShadowPainter(
+          shadowColor: theme.shadow,
+          lightColor: theme.light,
+          borderRadius: 18,
+          shadowSize: 2.5,
+          blurRadius: 7.0,
+        ),
+        child: Container(
+          width: double.infinity,
+          padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 4),
+          decoration: BoxDecoration(
+            color: theme.background,
+            borderRadius: BorderRadius.circular(18),
+            boxShadow: ClayShadows.external(theme: theme, offset: 2, blur: 5),
+          ),
+          clipBehavior: Clip.antiAlias,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [_buildCodeHeader(context), _buildCodeContent(context)],
+          ),
+        ),
       ),
     );
   }

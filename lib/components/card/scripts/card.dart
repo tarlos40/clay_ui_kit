@@ -169,13 +169,11 @@ class ClayCard extends StatefulWidget {
     required List<Widget> menu,
     Widget? icon,
     EdgeInsetsGeometry padding = const EdgeInsets.all(8),
-    String? tooltip,
   }) {
     return _ClayCardAction(
       menu: menu,
       icon: icon ?? const Icon(Icons.more_vert_rounded),
       padding: padding,
-      tooltip: tooltip ?? 'More options',
     );
   }
 
@@ -203,7 +201,6 @@ class ClayCard extends StatefulWidget {
     bool primary = false,
     Widget? iconLeft,
     Widget? iconRight,
-    String? tooltip,
   }) {
     if (primary) {
       return ClayButton.primary(
@@ -536,13 +533,11 @@ class _ClayCardAction extends StatefulWidget {
   final List<Widget> menu;
   final Widget icon;
   final EdgeInsetsGeometry padding;
-  final String tooltip;
 
   const _ClayCardAction({
     required this.menu,
     required this.icon,
     required this.padding,
-    required this.tooltip,
   });
 
   @override
@@ -608,7 +603,7 @@ class _ClayCardActionState extends State<_ClayCardAction> {
   Widget build(BuildContext context) {
     final theme = context.clayTheme;
 
-    Widget action = GestureDetector(
+    return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTapDown: (_) => _handleTapDown(),
       onTapUp: (_) => _handleTapUp(),
@@ -621,7 +616,7 @@ class _ClayCardActionState extends State<_ClayCardAction> {
           foregroundPainter: ClayInnerShadowPainter(
             shadowColor: theme.shadow,
             lightColor: theme.light,
-            borderRadius: 14,
+            borderRadius: 100,
             shadowSize: _pressed ? 1.5 : 2,
             blurRadius: _pressed ? 4 : 7,
           ),
@@ -629,7 +624,7 @@ class _ClayCardActionState extends State<_ClayCardAction> {
             padding: widget.padding,
             decoration: BoxDecoration(
               color: theme.container,
-              borderRadius: BorderRadius.circular(14),
+              borderRadius: BorderRadius.circular(100),
               boxShadow: ClayShadows.external(
                 theme: theme,
                 offset: _pressed ? 1 : 2,
@@ -644,8 +639,6 @@ class _ClayCardActionState extends State<_ClayCardAction> {
         ),
       ),
     );
-
-    return Tooltip(message: widget.tooltip, child: action);
   }
 }
 
@@ -658,17 +651,26 @@ class _ClayCardMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = context.clayTheme;
 
-    return Material(
-      color: Colors.transparent,
-      child: Container(
-        constraints: const BoxConstraints(minWidth: 220, maxWidth: 320),
-        padding: const EdgeInsets.all(8),
-        decoration: BoxDecoration(
-          color: theme.container,
-          borderRadius: BorderRadius.circular(18),
-          boxShadow: ClayShadows.external(theme: theme, offset: 6, blur: 16),
+    return CustomPaint(
+      foregroundPainter: ClayInnerShadowPainter(
+        shadowColor: theme.shadow,
+        lightColor: theme.light,
+        borderRadius: 18,
+        shadowSize: 2.5,
+        blurRadius: 7.0,
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: Container(
+          constraints: const BoxConstraints(minWidth: 220, maxWidth: 320),
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: theme.container,
+            borderRadius: BorderRadius.circular(18),
+            boxShadow: ClayShadows.external(theme: theme, offset: 6, blur: 16),
+          ),
+          child: Column(mainAxisSize: MainAxisSize.min, children: children),
         ),
-        child: Column(mainAxisSize: MainAxisSize.min, children: children),
       ),
     );
   }

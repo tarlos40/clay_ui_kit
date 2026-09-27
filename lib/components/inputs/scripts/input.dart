@@ -402,7 +402,6 @@ class _ClayInputState extends State<ClayInput>
           icon: _obscured
               ? Icons.visibility_rounded
               : Icons.visibility_off_rounded,
-          tooltip: _obscured ? 'Show password' : 'Hide password',
           onPressed: _togglePassword,
           color: theme.onBackground,
         ),
@@ -413,7 +412,6 @@ class _ClayInputState extends State<ClayInput>
       actions.add(
         _ClayInputIconButton(
           icon: Icons.close_rounded,
-          tooltip: 'Clear',
           onPressed: _clear,
           color: theme.onBackground,
         ),
@@ -445,26 +443,22 @@ class _ClayInputState extends State<ClayInput>
 
 class _ClayInputIconButton extends StatelessWidget {
   final IconData icon;
-  final String tooltip;
+
   final VoidCallback onPressed;
   final Color color;
 
   const _ClayInputIconButton({
     required this.icon,
-    required this.tooltip,
     required this.onPressed,
     required this.color,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Tooltip(
-      message: tooltip,
-      child: IconButton(
-        onPressed: onPressed,
-        splashRadius: 20,
-        icon: Icon(icon, size: 19, color: color.withValues(alpha: 0.65)),
-      ),
+    return IconButton(
+      onPressed: onPressed,
+      splashRadius: 20,
+      icon: Icon(icon, size: 19, color: color.withValues(alpha: 0.65)),
     );
   }
 }

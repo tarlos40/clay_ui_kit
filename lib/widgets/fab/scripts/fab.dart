@@ -13,7 +13,6 @@ class ClayFloatingActionButton extends StatefulWidget {
   final Color? backgroundColor;
   final Color? foregroundColor;
   final ClayFloatingActionButtonSize size;
-  final String? tooltip;
   final Object? heroTag;
   final bool extend;
   final EdgeInsetsGeometry? padding;
@@ -27,7 +26,6 @@ class ClayFloatingActionButton extends StatefulWidget {
     this.backgroundColor,
     this.foregroundColor,
     this.size = ClayFloatingActionButtonSize.base,
-    this.tooltip,
     this.heroTag,
     this.extend = false,
     this.padding,
@@ -145,10 +143,6 @@ class _ClayFloatingActionButtonState extends State<ClayFloatingActionButton>
     final hero = widget.heroTag != null
         ? Hero(tag: widget.heroTag!, child: button)
         : button;
-
-    if (widget.tooltip != null) {
-      return Tooltip(message: widget.tooltip!, child: hero);
-    }
 
     return hero;
   }

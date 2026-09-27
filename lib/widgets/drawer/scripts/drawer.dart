@@ -61,7 +61,6 @@ class ClayDrawer extends StatelessWidget {
     BuildContext context, {
     Widget? icon,
     VoidCallback? onPressed,
-    String? tooltip,
   }) {
     return Builder(
       builder: (context) {

@@ -11,8 +11,6 @@ class ComponentsLayout extends StatefulWidget {
 class _ComponentsLayoutState extends State<ComponentsLayout> {
   @override
   Widget build(BuildContext context) {
-    final theme = context.clayTheme;
-
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,

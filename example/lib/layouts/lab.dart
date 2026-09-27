@@ -13,8 +13,6 @@ class LabLayout extends StatefulWidget {
 class _LabLayoutState extends State<LabLayout> {
   @override
   Widget build(BuildContext context) {
-    final theme = context.clayTheme;
-
     return Center(
       child: Column(
         mainAxisAlignment: .center,
@@ -55,6 +53,18 @@ class _LabLayoutState extends State<LabLayout> {
 
           SizedBox(height: 8),
 
+          ClayButton.success('Success', onPressed: () {}),
+
+          SizedBox(height: 8),
+
+          ClayButton.warning('Warning', onPressed: () {}),
+
+          SizedBox(height: 8),
+
+          ClayButton.error('Error', onPressed: () {}),
+
+          SizedBox(height: 8),
+
           ClayButton.text(
             'Text',
             onPressed: () {},
@@ -70,6 +80,10 @@ class _LabLayoutState extends State<LabLayout> {
             isLoading: false,
             size: ClayButtonSize.large,
           ),
+
+          SizedBox(height: 8),
+
+          ClayButton.primary('Disabled'),
 
           SizedBox(height: 8),
 
@@ -311,6 +325,36 @@ class _LabLayoutState extends State<LabLayout> {
             code: '''
 ClayButton.primary('Continue', onPressed: () {})
 ''',
+          ),
+
+          SizedBox(height: 8),
+
+          ClayButton.primary(
+            'Modal',
+            onPressed: () async {
+              await ClayModal.show<bool>(
+                context: context,
+                title: 'Excluir item?',
+                description: 'Esta ação não pode ser desfeita.',
+                child: const Text('Deseja realmente continuar?'),
+                leading: const Icon(Icons.warning_amber_rounded),
+                actions: [
+                  ClayButton.success('Continuar', onPressed: () {}),
+                  ClayButton.warning('Atenção', onPressed: () {}),
+                  ClayButton.error('Excluir', onPressed: () {}),
+                ],
+              );
+            },
+          ),
+
+          SizedBox(height: 8),
+
+          ClayTooltip(
+            message: 'Copiar código',
+            child: ClayButton.icon(
+              const Icon(Icons.copy_rounded),
+              onPressed: () {},
+            ),
           ),
         ],
       ),

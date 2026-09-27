@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../palette/types/palette.dart';
+import '../../palette/types/colors.dart';
 
 class ClayThemeData {
   final ClayPalette seedColor;
@@ -10,6 +11,9 @@ class ClayThemeData {
   late final Color primary, onPrimary;
   late final Color secondary, onSecondary;
   late final Color third, onThird;
+  late final Color success, onSuccess;
+  late final Color warning, onWarning;
+  late final Color error, onError;
   late final Color container, onContainer;
   late final Color light, shadow, border;
 
@@ -35,6 +39,15 @@ class ClayThemeData {
       third = seedColor.s200;
       onThird = seedColor.s950;
 
+      success = ClayColors.forest.s400;
+      onSuccess = ClayColors.forest.s50;
+
+      warning = ClayColors.amber.s400;
+      onWarning = ClayColors.amber.s950;
+
+      error = ClayColors.ruby.s400;
+      onError = ClayColors.ruby.s50;
+
       light = Colors.white.withAlpha(100);
       shadow = Colors.black.withAlpha(100);
       border = seedColor.s50.withAlpha(175);
@@ -54,6 +67,15 @@ class ClayThemeData {
 
       third = seedColor.s800;
       onThird = seedColor.s200;
+
+      success = ClayColors.forest.s600;
+      onSuccess = ClayColors.forest.s50;
+
+      warning = ClayColors.amber.s600;
+      onWarning = ClayColors.amber.s950;
+
+      error = ClayColors.ruby.s600;
+      onError = ClayColors.ruby.s50;
 
       light = Colors.white.withAlpha(25);
       shadow = Colors.black.withAlpha(150);

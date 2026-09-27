@@ -76,6 +76,51 @@ class ClayButton extends StatefulWidget {
        _variant = ClayButtonVariant.third,
        gradient = null;
 
+  const ClayButton.success(
+    this.text, {
+    super.key,
+    this.onPressed,
+    this.isLoading = false,
+    this.size = ClayButtonSize.base,
+    this.backgroundColor,
+    this.foregroundColor,
+    this.iconLeft,
+    this.iconRight,
+  }) : icon = null,
+       iconColor = null,
+       _variant = ClayButtonVariant.success,
+       gradient = null;
+
+  const ClayButton.warning(
+    this.text, {
+    super.key,
+    this.onPressed,
+    this.isLoading = false,
+    this.size = ClayButtonSize.base,
+    this.backgroundColor,
+    this.foregroundColor,
+    this.iconLeft,
+    this.iconRight,
+  }) : icon = null,
+       iconColor = null,
+       _variant = ClayButtonVariant.warning,
+       gradient = null;
+
+  const ClayButton.error(
+    this.text, {
+    super.key,
+    this.onPressed,
+    this.isLoading = false,
+    this.size = ClayButtonSize.base,
+    this.backgroundColor,
+    this.foregroundColor,
+    this.iconLeft,
+    this.iconRight,
+  }) : icon = null,
+       iconColor = null,
+       _variant = ClayButtonVariant.error,
+       gradient = null;
+
   const ClayButton.text(
     this.text, {
     super.key,
@@ -185,6 +230,27 @@ class _ClayButtonState extends State<ClayButton> {
       case ClayButtonVariant.third:
         backgroundColor = widget.backgroundColor ?? theme.third;
         textColor = widget.foregroundColor ?? theme.onThird;
+        shadowColor = theme.shadow;
+        lightColor = theme.light;
+        borderColor = theme.border;
+        break;
+      case ClayButtonVariant.success:
+        backgroundColor = widget.backgroundColor ?? theme.success;
+        textColor = widget.foregroundColor ?? theme.onSuccess;
+        shadowColor = theme.shadow;
+        lightColor = theme.light;
+        borderColor = theme.border;
+        break;
+      case ClayButtonVariant.warning:
+        backgroundColor = widget.backgroundColor ?? theme.warning;
+        textColor = widget.foregroundColor ?? theme.onWarning;
+        shadowColor = theme.shadow;
+        lightColor = theme.light;
+        borderColor = theme.border;
+        break;
+      case ClayButtonVariant.error:
+        backgroundColor = widget.backgroundColor ?? theme.error;
+        textColor = widget.foregroundColor ?? theme.onError;
         shadowColor = theme.shadow;
         lightColor = theme.light;
         borderColor = theme.border;

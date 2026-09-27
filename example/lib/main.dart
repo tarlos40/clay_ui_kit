@@ -176,7 +176,6 @@ class _MyHomePageState extends State<MyHomePage> {
         icon: const Icon(Icons.add),
         extend: true,
         label: "Adicionar",
-        tooltip: 'Adicionar',
         // heroTag: 'add-button',
         // onPressed: () {
         //   Navigator.push(context, route)
