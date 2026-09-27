@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:clay_ui_kit/clay_ui_kit.dart';
-import 'package:clay_ui_kit/theme/scripts/shadows.dart';
 
 class LabLayout extends StatefulWidget {
   const LabLayout({super.key});
@@ -10,14 +9,6 @@ class LabLayout extends StatefulWidget {
 }
 
 class _LabLayoutState extends State<LabLayout> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     final theme = context.clayTheme;
@@ -33,11 +24,6 @@ class _LabLayoutState extends State<LabLayout> {
           ClayText.body("Testando"),
 
           ClayText.label("Testando"),
-
-          Text(
-            '$_counter',
-            style: TextStyle(color: theme.onBackgroundVariant, fontSize: 32),
-          ),
 
           SizedBox(height: 8),
 
@@ -103,54 +89,56 @@ class _LabLayoutState extends State<LabLayout> {
 
           SizedBox(height: 8),
 
-          CustomPaint(
-            foregroundPainter: ClayInnerShadowPainter(
-              shadowColor: theme.shadow,
-              lightColor: theme.light,
-              borderRadius: 20,
-              shadowSize: 6.0,
-              blurRadius: 12.0,
-            ),
-            child: Container(
-              decoration: BoxDecoration(
-                color: theme.container,
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(color: theme.border, width: .5),
-              ),
-              child: TextField(
-                style: TextStyle(color: theme.onContainer),
-                decoration: InputDecoration(
-                  hintText: "Testando",
-                  hintStyle: TextStyle(
-                    color: theme.onBackgroundVariant.withAlpha(150),
-                  ),
-                  contentPadding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                    vertical: 16,
-                  ),
-                  border: InputBorder.none,
-                ),
-              ),
-            ),
+          ClayInput(
+            label: 'Username',
+            hintText: 'Enter your username',
+            prefixIcon: const Icon(Icons.person_rounded),
+            onChanged: (value) {},
           ),
 
           SizedBox(height: 8),
 
-          Container(
-            padding: EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              color: theme.container,
-              borderRadius: BorderRadius.circular(24),
-              border: Border.all(color: theme.border, width: .5),
-              boxShadow: ClayShadows.external(theme: theme),
-            ),
-            child: DefaultTextStyle(
-              style: TextStyle(color: theme.onContainer),
-              child: Text(
-                'testando',
-                style: TextStyle(color: theme.onContainer),
-              ),
-            ),
+          ClayInput(
+            label: 'Password',
+            hintText: 'Enter your password',
+            password: true,
+            prefixIcon: const Icon(Icons.lock_rounded),
+          ),
+
+          SizedBox(height: 8),
+
+          ClayInput(
+            label: 'Email',
+            hintText: 'example@email.com',
+            errorText: 'Enter a valid email address.',
+            prefixIcon: const Icon(Icons.email_rounded),
+          ),
+
+          SizedBox(height: 8),
+
+          ClayInput(
+            label: 'Email',
+            errorText: 'Invalid email.',
+            errorColor: Colors.orange,
+          ),
+
+          SizedBox(height: 8),
+
+          ClayInput.textArea(
+            label: 'Description',
+            hintText: 'Write something...',
+            minLines: 4,
+            maxLines: 8,
+          ),
+
+          SizedBox(height: 8),
+
+          ClayInput.textArea(
+            label: 'Bio',
+            hintText: 'Tell us about yourself...',
+            maxLength: 500,
+            minLines: 5,
+            maxLines: 8,
           ),
         ],
       ),

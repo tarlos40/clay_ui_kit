@@ -1,4 +1,3 @@
-import 'package:clay_ui_kit/widgets/fab/types/sizes.dart';
 import 'package:flutter/material.dart';
 import "package:clay_ui_kit/clay_ui_kit.dart";
 
@@ -53,8 +52,66 @@ class _MyHomePageState extends State<MyHomePage> {
     final theme = context.clayTheme;
 
     return ClayScaffold(
+      useScrollView: true,
+
+      clayDrawer: ClayDrawer(
+        children: [
+          ClayDrawer.title(
+            'Clay UI Kit',
+            leading: const Icon(Icons.widgets_rounded),
+          ),
+
+          ClayDrawer.subtitle('Components'),
+
+          ClayDrawer.action(
+            icon: const Icon(Icons.home_rounded),
+            label: "Overview",
+            selected: true,
+            onPressed: () {},
+          ),
+
+          ClayDrawer.expansion(
+            icon: const Icon(Icons.widgets_rounded),
+            label: "Components",
+            children: [
+              ClayDrawer.action(
+                icon: const Icon(Icons.smart_button_rounded),
+                label: 'Buttons',
+                compact: true,
+                onPressed: () {},
+              ),
+
+              ClayDrawer.action(
+                icon: const Icon(Icons.navigation_rounded),
+                label: 'Navigation',
+                compact: true,
+                onPressed: () {},
+              ),
+
+              ClayDrawer.action(
+                icon: const Icon(Icons.view_sidebar_rounded),
+                label: 'Drawer',
+                compact: true,
+                onPressed: () {},
+              ),
+            ],
+          ),
+
+          ClayDrawer.divider(),
+
+          ClayDrawer.subtitle('Preferences'),
+
+          ClayDrawer.action(
+            icon: const Icon(Icons.settings_rounded),
+            label: 'Settings',
+            onPressed: () {},
+          ),
+        ],
+      ),
+
       clayAppBar: ClayAppBar(
         title: "Clay UI Kit",
+        leading: ClayDrawer.menuButton(context),
         actions: [
           ClayAppBar.action(Icon(Icons.wb_sunny_rounded), onPressed: () {}),
           ClayButton.primary(

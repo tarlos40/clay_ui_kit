@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import "../types/palette.dart";
 
-abstract class ClayColors {
+abstract final class ClayColors {
   static ClayPalette createPaletteFromBase(Color base500) {
     final hsl = HSLColor.fromColor(base500);
 

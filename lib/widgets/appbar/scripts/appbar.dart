@@ -12,7 +12,7 @@ class ClayAppBar extends StatefulWidget implements PreferredSizeWidget {
   final List<Widget>? actions;
   final VoidCallback? onPressed;
   final Widget? icon, leading;
-  final bool? isLoading, transparent;
+  final bool? isLoading, transparent, automaticallyImplyLeading;
   final ClayButtonSize? size;
   final double? elevation;
 
@@ -25,6 +25,7 @@ class ClayAppBar extends StatefulWidget implements PreferredSizeWidget {
     this.actions,
     this.elevation,
     this.transparent = false,
+    this.automaticallyImplyLeading = false,
   }) : onPressed = null,
        icon = null,
        iconColor = null,
@@ -44,7 +45,8 @@ class ClayAppBar extends StatefulWidget implements PreferredSizeWidget {
        leading = null,
        actions = null,
        elevation = null,
-       transparent = null;
+       transparent = null,
+       automaticallyImplyLeading = null;
 
   const ClayAppBar.action(
     this.icon, {
@@ -59,7 +61,8 @@ class ClayAppBar extends StatefulWidget implements PreferredSizeWidget {
        leading = null,
        actions = null,
        elevation = null,
-       transparent = null;
+       transparent = null,
+       automaticallyImplyLeading = false;
 
   @override
   State<ClayAppBar> createState() => _ClayAppBarState();
@@ -89,6 +92,8 @@ class _ClayAppBarState extends State<ClayAppBar> {
           ? Colors.transparent
           : widget.backgroundColor ?? theme.background.withAlpha(0),
       toolbarHeight: widget.preferredSize.height,
+      automaticallyImplyLeading: widget.automaticallyImplyLeading ?? false,
+      forceMaterialTransparency: true,
 
       title: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
