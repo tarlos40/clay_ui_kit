@@ -5,3 +5,6 @@ export './container/scripts/container.dart';
 export './card/scripts/card.dart';
 export './avatar/index.dart';
 export './badges/index.dart';
+export './menu/scrits/menu.dart';
+export './props_table/scripts/props_table.dart';
+export './show_case/scripts/show_case.dart';

@@ -14,7 +14,7 @@ class ClayCard extends StatefulWidget {
   final EdgeInsetsGeometry? padding;
   final EdgeInsetsGeometry? margin;
 
-  final BorderRadiusGeometry borderRadius;
+  final double borderRadius;
   final Border? border;
   final List<BoxShadow>? boxShadow;
 
@@ -38,7 +38,7 @@ class ClayCard extends StatefulWidget {
     this.backgroundGradient,
     this.padding,
     this.margin,
-    this.borderRadius = const BorderRadius.all(Radius.circular(24)),
+    this.borderRadius = 24,
     this.border,
     this.boxShadow,
     this.width,
@@ -334,29 +334,43 @@ class _ClayCardState extends State<ClayCard> {
 
     final backgroundColor = widget.backgroundColor ?? theme.container;
 
-    Widget card = AnimatedScale(
-      scale: scale,
-      duration: const Duration(milliseconds: 160),
-      curve: Curves.easeOutCubic,
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 180),
-        curve: Curves.easeOutCubic,
-        width: widget.width,
-        height: widget.height,
-        constraints: widget.constraints,
-        margin: widget.margin,
-        padding: widget.padding,
-        clipBehavior: widget.clipBehavior,
-        decoration: BoxDecoration(
-          color: backgroundColor,
-          gradient: widget.backgroundGradient,
+    Widget card = Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 4),
+      child: CustomPaint(
+        foregroundPainter: ClayInnerShadowPainter(
+          shadowColor: theme.shadow,
+          lightColor: theme.light,
           borderRadius: widget.borderRadius,
-          border: widget.border,
-          boxShadow: shadows,
+          shadowSize: 2.5,
+          blurRadius: 7.0,
         ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: widget.children,
+        child: AnimatedScale(
+          scale: scale,
+          duration: const Duration(milliseconds: 160),
+          curve: Curves.easeOutCubic,
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 180),
+            curve: Curves.easeOutCubic,
+            width: widget.width,
+            height: widget.height,
+            constraints: widget.constraints,
+            margin: widget.margin,
+            padding: widget.padding,
+            clipBehavior: widget.clipBehavior,
+            decoration: BoxDecoration(
+              color: backgroundColor,
+              gradient: widget.backgroundGradient,
+              borderRadius: BorderRadius.all(
+                Radius.circular(widget.borderRadius),
+              ),
+              border: widget.border,
+              boxShadow: shadows,
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: widget.children,
+            ),
+          ),
         ),
       ),
     );
@@ -365,22 +379,19 @@ class _ClayCardState extends State<ClayCard> {
       return card;
     }
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
-      child: MouseRegion(
-        cursor: widget.onTap != null
-            ? SystemMouseCursors.click
-            : MouseCursor.defer,
-        onEnter: (_) => _handleHover(true),
-        onExit: (_) => _handleHover(false),
-        child: GestureDetector(
-          behavior: HitTestBehavior.opaque,
-          onTap: widget.enabled ? widget.onTap : null,
-          onTapDown: widget.enabled ? _handleTapDown : null,
-          onTapUp: widget.enabled ? _handleTapUp : null,
-          onTapCancel: widget.enabled ? _handleTapCancel : null,
-          child: card,
-        ),
+    return MouseRegion(
+      cursor: widget.onTap != null
+          ? SystemMouseCursors.click
+          : MouseCursor.defer,
+      onEnter: (_) => _handleHover(true),
+      onExit: (_) => _handleHover(false),
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: widget.enabled ? widget.onTap : null,
+        onTapDown: widget.enabled ? _handleTapDown : null,
+        onTapUp: widget.enabled ? _handleTapUp : null,
+        onTapCancel: widget.enabled ? _handleTapCancel : null,
+        child: card,
       ),
     );
   }

@@ -4,6 +4,7 @@ import '../../../app/scripts/context.dart';
 import '../../../components/texts/scripts/text.dart';
 import '../../../utils/random_colors.dart';
 import '../types/size.dart';
+import '../../../theme/scripts/shadows.dart';
 
 class ClayAvatar extends StatelessWidget {
   final String? name;
@@ -83,7 +84,8 @@ class ClayAvatar extends StatelessWidget {
         ? RandomColors.random(context, seed: randomSeed)
         : null;
 
-    final background = backgroundColor ?? random?.backgroundColor ?? theme.primary;
+    final background =
+        backgroundColor ?? random?.backgroundColor ?? theme.primary;
 
     final foreground =
         foregroundColor ?? random?.foregroundColor ?? theme.onPrimary;
@@ -123,6 +125,8 @@ class ClayAvatar extends StatelessWidget {
     required Color foreground,
     required double size,
   }) {
+    final theme = context.clayTheme;
+
     if (image != null) {
       return Image(image: image!, width: size, height: size, fit: BoxFit.cover);
     }
@@ -145,13 +149,26 @@ class ClayAvatar extends StatelessWidget {
 
     final text = label ?? (name != null ? _initials(name!) : '');
 
-    return ColoredBox(
-      color: background,
-      child: Center(
-        child: ClayText.label(
-          text,
-          color: foreground,
-          fontWeight: FontWeight.w700,
+    return CustomPaint(
+      foregroundPainter: ClayInnerShadowPainter(
+        shadowColor: theme.shadow,
+        lightColor: theme.light,
+        borderRadius: 100,
+        shadowSize: 2.5,
+        blurRadius: 7.0,
+      ),
+      child: Container(
+        decoration: BoxDecoration(
+          color: background,
+          borderRadius: BorderRadius.circular(100),
+          boxShadow: ClayShadows.external(theme: theme, offset: 1, blur: 3),
+        ),
+        child: Center(
+          child: ClayText.label(
+            text,
+            color: foreground,
+            fontWeight: FontWeight.w700,
+          ),
         ),
       ),
     );

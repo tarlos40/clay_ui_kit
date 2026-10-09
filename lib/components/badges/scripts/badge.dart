@@ -135,19 +135,28 @@ class _ClayBadgeState extends State<ClayBadge> {
       iconSize: 16,
     );
 
-    final badge = AnimatedContainer(
-      duration: const Duration(milliseconds: 160),
-      curve: Curves.easeOutCubic,
-      height: widget.height ?? 32,
-      padding: widget.padding ?? const EdgeInsets.symmetric(horizontal: 10),
-      decoration: BoxDecoration(
-        color: background,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: _pressed
-            ? ClayShadows.external(theme: theme, offset: 1, blur: 3)
-            : ClayShadows.external(theme: theme, offset: 2, blur: 6),
+    final badge = CustomPaint(
+      foregroundPainter: ClayInnerShadowPainter(
+        shadowColor: theme.shadow,
+        lightColor: theme.light,
+        borderRadius: 12,
+        shadowSize: 2.5,
+        blurRadius: 7.0,
       ),
-      child: content,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 160),
+        curve: Curves.easeOutCubic,
+        height: widget.height ?? 32,
+        padding: widget.padding ?? const EdgeInsets.symmetric(horizontal: 10),
+        decoration: BoxDecoration(
+          color: background,
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: _pressed
+              ? ClayShadows.external(theme: theme, offset: 1, blur: 3)
+              : ClayShadows.external(theme: theme, offset: 2, blur: 6),
+        ),
+        child: content,
+      ),
     );
 
     return GestureDetector(

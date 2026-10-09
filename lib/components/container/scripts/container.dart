@@ -12,7 +12,7 @@ class ClayContainer extends StatelessWidget {
   final EdgeInsetsGeometry? padding;
   final EdgeInsetsGeometry? margin;
 
-  final BorderRadiusGeometry borderRadius;
+  final double borderRadius;
 
   final Border? border;
 
@@ -34,7 +34,7 @@ class ClayContainer extends StatelessWidget {
     this.backgroundGradient,
     this.padding,
     this.margin,
-    this.borderRadius = const BorderRadius.all(Radius.circular(20)),
+    this.borderRadius = 20,
     this.border,
     this.boxShadow,
     this.alignment,
@@ -55,22 +55,31 @@ class ClayContainer extends StatelessWidget {
     final shadows =
         boxShadow ?? ClayShadows.external(theme: theme, offset: 3, blur: 8);
 
-    return Container(
-      width: width,
-      height: height,
-      constraints: constraints,
-      margin: margin,
-      alignment: alignment,
-      padding: padding,
-      clipBehavior: clipBehavior,
-      decoration: BoxDecoration(
-        color: backgroundColor ?? theme.container,
-        gradient: backgroundGradient,
+    return CustomPaint(
+      foregroundPainter: ClayInnerShadowPainter(
+        shadowColor: theme.shadow,
+        lightColor: theme.light,
         borderRadius: borderRadius,
-        border: border,
-        boxShadow: shadows,
+        shadowSize: 2.5,
+        blurRadius: 7.0,
       ),
-      child: child,
+      child: Container(
+        width: width,
+        height: height,
+        constraints: constraints,
+        margin: margin,
+        alignment: alignment,
+        padding: padding,
+        clipBehavior: clipBehavior,
+        decoration: BoxDecoration(
+          color: backgroundColor ?? theme.container,
+          gradient: backgroundGradient,
+          borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
+          border: border,
+          boxShadow: shadows,
+        ),
+        child: child,
+      ),
     );
   }
 }

@@ -1,4 +1,6 @@
+import 'package:clay_ui_kit/components/props_table/class/props_table.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:clay_ui_kit/clay_ui_kit.dart';
 
 class LabLayout extends StatefulWidget {
@@ -242,7 +244,74 @@ class _LabLayoutState extends State<LabLayout> {
 
           SizedBox(height: 8),
 
+          ClayMenu(
+            items: [
+              ClayMenuItem(
+                label: 'Copiar',
+                icon: const Icon(Icons.copy_rounded),
+                shortcut: const SingleActivator(
+                  LogicalKeyboardKey.keyC,
+                  control: true,
+                ),
+                onPressed: () {
+                  debugPrint('Copiar');
+                },
+              ),
+
+              ClayMenuItem(
+                label: 'Colar',
+                icon: const Icon(Icons.paste_rounded),
+                shortcut: const SingleActivator(
+                  LogicalKeyboardKey.keyV,
+                  control: true,
+                ),
+                onPressed: () {
+                  debugPrint('Colar');
+                },
+              ),
+
+              const ClayMenuItem.divider(),
+
+              ClayMenuItem(
+                label: 'Deletar',
+                icon: const Icon(Icons.delete_rounded),
+                destructive: true,
+                onPressed: () {},
+              ),
+            ],
+
+            child: ClayButton.primary("Segure", onPressed: () {}),
+          ),
+
           SizedBox(height: 8),
+
+          ClayPropsTable(
+            title: 'Properties',
+            props: [
+              ClayProp(
+                name: 'label',
+                type: 'String?',
+                description: 'Text displayed inside the button.',
+              ),
+
+              ClayProp(
+                name: 'icon',
+                type: 'Widget?',
+                description: 'Optional icon displayed alongside the label.',
+              ),
+            ],
+          ),
+
+          SizedBox(height: 8),
+
+          ClayShowcase(
+            title: 'ClayButton',
+            description: 'A beatiful claymorphic button.',
+            preview: ClayButton.primary('Continue', onPressed: () {}),
+            code: '''
+ClayButton.primary('Continue', onPressed: () {})
+''',
+          ),
         ],
       ),
     );
