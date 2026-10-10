@@ -167,50 +167,13 @@ class _ClayTooltipState extends State<ClayTooltip> {
               targetAnchor: anchors.$1,
               followerAnchor: anchors.$2,
               offset: _offsetForPosition(),
+
               child: Material(
                 color: Colors.transparent,
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(maxWidth: widget.maxWidth),
-                  child: CustomPaint(
-                    foregroundPainter: ClayInnerShadowPainter(
-                      shadowColor: theme.shadow,
-                      lightColor: theme.light,
-                      borderRadius: widget.radius,
-                      shadowSize: 2.5,
-                      blurRadius: 7.0,
-                    ),
-                    child: Container(
-                      padding: widget.padding,
-                      decoration: BoxDecoration(
-                        color: background,
-                        borderRadius: BorderRadius.circular(widget.radius),
-                        boxShadow: ClayShadows.external(
-                          theme: theme,
-                          offset: 3,
-                          blur: 9,
-                        ),
-                      ),
-                      child: DefaultTextStyle(
-                        style: TextStyle(
-                          color: foreground,
-                          fontSize: 12,
-                          height: 1.35,
-                        ),
-                        child: IconTheme(
-                          data: IconThemeData(color: foreground, size: 16),
-                          child:
-                              widget.content ??
-                              ClayText.label(
-                                widget.message!,
-                                color: foreground,
-                                fontWeight: FontWeight.w500,
-                                maxLines: 6,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                        ),
-                      ),
-                    ),
-                  ),
+                child: _buildTooltipContent(
+                  background: background,
+                  foreground: foreground,
+                  theme: theme,
                 ),
               ),
             ),
@@ -252,6 +215,78 @@ class _ClayTooltipState extends State<ClayTooltip> {
     }
   }
 
+  Widget _buildArrow(Color background) {
+    final isVertical =
+        widget.position == ClayTooltipPosition.top ||
+        widget.position == ClayTooltipPosition.bottom;
+
+    return CustomPaint(
+      size: isVertical ? const Size(16, 8) : const Size(8, 16),
+      painter: _ClayTooltipArrowPainter(
+        color: background,
+        position: widget.position,
+      ),
+    );
+  }
+
+  Widget _buildTooltipContent({
+    required Color background,
+    required Color foreground,
+    required dynamic theme,
+  }) {
+    final card = ConstrainedBox(
+      constraints: BoxConstraints(maxWidth: widget.maxWidth),
+      child: CustomPaint(
+        foregroundPainter: ClayInnerShadowPainter(
+          shadowColor: theme.shadow,
+          lightColor: theme.light,
+          borderRadius: widget.radius,
+          shadowSize: 2.5,
+          blurRadius: 7,
+        ),
+        child: Container(
+          padding: widget.padding,
+          decoration: BoxDecoration(
+            color: background,
+            borderRadius: BorderRadius.circular(widget.radius),
+            boxShadow: ClayShadows.external(theme: theme, offset: 3, blur: 9),
+          ),
+          child: DefaultTextStyle(
+            style: TextStyle(color: foreground, fontSize: 12, height: 1.35),
+            child: IconTheme(
+              data: IconThemeData(color: foreground, size: 16),
+              child:
+                  widget.content ??
+                  ClayText.label(
+                    widget.message!,
+                    color: foreground,
+                    fontWeight: FontWeight.w500,
+                    maxLines: 6,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+            ),
+          ),
+        ),
+      ),
+    );
+
+    final arrow = _buildArrow(background);
+
+    switch (widget.position) {
+      case ClayTooltipPosition.top:
+        return Column(mainAxisSize: MainAxisSize.min, children: [card, arrow]);
+
+      case ClayTooltipPosition.bottom:
+        return Column(mainAxisSize: MainAxisSize.min, children: [arrow, card]);
+
+      case ClayTooltipPosition.left:
+        return Row(mainAxisSize: MainAxisSize.min, children: [card, arrow]);
+
+      case ClayTooltipPosition.right:
+        return Row(mainAxisSize: MainAxisSize.min, children: [arrow, card]);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return CompositedTransformTarget(
@@ -277,5 +312,62 @@ class _ClayTooltipState extends State<ClayTooltip> {
     _overlayEntry?.dispose();
 
     super.dispose();
+  }
+}
+
+class _ClayTooltipArrowPainter extends CustomPainter {
+  final Color color;
+  final ClayTooltipPosition position;
+
+  const _ClayTooltipArrowPainter({required this.color, required this.position});
+
+  @override
+  void paint(Canvas canvas, Size canvasSize) {
+    final path = Path();
+
+    switch (position) {
+      case ClayTooltipPosition.top:
+        final halfWidth = canvasSize.width / 2;
+        path
+          ..moveTo(0, 0)
+          ..lineTo(halfWidth, canvasSize.height)
+          ..lineTo(canvasSize.width, 0);
+
+      case ClayTooltipPosition.bottom:
+        final halfWidth = canvasSize.width / 2;
+        path
+          ..moveTo(0, canvasSize.height)
+          ..lineTo(halfWidth, 0)
+          ..lineTo(canvasSize.width, canvasSize.height);
+
+      case ClayTooltipPosition.left:
+        final halfHeight = canvasSize.height / 2;
+        path
+          ..moveTo(0, 0)
+          ..lineTo(canvasSize.width, halfHeight)
+          ..lineTo(0, canvasSize.height);
+
+      case ClayTooltipPosition.right:
+        final halfHeight = canvasSize.height / 2;
+        path
+          ..moveTo(canvasSize.width, 0)
+          ..lineTo(0, halfHeight)
+          ..lineTo(canvasSize.width, canvasSize.height);
+    }
+
+    path.close();
+
+    canvas.drawPath(
+      path,
+      Paint()
+        ..color = color
+        ..style = PaintingStyle.fill
+        ..isAntiAlias = true,
+    );
+  }
+
+  @override
+  bool shouldRepaint(covariant _ClayTooltipArrowPainter oldDelegate) {
+    return oldDelegate.color != color || oldDelegate.position != position;
   }
 }

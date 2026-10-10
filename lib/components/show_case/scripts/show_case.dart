@@ -70,7 +70,7 @@ class _ClayShowcaseState extends State<ClayShowcase> {
           decoration: BoxDecoration(
             color: theme.container,
             borderRadius: BorderRadius.circular(24),
-            boxShadow: ClayShadows.external(theme: theme, offset: 3, blur: 10),
+            boxShadow: ClayShadows.external(theme: theme, offset: 1, blur: 4),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -144,7 +144,7 @@ class _ClayShowcaseState extends State<ClayShowcase> {
           decoration: BoxDecoration(
             color: theme.background,
             borderRadius: BorderRadius.circular(18),
-            boxShadow: ClayShadows.external(theme: theme, offset: 2, blur: 5),
+            boxShadow: ClayShadows.external(theme: theme, offset: 1, blur: 4),
           ),
           child: Center(child: widget.preview),
         ),

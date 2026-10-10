@@ -1,4 +1,3 @@
-import 'package:clay_ui_kit/components/props_table/class/props_table.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:clay_ui_kit/clay_ui_kit.dart';
@@ -11,6 +10,16 @@ class LabLayout extends StatefulWidget {
 }
 
 class _LabLayoutState extends State<LabLayout> {
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      ClayToast.init(context);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -224,7 +233,7 @@ class _LabLayoutState extends State<LabLayout> {
 
           SizedBox(height: 8),
 
-          ClayBadge(label: 'Testando badge', onClose: () {}),
+          ClayBadge(label: 'Testando badge', onClose: () {}, onPressed: () {}),
 
           SizedBox(height: 8),
 
@@ -341,7 +350,6 @@ ClayButton.primary('Continue', onPressed: () {})
                 actions: [
                   ClayButton.success('Continuar', onPressed: () {}),
                   ClayButton.warning('Atenção', onPressed: () {}),
-                  ClayButton.error('Excluir', onPressed: () {}),
                 ],
               );
             },
@@ -356,6 +364,43 @@ ClayButton.primary('Continue', onPressed: () {})
               onPressed: () {},
             ),
           ),
+
+          SizedBox(height: 8),
+
+          ClayButton.primary(
+            'Abrir sheet',
+            onPressed: () {
+              ClaySheet.show(
+                context,
+                initialSnapPoint: 0.5,
+                snapPoints: const [0.25, 0.5, 0.9],
+                child: const Center(child: Text('Conteúdo do painel')),
+              );
+            },
+          ),
+
+          SizedBox(height: 8),
+
+          ClayButton.primary(
+            'Toast',
+            onPressed: () {
+              ClayToast.primary(
+                'Alterações salvas!',
+                title: 'Tudo certo',
+                showTimer: true,
+              );
+            },
+          ),
+
+          //TOAST PERSISTENTE
+          //           final id = ClayToast.base(
+          //   'Esta mensagem ficará na tela '
+          //   'até o usuário fechá-la.',
+          //   duration: null,
+          // );
+
+          // // Fechar quando necessário:
+          // ClayToast.dismiss(id);
         ],
       ),
     );

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../../../app/scripts/context.dart';
 import '../../../components/texts/scripts/text.dart';
 import '../../../theme/scripts/shadows.dart';
-import '../../../palette/types/colors.dart';
 
 class ClayInput extends StatefulWidget {
   final TextEditingController? controller;
@@ -202,7 +201,7 @@ class _ClayInputState extends State<ClayInput>
   Widget build(BuildContext context) {
     final theme = context.clayTheme;
 
-    final errorColor = widget.errorColor ?? ClayColors.ruby;
+    final errorColor = widget.errorColor ?? theme.error;
 
     final background = widget.backgroundColor ?? theme.container;
 
@@ -245,7 +244,7 @@ class _ClayInputState extends State<ClayInput>
                 lightColor: theme.light,
                 borderRadius: widget.borderRadius,
                 shadowSize: _focused || _hasError ? 2.5 : 2,
-                blurRadius: _focused || _hasError ? 7 : 8,
+                blurRadius: _focused || _hasError ? 7 : 7,
               ),
               child: ClipRRect(
                 borderRadius: borderRadius,
@@ -317,7 +316,7 @@ class _ClayInputState extends State<ClayInput>
       ];
     }
 
-    return ClayShadows.external(theme: theme, offset: 2, blur: 6);
+    return ClayShadows.external(theme: theme, offset: 1, blur: 4);
   }
 
   Widget _buildTextField(

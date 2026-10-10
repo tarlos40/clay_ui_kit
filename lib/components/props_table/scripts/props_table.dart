@@ -45,7 +45,7 @@ class ClayPropsTable extends StatelessWidget {
           decoration: BoxDecoration(
             color: theme.container,
             borderRadius: BorderRadius.circular(22),
-            boxShadow: ClayShadows.external(theme: theme, offset: 3, blur: 10),
+            boxShadow: ClayShadows.external(theme: theme, offset: 1, blur: 4),
           ),
           padding: padding,
           child: Column(

@@ -148,10 +148,9 @@ class _ClayModalContent extends StatelessWidget {
 
               if (showCloseButton)
                 ClayButton.icon(
-                  Icon(
-                    Icons.close_rounded,
-                    color: foreground.withValues(alpha: 0.7),
-                  ),
+                  Icon(Icons.close_rounded),
+                  backgroundColor: theme.error,
+                  iconColor: theme.onError,
                   onPressed: () => Navigator.of(context).maybePop(),
                   size: ClayButtonSize.small,
                 ),
@@ -200,24 +199,28 @@ class _ClayModalContent extends StatelessWidget {
           maxHeight: MediaQuery.sizeOf(context).height * 0.85,
         ),
         child: CustomPaint(
-      foregroundPainter: ClayInnerShadowPainter(
-        shadowColor: theme.shadow,
-        lightColor: theme.light,
-        borderRadius: radius,
-        shadowSize: 2.5,
-        blurRadius: 7.0,
-      ),
-      child: Container(
-          width: double.infinity,
-          padding: padding,
-          decoration: BoxDecoration(
-            color: background,
-            borderRadius: BorderRadius.circular(radius),
-            boxShadow: ClayShadows.external(theme: theme, offset: 5, blur: 18),
+          foregroundPainter: ClayInnerShadowPainter(
+            shadowColor: theme.shadow,
+            lightColor: theme.light,
+            borderRadius: radius,
+            shadowSize: 2.5,
+            blurRadius: 7.0,
           ),
-          child: content,
+          child: Container(
+            width: double.infinity,
+            padding: padding,
+            decoration: BoxDecoration(
+              color: background,
+              borderRadius: BorderRadius.circular(radius),
+              boxShadow: ClayShadows.external(
+                theme: theme,
+                offset: 5,
+                blur: 18,
+              ),
+            ),
+            child: content,
+          ),
         ),
-      ),
       ),
     );
   }

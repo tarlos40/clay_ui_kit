@@ -53,7 +53,7 @@ class ClayContainer extends StatelessWidget {
     final theme = context.clayTheme;
 
     final shadows =
-        boxShadow ?? ClayShadows.external(theme: theme, offset: 3, blur: 8);
+        boxShadow ?? ClayShadows.external(theme: theme, offset: 2.5, blur: 7);
 
     return CustomPaint(
       foregroundPainter: ClayInnerShadowPainter(

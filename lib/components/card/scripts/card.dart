@@ -336,7 +336,7 @@ class _ClayCardState extends State<ClayCard> {
       child: CustomPaint(
         foregroundPainter: ClayInnerShadowPainter(
           shadowColor: theme.shadow,
-          lightColor: theme.light,
+          lightColor: _pressed ? theme.shadow : theme.light,
           borderRadius: widget.borderRadius,
           shadowSize: 2.5,
           blurRadius: 7.0,
@@ -361,7 +361,7 @@ class _ClayCardState extends State<ClayCard> {
                 Radius.circular(widget.borderRadius),
               ),
               border: widget.border,
-              boxShadow: shadows,
+              boxShadow: _pressed ? [] : shadows,
             ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -603,33 +603,31 @@ class _ClayCardActionState extends State<_ClayCardAction> {
   Widget build(BuildContext context) {
     final theme = context.clayTheme;
 
-    return GestureDetector(
-      behavior: HitTestBehavior.opaque,
-      onTapDown: (_) => _handleTapDown(),
-      onTapUp: (_) => _handleTapUp(),
-      onTapCancel: _handleTapCancel,
-      child: AnimatedScale(
-        scale: _pressed ? 0.92 : 1,
-        duration: const Duration(milliseconds: 120),
-        curve: Curves.easeOutCubic,
-        child: CustomPaint(
-          foregroundPainter: ClayInnerShadowPainter(
-            shadowColor: theme.shadow,
-            lightColor: theme.light,
-            borderRadius: 100,
-            shadowSize: _pressed ? 1.5 : 2,
-            blurRadius: _pressed ? 4 : 7,
-          ),
+    return CustomPaint(
+      foregroundPainter: ClayInnerShadowPainter(
+        shadowColor: theme.shadow,
+        lightColor: _pressed ? theme.shadow : theme.light,
+        borderRadius: 100,
+        shadowSize: 2.5,
+        blurRadius: 7.0,
+      ),
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTapDown: (_) => _handleTapDown(),
+        onTapUp: (_) => _handleTapUp(),
+        onTapCancel: _handleTapCancel,
+        child: AnimatedScale(
+          scale: _pressed ? 0.97 : 1,
+          duration: const Duration(milliseconds: 120),
+          curve: Curves.easeOutCubic,
           child: Container(
             padding: widget.padding,
             decoration: BoxDecoration(
               color: theme.container,
               borderRadius: BorderRadius.circular(100),
-              boxShadow: ClayShadows.external(
-                theme: theme,
-                offset: _pressed ? 1 : 2,
-                blur: _pressed ? 3 : 6,
-              ),
+              boxShadow: _pressed
+                  ? []
+                  : ClayShadows.external(theme: theme, offset: 2, blur: 6),
             ),
             child: IconTheme(
               data: IconThemeData(color: theme.onContainer, size: 20),

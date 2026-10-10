@@ -236,7 +236,6 @@ class _ClayBadgeState extends State<ClayBadge> {
     BuildContext context, {
     required Color foreground,
   }) {
-    // Custom content has priority.
     if (widget.child != null) {
       return Center(child: widget.child!);
     }
@@ -351,6 +350,7 @@ class _ClayBadgeState extends State<ClayBadge> {
     required Color foreground,
     required double iconSize,
   }) {
+    final theme = context.clayTheme;
     final content = <Widget>[];
 
     if (widget.icon != null) {
@@ -386,17 +386,40 @@ class _ClayBadgeState extends State<ClayBadge> {
 
     if (widget.onClose != null) {
       if (content.isNotEmpty) {
-        content.add(const SizedBox(width: 5));
+        content.add(const SizedBox(width: 4));
       }
 
       content.add(
-        GestureDetector(
-          behavior: HitTestBehavior.opaque,
-          onTap: _close,
-          child: Icon(
-            Icons.close_rounded,
-            size: iconSize * 0.85,
-            color: foreground.withValues(alpha: 0.75),
+        CustomPaint(
+          foregroundPainter: ClayInnerShadowPainter(
+            shadowColor: theme.shadow,
+            lightColor: _pressed ? theme.shadow : theme.light,
+            borderRadius: 100,
+            shadowSize: 2.5,
+            blurRadius: 7.0,
+          ),
+          child: GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: _close,
+            child: AnimatedScale(
+              scale: _pressed ? 0.97 : 1,
+              duration: const Duration(milliseconds: 120),
+              curve: Curves.easeOutCubic,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: theme.error,
+                  borderRadius: BorderRadius.circular(100),
+                  boxShadow: _pressed
+                      ? []
+                      : ClayShadows.external(theme: theme, offset: 2, blur: 6),
+                ),
+                child: Icon(
+                  Icons.close_rounded,
+                  size: iconSize * 0.85,
+                  color: theme.onError,
+                ),
+              ),
+            ),
           ),
         ),
       );

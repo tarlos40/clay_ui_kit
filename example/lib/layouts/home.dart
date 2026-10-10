@@ -11,8 +11,6 @@ class HomeLayout extends StatefulWidget {
 class _HomeLayoutState extends State<HomeLayout> {
   @override
   Widget build(BuildContext context) {
-    final theme = context.clayTheme;
-
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,

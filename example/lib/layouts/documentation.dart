@@ -11,8 +11,6 @@ class DocumentationLayout extends StatefulWidget {
 class _DocumentationLayoutState extends State<DocumentationLayout> {
   @override
   Widget build(BuildContext context) {
-    final theme = context.clayTheme;
-
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,

@@ -49,8 +49,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.clayTheme;
-
     return ClayScaffold(
       useScrollView: true,
 
