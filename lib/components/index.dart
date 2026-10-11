@@ -12,3 +12,5 @@ export './modal/scripts/modal.dart';
 export './tooltip/index.dart';
 export './sheet/index.dart';
 export './toast/index.dart';
+export './progress/scripts/progress.dart';
+export './table/scripts/table.dart';

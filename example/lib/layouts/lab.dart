@@ -384,12 +384,49 @@ ClayButton.primary('Continue', onPressed: () {})
           ClayButton.primary(
             'Toast',
             onPressed: () {
-              ClayToast.primary(
+              ClayToast.success(
                 'Alterações salvas!',
                 title: 'Tudo certo',
                 showTimer: true,
               );
             },
+          ),
+
+          SizedBox(height: 8),
+
+          ClayProgress.bar(value: 0.68, showPercentage: true),
+
+          SizedBox(height: 8),
+
+          ClayProgress.circle(value: 0.72, showPercentage: true),
+
+          SizedBox(height: 8),
+
+          ClayProgress.wave(value: 0.55),
+
+          SizedBox(height: 8),
+
+          ClayTable<Map<String, dynamic>>(
+            columns: [
+              ClayTableColumn<Map<String, dynamic>>(
+                id: 'name',
+                title: 'Nome',
+                sortable: true,
+                sortValue: (row) => row['name'],
+                cellBuilder: (context, row) => Text(row['name']),
+              ),
+              ClayTableColumn<Map<String, dynamic>>(
+                id: 'old',
+                title: 'Idade',
+                sortable: true,
+                sortValue: (row) => row['old'],
+                cellBuilder: (context, row) => Text(row['old']),
+              ),
+            ],
+            rows: [
+              {'name': 'Ana', 'old': '18'},
+              {'name': 'Bruno', 'old': '20'},
+            ],
           ),
 
           //TOAST PERSISTENTE
