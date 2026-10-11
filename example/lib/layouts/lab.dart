@@ -10,6 +10,8 @@ class LabLayout extends StatefulWidget {
 }
 
 class _LabLayoutState extends State<LabLayout> {
+  int _currentPage = 1;
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -392,6 +394,15 @@ ClayButton.primary('Continue', onPressed: () {})
             },
           ),
 
+          //TOAST PERSISTENTE
+          //           final id = ClayToast.base(
+          //   'Esta mensagem ficará na tela '
+          //   'até o usuário fechá-la.',
+          //   duration: null,
+          // );
+
+          // // Fechar quando necessário:
+          // ClayToast.dismiss(id);
           SizedBox(height: 8),
 
           ClayProgress.bar(value: 0.68, showPercentage: true),
@@ -429,15 +440,20 @@ ClayButton.primary('Continue', onPressed: () {})
             ],
           ),
 
-          //TOAST PERSISTENTE
-          //           final id = ClayToast.base(
-          //   'Esta mensagem ficará na tela '
-          //   'até o usuário fechá-la.',
-          //   duration: null,
-          // );
+          SizedBox(height: 8),
 
-          // // Fechar quando necessário:
-          // ClayToast.dismiss(id);
+          ClayPagination(
+            currentPage: _currentPage,
+            totalPages: 10,
+            visiblePages: 5,
+            showFirstLast: true,
+            showPreviousNext: true,
+            onPageChanged: (page) {
+              setState(() => _currentPage = page);
+            },
+          ),
+
+          SizedBox(height: 8),
         ],
       ),
     );

@@ -51,6 +51,10 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return ClayScaffold(
       useScrollView: true,
+      useRefreshIndicator: true,
+      onRefresh: () async {
+        debugPrint("Recarregado");
+      },
 
       clayDrawer: ClayDrawer(
         children: [
@@ -118,6 +122,37 @@ class _MyHomePageState extends State<MyHomePage> {
             onPressed: () {},
           ),
         ],
+      ),
+
+      clayTabs: ClayTabs(
+        index: currentIndex,
+        showContent: false,
+        style: ClayTabsStyle.pills,
+        tabs: [
+          ClayTabItem(
+            label: 'Home',
+            icon: const Icon(Icons.home_rounded),
+            child: HomeLayout(),
+          ),
+          ClayTabItem(
+            label: 'Documentation',
+            icon: const Icon(Icons.import_contacts_rounded),
+            child: DocumentationLayout(),
+          ),
+          ClayTabItem(
+            label: 'Components',
+            icon: const Icon(Icons.layers_rounded),
+            child: ComponentsLayout(),
+          ),
+          ClayTabItem(
+            label: 'Lab',
+            icon: const Icon(Icons.science_rounded),
+            child: LabLayout(),
+          ),
+        ],
+        onChanged: (index) {
+          setState(() => currentIndex = index);
+        },
       ),
 
       body: IndexedStack(

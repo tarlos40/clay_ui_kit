@@ -1,0 +1,1 @@
+enum ClayTabsStyle { pills, underline, segmented }

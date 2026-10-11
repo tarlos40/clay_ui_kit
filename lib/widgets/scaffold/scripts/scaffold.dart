@@ -6,6 +6,8 @@ import '../../navigationbar/scripts/navigationbar.dart';
 import '../scripts/background.dart';
 import '../../fab/scripts/fab.dart';
 import '../../drawer/scripts/drawer.dart';
+import '../../tabs/scripts/tabs.dart';
+import '../../refresh_indicator/scripts/refresh_indicator.dart';
 
 class ClayScaffold extends StatefulWidget {
   final Color? backgroundColor;
@@ -13,6 +15,7 @@ class ClayScaffold extends StatefulWidget {
 
   final ClayDrawer? clayDrawer;
   final ClayAppBar? clayAppBar;
+  final ClayTabs? clayTabs;
   final Widget? body;
   final ClayNavigationBar? clayNavigationBar;
   final ClayFloatingActionButton? clayFloatingActionButton;
@@ -23,6 +26,7 @@ class ClayScaffold extends StatefulWidget {
   final double? padding;
   final RefreshCallback? onRefresh;
   final bool useRefreshIndicator, useScrollView;
+  final double triggerDistance, indicatorSize;
 
   const ClayScaffold({
     super.key,
@@ -30,6 +34,7 @@ class ClayScaffold extends StatefulWidget {
     this.backgroundGradient,
     this.clayDrawer,
     this.clayAppBar,
+    this.clayTabs,
     this.body,
     this.clayNavigationBar,
     this.clayFloatingActionButton,
@@ -39,6 +44,8 @@ class ClayScaffold extends StatefulWidget {
     this.onRefresh,
     this.useRefreshIndicator = false,
     this.useScrollView = false,
+    this.triggerDistance = 80,
+    this.indicatorSize = 48,
   }) : assert(
          backgroundColor == null || backgroundGradient == null,
          "Cannot provide both backgroundColor and backgroundGradient. Please choose one.",
@@ -79,31 +86,44 @@ class _ClayScaffoldState extends State<ClayScaffold> {
   }
 
   Widget _buildBody(BuildContext context) {
-    Widget body = widget.body ?? const SizedBox.shrink();
+    Widget content = widget.body ?? const SizedBox.shrink();
 
-    final shouldScroll = widget.useScrollView || widget.useRefreshIndicator;
-
-    if (shouldScroll) {
-      body = SingleChildScrollView(
-        physics: const AlwaysScrollableScrollPhysics(),
+    if (widget.useScrollView) {
+      content = SingleChildScrollView(
+        physics: const BouncingScrollPhysics(
+          parent: AlwaysScrollableScrollPhysics(),
+        ),
         padding: EdgeInsets.only(
           left: widget.padding ?? 12,
           right: widget.padding ?? 12,
           bottom: 8,
         ),
-        child: body,
+        child: content,
       );
     }
 
     if (widget.useRefreshIndicator) {
-      body = RefreshIndicator(
+      content = ClayRefreshIndicator(
         onRefresh: widget.onRefresh!,
+        triggerDistance: widget.triggerDistance,
+        indicatorSize: widget.indicatorSize,
         backgroundColor: context.clayTheme.container,
         color: context.clayTheme.primary,
-        child: body,
+        enabled: true,
+        child: content,
       );
     }
 
-    return body;
+    if (widget.clayTabs == null) {
+      return content;
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        widget.clayTabs!,
+        Expanded(child: content),
+      ],
+    );
   }
 }
