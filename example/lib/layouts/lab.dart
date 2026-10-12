@@ -454,6 +454,60 @@ ClayButton.primary('Continue', onPressed: () {})
           ),
 
           SizedBox(height: 8),
+
+          ClayBreadcrumbs(
+            showHomeIcon: true,
+            items: [
+              ClayBreadcrumbItem(label: 'Início', onTap: () {}),
+              ClayBreadcrumbItem(label: 'Componentes', onTap: () {}),
+              ClayBreadcrumbItem(label: 'Navegação', onTap: () {}),
+            ],
+          ),
+
+          SizedBox(height: 8),
+
+          ClayAccordion(
+            allowMultiple: false,
+            items: [
+              ClayAccordionItem(
+                title: 'Configurações',
+                subtitle: 'Preferências da conta',
+                content: const Text('Conteúdo da seção.'),
+              ),
+            ],
+          ),
+
+          SizedBox(height: 8),
+
+          const Column(
+            children: [
+              ClaySkeleton(width: double.infinity, height: 140),
+              SizedBox(height: 12),
+              ClaySkeletonListTile(),
+            ],
+          ),
+
+          SizedBox(height: 8),
+
+          const ClayLoading(
+            label: 'Carregando dados...',
+            icon: Icon(Icons.cloud_download_rounded),
+            style: ClayLoadingStyle.orbit,
+          ),
+
+          SizedBox(height: 8),
+
+          ClayButton.primary(
+            'Loading',
+            onPressed: () async {
+              ClayLoading.show(
+                context,
+                label: 'Salvando alterações...',
+                style: ClayLoadingStyle.orbit,
+                barrierDismissible: true,
+              );
+            },
+          ),
         ],
       ),
     );

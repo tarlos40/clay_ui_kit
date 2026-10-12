@@ -1,0 +1,1 @@
+enum ClayLoadingStyle { orbit, dots, pulse }

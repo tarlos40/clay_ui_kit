@@ -1,0 +1,1 @@
+enum ClaySkeletonShape { rectangle, circle, pill }

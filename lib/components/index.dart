@@ -15,3 +15,7 @@ export './toast/index.dart';
 export './progress/scripts/progress.dart';
 export './table/scripts/table.dart';
 export './pagination/scripts/pagination.dart';
+export './accordion/scripts/accordion.dart';
+export './breadcrumbs/scripts/breadcrumbs.dart';
+export './skeleton/index.dart';
+export './loading/index.dart';
