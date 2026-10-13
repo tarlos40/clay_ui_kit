@@ -46,10 +46,12 @@ class ClayAvatar extends StatelessWidget {
     required List<ClayAvatar> children,
     double overlap = 12,
     MainAxisAlignment alignment = MainAxisAlignment.start,
+    int? maxVisible,
   }) {
     return ClayAvatarGroup(
       overlap: overlap,
       alignment: alignment,
+      maxVisible: maxVisible,
       children: children,
     );
   }
@@ -201,17 +203,21 @@ class ClayAvatar extends StatelessWidget {
 
 class ClayAvatarGroup extends StatelessWidget {
   final List<ClayAvatar> children;
-
   final double overlap;
-
   final MainAxisAlignment alignment;
+  final int? maxVisible;
 
   const ClayAvatarGroup({
     super.key,
     required this.children,
     this.overlap = 12,
     this.alignment = MainAxisAlignment.start,
-  }) : assert(overlap >= 0, 'ClayAvatarGroup: overlap cannot be negative.');
+    this.maxVisible,
+  }) : assert(overlap >= 0, 'ClayAvatarGroup: overlap cannot be negative.'),
+       assert(
+         maxVisible == null || maxVisible > 0,
+         'ClayAvatarGroup: maxVisible must be greater than zero.',
+       );
 
   @override
   Widget build(BuildContext context) {
@@ -219,28 +225,83 @@ class ClayAvatarGroup extends StatelessWidget {
       return const SizedBox.shrink();
     }
 
-    if (children.length == 1) {
+    final avatarSize = children.first.dimension;
+    final limit = maxVisible ?? children.length;
+    final hasOverflow = children.length > limit;
+
+    final visibleAvatarCount = hasOverflow ? limit : children.length;
+    final visibleCount = visibleAvatarCount + (hasOverflow ? 1 : 0);
+
+    if (visibleCount == 1 && !hasOverflow) {
       return children.first;
     }
 
-    final avatarSize = children.first.dimension;
-
     final itemWidth = avatarSize - overlap;
-
-    final width = avatarSize + ((children.length - 1) * itemWidth);
+    final width = avatarSize + ((visibleCount - 1) * itemWidth);
 
     return SizedBox(
       width: width,
       height: avatarSize,
       child: Stack(
         clipBehavior: Clip.none,
-        children: List.generate(children.length, (index) {
-          return Positioned(
-            left: index * itemWidth,
-            top: 0,
-            child: children[index],
-          );
-        }),
+        children: [
+          for (var index = 0; index < visibleAvatarCount; index++)
+            Positioned(left: index * itemWidth, top: 0, child: children[index]),
+
+          if (hasOverflow)
+            Positioned(
+              left: visibleAvatarCount * itemWidth,
+              top: 0,
+              child: _buildOverflowAvatar(
+                context,
+                size: avatarSize,
+                remaining: children.length - visibleAvatarCount,
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildOverflowAvatar(
+    BuildContext context, {
+    required double size,
+    required int remaining,
+  }) {
+    final theme = context.clayTheme;
+
+    return Container(
+      width: size,
+      height: size,
+      decoration: BoxDecoration(
+        color: theme.primary,
+        shape: BoxShape.circle,
+        boxShadow: ClayShadows.external(theme: theme, offset: 2, blur: 5),
+      ),
+      child: CustomPaint(
+        foregroundPainter: ClayInnerShadowPainter(
+          shadowColor: theme.shadow,
+          lightColor: theme.light,
+          borderRadius: size / 2,
+          shadowSize: 2,
+          blurRadius: 5,
+        ),
+        child: Center(
+          child: FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Padding(
+              padding: const EdgeInsets.all(4),
+              child: Text(
+                '+$remaining',
+                style: TextStyle(
+                  color: theme.onPrimary,
+                  fontSize: size * 0.30,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }

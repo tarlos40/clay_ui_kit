@@ -170,6 +170,34 @@ class _LabLayoutState extends State<LabLayout> {
 
           SizedBox(height: 8),
 
+          ClayInput.search(
+            label: 'Pesquisar lutadores',
+            hintText: 'Digite um nome...',
+            suggestions: const [
+              ClaySearchSuggestion(
+                title: 'Alex Pereira',
+                subtitle: 'Peso meio-pesado',
+                leading: Icon(Icons.sports_mma_rounded),
+              ),
+              ClaySearchSuggestion(
+                title: 'Jon Jones',
+                subtitle: 'Peso-pesado',
+                leading: Icon(Icons.sports_mma_rounded),
+              ),
+            ],
+            onQueryChanged: (query) {
+              // Atualiza os resultados enquanto digita.
+            },
+            onSuggestionSelected: (suggestion) {
+              // Trata a sugestão selecionada.
+            },
+            onSearch: (query) {
+              // Executa a pesquisa.
+            },
+          ),
+
+          SizedBox(height: 8),
+
           ClayContainer(
             padding: const EdgeInsets.all(20),
             child: Column(children: [Text('Qualquer coisa'), Icon(Icons.star)]),
@@ -260,10 +288,13 @@ class _LabLayoutState extends State<LabLayout> {
 
           ClayAvatar.group(
             overlap: 24,
+            maxVisible: 3,
             children: [
               ClayAvatar(name: 'Carlos Eduardo', randomColor: true),
               ClayAvatar(name: 'João Silva', randomColor: true),
-              ClayAvatar(name: 'Maria Souza', randomColor: true),
+              ClayAvatar(name: 'Maria Socorro', randomColor: true),
+              ClayAvatar(name: 'Mario José', randomColor: true),
+              ClayAvatar(name: 'João Alecrim', randomColor: true),
             ],
           ),
 

@@ -23,7 +23,6 @@ class _MyAppState extends State<MyApp> {
     return ClayApp(
       clayThemeData: ClayThemeData(seedColor: ClayColors.cobalt, isDark: false),
       home: const MyHomePage(title: "Clay App"),
-      debugShowCheckedModeBanner: false,
     );
   }
 }
@@ -52,6 +51,9 @@ class _MyHomePageState extends State<MyHomePage> {
     return ClayScaffold(
       useScrollView: true,
       useRefreshIndicator: true,
+      hideNavigationBarOnScroll: true,
+      hideAppBarOnScroll: true,
+      hideTabsOnScroll: true,
       onRefresh: () async {
         debugPrint("Recarregado");
       },
@@ -127,6 +129,7 @@ class _MyHomePageState extends State<MyHomePage> {
       clayTabs: ClayTabs(
         index: currentIndex,
         showContent: false,
+        swipeable: true,
         style: ClayTabsStyle.pills,
         tabs: [
           ClayTabItem(
@@ -178,6 +181,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
 
       clayNavigationBar: ClayNavigationBar(
+        swipeable: true,
         selectedIndex: currentIndex,
         onDestinationSelected: (index) {
           setState(() {

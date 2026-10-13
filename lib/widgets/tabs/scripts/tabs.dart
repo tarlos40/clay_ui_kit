@@ -13,7 +13,6 @@ class ClayTabItem {
     this.enabled = true,
     this.badge,
   });
-
   final String label;
   final Widget child;
   final Widget? icon;
@@ -33,6 +32,8 @@ class ClayTabs extends StatefulWidget {
     this.isScrollable = true,
     this.expand = false,
     this.showContent = true,
+    this.swipeable = true,
+    this.swipeVelocityThreshold = 350,
     this.contentPadding = EdgeInsets.zero,
     this.tabPadding = const EdgeInsets.symmetric(horizontal: 16, vertical: 11),
     this.spacing = 6,
@@ -45,7 +46,6 @@ class ClayTabs extends StatefulWidget {
   }) : assert(tabs.length > 0, 'ClayTabs requires at least one tab.'),
        assert(initialIndex >= 0),
        assert(index == null || index >= 0);
-
   final List<ClayTabItem> tabs;
   final int? index;
   final int initialIndex;
@@ -54,6 +54,8 @@ class ClayTabs extends StatefulWidget {
   final bool isScrollable;
   final bool expand;
   final bool showContent;
+  final bool swipeable;
+  final double swipeVelocityThreshold;
   final EdgeInsetsGeometry contentPadding;
   final EdgeInsetsGeometry tabPadding;
   final double spacing;
@@ -63,7 +65,6 @@ class ClayTabs extends StatefulWidget {
   final Color? backgroundColor;
   final Color? selectedForegroundColor;
   final Color? foregroundColor;
-
   @override
   State<ClayTabs> createState() => _ClayTabsState();
 }
@@ -73,7 +74,6 @@ class _ClayTabsState extends State<ClayTabs> {
 
   int get _index =>
       (widget.index ?? _selectedIndex).clamp(0, widget.tabs.length - 1).toInt();
-
   @override
   void initState() {
     super.initState();
@@ -92,6 +92,38 @@ class _ClayTabsState extends State<ClayTabs> {
     }
     if (_selectedIndex >= widget.tabs.length) {
       _selectedIndex = widget.tabs.length - 1;
+    }
+  }
+
+  double _dragDistance = 0;
+
+  void _handleSwipe(DragEndDetails details) {
+    if (!widget.swipeable) return;
+
+    final distance = _dragDistance;
+    final velocity = details.primaryVelocity ?? 0;
+
+    _dragDistance = 0;
+
+    final movedEnough = distance.abs() >= 40;
+    final fastEnough = velocity.abs() >= widget.swipeVelocityThreshold;
+
+    if (!movedEnough && !fastEnough) return;
+
+    final direction = movedEnough
+        ? (distance < 0 ? 1 : -1)
+        : (velocity < 0 ? 1 : -1);
+
+    var nextIndex = _index + direction;
+
+    while (nextIndex >= 0 &&
+        nextIndex < widget.tabs.length &&
+        !widget.tabs[nextIndex].enabled) {
+      nextIndex += direction;
+    }
+
+    if (nextIndex >= 0 && nextIndex < widget.tabs.length) {
+      _select(nextIndex);
     }
   }
 
@@ -143,7 +175,6 @@ class _ClayTabsState extends State<ClayTabs> {
         ],
       ],
     );
-
     final tabBar = widget.style == ClayTabsStyle.segmented
         ? Container(
             padding: const EdgeInsets.all(4),
@@ -166,7 +197,6 @@ class _ClayTabsState extends State<ClayTabs> {
             child: tabs,
           )
         : tabs;
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisSize: MainAxisSize.min,
@@ -182,23 +212,37 @@ class _ClayTabsState extends State<ClayTabs> {
           SizedBox(height: widget.style == ClayTabsStyle.underline ? 12 : 16),
           Padding(
             padding: widget.contentPadding,
-            child: AnimatedSwitcher(
-              duration: widget.animationDuration,
-              switchInCurve: Curves.easeOutCubic,
-              switchOutCurve: Curves.easeInCubic,
-              transitionBuilder: (child, animation) => FadeTransition(
-                opacity: animation,
-                child: SlideTransition(
-                  position: Tween<Offset>(
-                    begin: const Offset(0.015, 0.025),
-                    end: Offset.zero,
-                  ).animate(animation),
-                  child: child,
+            child: GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onHorizontalDragStart: widget.swipeable
+                  ? (_) => _dragDistance = 0
+                  : null,
+              onHorizontalDragUpdate: widget.swipeable
+                  ? (details) {
+                      _dragDistance += details.delta.dx;
+                    }
+                  : null,
+              onHorizontalDragEnd: widget.swipeable ? _handleSwipe : null,
+              child: AnimatedSwitcher(
+                duration: widget.animationDuration,
+                switchInCurve: Curves.easeOutCubic,
+                switchOutCurve: Curves.easeInCubic,
+                transitionBuilder: (child, animation) {
+                  return FadeTransition(
+                    opacity: animation,
+                    child: SlideTransition(
+                      position: Tween<Offset>(
+                        begin: const Offset(0.08, 0),
+                        end: Offset.zero,
+                      ).animate(animation),
+                      child: child,
+                    ),
+                  );
+                },
+                child: KeyedSubtree(
+                  key: ValueKey<int>(_index),
+                  child: widget.tabs[_index].child,
                 ),
-              ),
-              child: KeyedSubtree(
-                key: ValueKey<int>(_index),
-                child: widget.tabs[_index].child,
               ),
             ),
           ),
@@ -221,7 +265,6 @@ class _ClayTabsState extends State<ClayTabs> {
     final isUnderline = widget.style == ClayTabsStyle.underline;
     final isSegmented = widget.style == ClayTabsStyle.segmented;
     final activeBackground = isUnderline ? Colors.transparent : selectedColor;
-
     return Semantics(
       button: true,
       selected: selected,

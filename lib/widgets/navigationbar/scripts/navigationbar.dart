@@ -14,6 +14,8 @@ class ClayNavigationBar extends StatelessWidget {
       indicatorColor,
       onIndicatorColor,
       onUnindicatorColor;
+  final bool swipeable;
+  final double swipeVelocityThreshold;
 
   const ClayNavigationBar({
     super.key,
@@ -24,6 +26,8 @@ class ClayNavigationBar extends StatelessWidget {
     this.indicatorColor,
     this.onIndicatorColor,
     this.onUnindicatorColor,
+    this.swipeable = true,
+    this.swipeVelocityThreshold = 350,
   }) : icon = null,
        label = null;
 
@@ -34,7 +38,9 @@ class ClayNavigationBar extends StatelessWidget {
       backgroundColor = null,
       indicatorColor = null,
       onIndicatorColor = null,
-      onUnindicatorColor = null;
+      onUnindicatorColor = null,
+      swipeable = false,
+      swipeVelocityThreshold = 350;
 
   static void _emptyCallback(int index) {}
 
