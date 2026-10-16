@@ -1,39 +1,50 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# 🧱 Clay UI Kit
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages).
+A modern Flutter UI library inspired by the **Claymorphism** design style, focused on creating beautiful, consistent, and customizable user interfaces.
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages).
--->
+## ✨ Features
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+- 🎨 Claymorphism-inspired design system.
+- 🧩 Collection of reusable UI components.
+- 🌈 Customizable themes and colors.
+- 🌓 Support for personalized visual styles.
+- 📱 Built with Flutter and Dart.
+- ⚡ Designed for flexible and consistent UI development.
 
-## Features
+## 📦 Installation
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+Add `clay_ui_kit` to your Flutter project using the following command:
 
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
-
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
-
-```dart
-const like = 'sample';
+```bash
+flutter pub add clay_ui_kit
 ```
 
-## Additional information
+Alternatively, add the dependency directly to your `pubspec.yaml`:
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+```yaml
+dependencies:
+  clay_ui_kit: ^<version>
+```
+
+Replace `<version>` with the latest version available on [pub.dev](https://pub.dev).
+
+Then install the dependencies:
+
+```bash
+flutter pub get
+```
+
+## 📋 Requirements
+
+- Flutter SDK
+- Dart SDK
+
+## 📄 License
+
+See the [LICENSE](LICENSE) file for license information.
+
+---
+
+**Clay UI Kit**
+
+*Soft surfaces. Thoughtful details. Better interfaces.*

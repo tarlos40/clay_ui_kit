@@ -10,7 +10,7 @@ class ClayThemeData {
   late final Color background, onBackground, onBackgroundVariant;
   late final Color primary, onPrimary;
   late final Color secondary, onSecondary;
-  late final Color third, onThird;
+  late final Color tertiary, onTertiary;
   late final Color success, onSuccess;
   late final Color warning, onWarning;
   late final Color error, onError;
@@ -36,8 +36,8 @@ class ClayThemeData {
       secondary = seedColor.s300;
       onSecondary = seedColor.s50;
 
-      third = seedColor.s200;
-      onThird = seedColor.s950;
+      tertiary = seedColor.s200;
+      onTertiary = seedColor.s950;
 
       success = ClayColors.forest.s400;
       onSuccess = ClayColors.forest.s50;
@@ -65,8 +65,8 @@ class ClayThemeData {
       secondary = seedColor.s700;
       onSecondary = seedColor.s100;
 
-      third = seedColor.s800;
-      onThird = seedColor.s200;
+      tertiary = seedColor.s800;
+      onTertiary = seedColor.s200;
 
       success = ClayColors.forest.s600;
       onSuccess = ClayColors.forest.s50;

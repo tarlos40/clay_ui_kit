@@ -111,7 +111,7 @@ class _ClayFeedbackState extends State<ClayFeedback>
       case ClayFeedbackStatus.info:
         return context.clayTheme.primary;
       case ClayFeedbackStatus.empty:
-        return context.clayTheme.third;
+        return context.clayTheme.tertiary;
       case ClayFeedbackStatus.loading:
         return context.clayTheme.primary;
     }
@@ -130,7 +130,7 @@ class _ClayFeedbackState extends State<ClayFeedback>
       case ClayFeedbackStatus.info:
         return context.clayTheme.onPrimary;
       case ClayFeedbackStatus.empty:
-        return context.clayTheme.onThird;
+        return context.clayTheme.onTertiary;
       case ClayFeedbackStatus.loading:
         return context.clayTheme.onPrimary;
     }

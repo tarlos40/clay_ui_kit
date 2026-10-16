@@ -35,7 +35,7 @@ class ClayBackground extends StatelessWidget {
   Widget _defaultBackground(BuildContext context, dynamic theme) {
     final primary = Color.lerp(theme.primary, theme.background, 0.2)!;
     final secondary = Color.lerp(theme.secondary, theme.background, 0.25)!;
-    final third = Color.lerp(theme.third, theme.background, 0.3)!;
+    final tertiary = Color.lerp(theme.tertiary, theme.background, 0.3)!;
     final container = Color.lerp(theme.container, theme.background, 0.35)!;
 
     return Stack(
@@ -58,7 +58,7 @@ class ClayBackground extends StatelessWidget {
 
         _Glow(
           alignment: const Alignment(0.8, 1.1),
-          color: third,
+          color: tertiary,
           size: 500,
           opacity: 0.07,
         ),

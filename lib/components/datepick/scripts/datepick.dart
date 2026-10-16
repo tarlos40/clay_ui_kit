@@ -589,7 +589,7 @@ class _ClayDateDialogState extends State<_ClayDateDialog> {
               surface: background,
               onSurface: foreground,
               surfaceContainerHigh: background,
-              surfaceContainerHighest: theme.third,
+              surfaceContainerHighest: theme.tertiary,
               primaryContainer: theme.secondary,
               onPrimaryContainer: theme.onSecondary,
             ),
@@ -845,7 +845,7 @@ class _ClayDateDialogState extends State<_ClayDateDialog> {
                             child: AnimatedContainer(
                               duration: const Duration(milliseconds: 150),
                               decoration: BoxDecoration(
-                                color: theme.third,
+                                color: theme.tertiary,
                                 borderRadius: BorderRadius.circular(18),
                                 boxShadow: ClayShadows.external(
                                   theme: theme,
@@ -862,26 +862,26 @@ class _ClayDateDialogState extends State<_ClayDateDialog> {
                                   children: [
                                     Icon(
                                       Icons.access_time_rounded,
-                                      color: theme.onThird,
+                                      color: theme.onTertiary,
                                     ),
                                     const SizedBox(width: 10),
                                     Expanded(
                                       child: ClayText.label(
                                         'Time',
-                                        color: theme.onThird,
+                                        color: theme.onTertiary,
                                         fontWeight: FontWeight.w600,
                                       ),
                                     ),
                                     ClayText.label(
                                       _formatTime(),
-                                      color: theme.onThird,
+                                      color: theme.onTertiary,
                                       fontWeight: FontWeight.w800,
                                       fontSize: 15,
                                     ),
                                     const SizedBox(width: 6),
                                     Icon(
                                       Icons.edit_rounded,
-                                      color: theme.onThird,
+                                      color: theme.onTertiary,
                                       size: 17,
                                     ),
                                   ],
@@ -910,7 +910,7 @@ class _ClayDateDialogState extends State<_ClayDateDialog> {
                       Row(
                         children: [
                           Expanded(
-                            child: ClayButton.third(
+                            child: ClayButton.tertiary(
                               'Cancel',
                               onPressed: () => Navigator.of(context).pop(),
                             ),

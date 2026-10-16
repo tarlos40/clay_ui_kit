@@ -32,7 +32,7 @@ class _LabLayoutState extends State<LabLayout> {
 
     return Center(
       child: Column(
-        mainAxisAlignment: .center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           ClayText.display("Testando"),
 
@@ -61,8 +61,8 @@ class _LabLayoutState extends State<LabLayout> {
 
           SizedBox(height: 8),
 
-          ClayButton.third(
-            'Third',
+          ClayButton.tertiary(
+            'Tertiary',
             onPressed: () {},
             isLoading: false,
             size: ClayButtonSize.large,

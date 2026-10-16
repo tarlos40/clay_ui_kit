@@ -599,6 +599,6 @@ class ClayCarouselButton {
       return ClayButton.primary(label, onPressed: onPressed, iconLeft: icon);
     }
 
-    return ClayButton.third(label, onPressed: onPressed, iconLeft: icon);
+    return ClayButton.tertiary(label, onPressed: onPressed, iconLeft: icon);
   }
 }

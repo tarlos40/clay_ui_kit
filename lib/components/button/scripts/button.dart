@@ -61,7 +61,7 @@ class ClayButton extends StatefulWidget {
        _variant = ClayButtonVariant.secondary,
        gradient = null;
 
-  const ClayButton.third(
+  const ClayButton.tertiary(
     this.text, {
     super.key,
     this.onPressed,
@@ -73,7 +73,7 @@ class ClayButton extends StatefulWidget {
     this.iconRight,
   }) : icon = null,
        iconColor = null,
-       _variant = ClayButtonVariant.third,
+       _variant = ClayButtonVariant.tertiary,
        gradient = null;
 
   const ClayButton.success(
@@ -227,9 +227,9 @@ class _ClayButtonState extends State<ClayButton> {
         lightColor = theme.light;
         borderColor = theme.border;
         break;
-      case ClayButtonVariant.third:
-        backgroundColor = widget.backgroundColor ?? theme.third;
-        textColor = widget.foregroundColor ?? theme.onThird;
+      case ClayButtonVariant.tertiary:
+        backgroundColor = widget.backgroundColor ?? theme.tertiary;
+        textColor = widget.foregroundColor ?? theme.onTertiary;
         shadowColor = theme.shadow;
         lightColor = theme.light;
         borderColor = theme.border;

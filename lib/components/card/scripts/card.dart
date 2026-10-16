@@ -134,7 +134,7 @@ class ClayCard extends StatefulWidget {
         builder: (context) {
           final theme = context.clayTheme;
 
-          return ClayText.label(
+          return ClayText.body(
             text,
             color: color ?? theme.onContainer.withValues(alpha: 0.65),
             fontWeight: fontWeight,
@@ -212,7 +212,7 @@ class ClayCard extends StatefulWidget {
       );
     }
 
-    return ClayButton.third(
+    return ClayButton.tertiary(
       label,
       iconLeft: iconLeft,
       iconRight: iconRight,

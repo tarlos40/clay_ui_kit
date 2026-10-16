@@ -1,7 +1,7 @@
 name: clay_ui_kit
-description: "A new Flutter package project."
-version: 0.0.1
-homepage:
+description: "A modern Flutter UI library inspired by Claymorphism."
+version: 1.0.0
+homepage: https://github.com/tarlos40/clay_ui_kit
 
 environment:
   sdk: ^3.13.4
