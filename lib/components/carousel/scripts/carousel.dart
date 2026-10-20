@@ -190,7 +190,7 @@ class _ClayCarouselState extends State<ClayCarousel> {
   }
 
   Widget _arrow({
-    required IconData icon,
+    required Widget icon,
     required VoidCallback onPressed,
     required bool enabled,
     required bool isLeft,
@@ -205,10 +205,12 @@ class _ClayCarouselState extends State<ClayCarousel> {
         child: InkWell(
           onTap: enabled ? onPressed : null,
           customBorder: const CircleBorder(),
-          child: Icon(
-            icon,
-            color: Colors.white.withValues(alpha: enabled ? 1 : 0.35),
-            size: 21,
+          child: IconTheme(
+            data: IconThemeData(
+              color: Colors.white.withValues(alpha: enabled ? 1 : 0.35),
+              size: 21,
+            ),
+            child: icon,
           ),
         ),
       ),
@@ -320,7 +322,7 @@ class _ClayCarouselState extends State<ClayCarousel> {
                   bottom: 0,
                   child: Center(
                     child: _arrow(
-                      icon: Icons.chevron_left_rounded,
+                      icon: Icon(Icons.chevron_left_rounded),
                       onPressed: _previous,
                       enabled: widget.infinite || _realIndex > 0,
                       isLeft: true,
@@ -333,7 +335,7 @@ class _ClayCarouselState extends State<ClayCarousel> {
                   bottom: 0,
                   child: Center(
                     child: _arrow(
-                      icon: Icons.chevron_right_rounded,
+                      icon: Icon(Icons.chevron_right_rounded),
                       onPressed: _next,
                       enabled: widget.infinite || _realIndex < _count - 1,
                       isLeft: false,

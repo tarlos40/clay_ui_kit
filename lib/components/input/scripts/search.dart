@@ -246,10 +246,12 @@ class _ClaySearchInputState extends State<ClaySearchInput> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(left: 16, right: 8),
-                      child: Icon(
-                        Icons.search_rounded,
-                        size: 22,
-                        color: _focused ? accent : hint,
+                      child: IconTheme(
+                        data: IconThemeData(
+                          size: 22,
+                          color: _focused ? accent : hint,
+                        ),
+                        child: widget.searchIcon ?? Icon(Icons.search_rounded),
                       ),
                     ),
                     Expanded(

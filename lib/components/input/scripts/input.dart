@@ -607,8 +607,8 @@ class _ClayInputState extends State<ClayInput>
       actions.add(
         _ClayInputIconButton(
           icon: _obscured
-              ? Icons.visibility_rounded
-              : Icons.visibility_off_rounded,
+              ? Icon(Icons.visibility_rounded)
+              : Icon(Icons.visibility_off_rounded),
 
           onPressed: _togglePassword,
 
@@ -620,7 +620,7 @@ class _ClayInputState extends State<ClayInput>
     if (widget.clearable && _controller.text.isNotEmpty) {
       actions.add(
         _ClayInputIconButton(
-          icon: Icons.close_rounded,
+          icon: Icon(Icons.close_rounded),
 
           onPressed: _clear,
 
@@ -656,7 +656,7 @@ class _ClayInputState extends State<ClayInput>
 }
 
 class _ClayInputIconButton extends StatelessWidget {
-  final IconData icon;
+  final Widget icon;
 
   final VoidCallback onPressed;
 
@@ -677,7 +677,10 @@ class _ClayInputIconButton extends StatelessWidget {
 
       splashRadius: 20,
 
-      icon: Icon(icon, size: 19, color: color.withValues(alpha: 0.65)),
+      icon: IconTheme(
+        data: IconThemeData(size: 19, color: color.withValues(alpha: 0.65)),
+        child: icon,
+      ),
     );
   }
 }

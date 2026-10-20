@@ -10,12 +10,13 @@ class ClayShowcase extends StatefulWidget {
   final String title;
   final String? description;
 
-  final Widget preview;
+  final Widget? preview;
   final String code;
 
   final bool initiallyShowCode;
   final bool showCode;
   final bool showCopyButton;
+  final bool showOnlyCode;
 
   final Widget? headerTrailing;
 
@@ -24,11 +25,12 @@ class ClayShowcase extends StatefulWidget {
   const ClayShowcase({
     super.key,
     required this.title,
-    required this.preview,
     required this.code,
+    this.preview,
     this.description,
     this.initiallyShowCode = false,
     this.showCode = true,
+    this.showOnlyCode = false,
     this.showCopyButton = true,
     this.headerTrailing,
     this.padding = const EdgeInsets.all(20),
@@ -40,11 +42,13 @@ class ClayShowcase extends StatefulWidget {
 
 class _ClayShowcaseState extends State<ClayShowcase> {
   late bool _showCode;
+  late bool _showOnlyCode;
 
   @override
   void initState() {
     super.initState();
-    _showCode = widget.initiallyShowCode;
+    _showOnlyCode = widget.showOnlyCode;
+    _showCode = widget.showOnlyCode || widget.initiallyShowCode;
   }
 
   void _toggleCode() {
@@ -87,7 +91,8 @@ class _ClayShowcaseState extends State<ClayShowcase> {
                   ),
                 ),
 
-              if (widget.showCode && !_showCode) _buildPreview(context),
+              if (widget.showCode && !_showCode && !_showOnlyCode)
+                _buildPreview(context),
 
               if (widget.showCode && _showCode) _buildCode(context),
             ],
@@ -115,9 +120,11 @@ class _ClayShowcaseState extends State<ClayShowcase> {
 
           if (widget.headerTrailing != null) widget.headerTrailing!,
 
-          if (widget.showCode)
+          if (widget.showCode && !widget.showOnlyCode)
             _ClayShowcaseButton(
-              icon: _showCode ? Icons.code_off_rounded : Icons.code_rounded,
+              icon: _showCode
+                  ? Icon(Icons.code_off_rounded)
+                  : Icon(Icons.code_rounded),
               label: _showCode ? 'Hide code' : 'View code',
               onPressed: _toggleCode,
             ),
@@ -209,7 +216,7 @@ class _ClayShowcaseState extends State<ClayShowcase> {
 
           if (widget.showCopyButton)
             _ClayShowcaseButton(
-              icon: Icons.copy_rounded,
+              icon: Icon(Icons.copy_rounded),
               label: 'Copy',
               onPressed: _copyCode,
             ),
@@ -242,7 +249,7 @@ class _ClayShowcaseState extends State<ClayShowcase> {
 }
 
 class _ClayShowcaseButton extends StatefulWidget {
-  final IconData icon;
+  final Widget icon;
   final String label;
   final VoidCallback onPressed;
 
@@ -307,7 +314,10 @@ class _ClayShowcaseButtonState extends State<_ClayShowcaseButton> {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(widget.icon, size: 15, color: theme.onContainer),
+                  IconTheme(
+                    data: IconThemeData(size: 15, color: theme.onContainer),
+                    child: widget.icon,
+                  ),
                   const SizedBox(width: 6),
                   ClayText.label(
                     widget.label,

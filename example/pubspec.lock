@@ -47,7 +47,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "1.0.0"
+    version: "1.0.1"
   clock:
     dependency: transitive
     description:
@@ -187,7 +187,7 @@ packages:
     source: sdk
     version: "0.0.0"
   flutter_web_plugins:
-    dependency: transitive
+    dependency: "direct main"
     description: flutter
     source: sdk
     version: "0.0.0"
@@ -239,6 +239,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.1.2"
+  hugeicons:
+    dependency: "direct main"
+    description:
+      name: hugeicons
+      sha256: cf172bae0c3ff2e2114324d05e79872081f4cd3c009f5979285fec73a693096a
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.11"
   jni:
     dependency: transitive
     description:
@@ -439,6 +447,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.6.0"
+  rxdart:
+    dependency: transitive
+    description:
+      name: rxdart
+      sha256: "5c3004a4a8dbb94bd4bf5412a4def4acdaa12e12f269737a5751369e12d1a962"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.28.0"
+  seo:
+    dependency: "direct main"
+    description:
+      name: seo
+      sha256: "3e1d5979d3cb0d8d223d5324363c607cbaa777f88062501ed5f0758ba4965db3"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.10"
   sky_engine:
     dependency: transitive
     description: flutter

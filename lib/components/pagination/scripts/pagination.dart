@@ -79,7 +79,7 @@ class ClayPagination extends StatelessWidget {
       controls.add(
         _iconButton(
           context,
-          Icons.keyboard_double_arrow_left_rounded,
+          Icon(Icons.keyboard_double_arrow_left_rounded),
           _page > 1,
           () => _go(1),
           background,
@@ -92,7 +92,7 @@ class ClayPagination extends StatelessWidget {
       controls.add(
         _iconButton(
           context,
-          Icons.chevron_left_rounded,
+          Icon(Icons.chevron_left_rounded),
           _page > 1,
           () => _go(_page - 1),
           background,
@@ -121,7 +121,7 @@ class ClayPagination extends StatelessWidget {
       controls.add(
         _iconButton(
           context,
-          Icons.chevron_right_rounded,
+          Icon(Icons.chevron_right_rounded),
           _page < totalPages,
           () => _go(_page + 1),
           background,
@@ -134,7 +134,7 @@ class ClayPagination extends StatelessWidget {
       controls.add(
         _iconButton(
           context,
-          Icons.keyboard_double_arrow_right_rounded,
+          Icon(Icons.keyboard_double_arrow_right_rounded),
           _page < totalPages,
           () => _go(totalPages),
           background,
@@ -153,7 +153,7 @@ class ClayPagination extends StatelessWidget {
             ? <Widget>[
                 _iconButton(
                   context,
-                  Icons.chevron_left_rounded,
+                  Icon(Icons.chevron_left_rounded),
                   _page > 1,
                   () => _go(_page - 1),
                   background,
@@ -173,7 +173,7 @@ class ClayPagination extends StatelessWidget {
                 ),
                 _iconButton(
                   context,
-                  Icons.chevron_right_rounded,
+                  Icon(Icons.chevron_right_rounded),
                   _page < totalPages,
                   () => _go(_page + 1),
                   background,
@@ -258,7 +258,10 @@ class ClayPagination extends StatelessWidget {
                   fontSize: 13,
                   fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
                 ),
-                child: ClayText.body('$page', color: selected ? activeForeground : foreground,),
+                child: ClayText.body(
+                  '$page',
+                  color: selected ? activeForeground : foreground,
+                ),
               ),
             ),
           ),
@@ -269,7 +272,7 @@ class ClayPagination extends StatelessWidget {
 
   Widget _iconButton(
     BuildContext context,
-    IconData icon,
+    Widget icon,
     bool enabled,
     VoidCallback onPressed,
     Color background,
@@ -308,10 +311,12 @@ class ClayPagination extends StatelessWidget {
                   blur: 7,
                 ),
               ),
-              child: Icon(
-                icon,
-                size: 21,
-                color: enabled ? foreground : disabled,
+              child: IconTheme(
+                data: IconThemeData(
+                  size: 21,
+                  color: enabled ? foreground : disabled,
+                ),
+                child: icon,
               ),
             ),
           ),

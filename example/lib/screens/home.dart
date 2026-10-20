@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:clay_ui_kit/clay_ui_kit.dart';
+import 'package:hugeicons/hugeicons.dart';
 
-import '../services/hive.dart';
-import '../services/theme.dart';
+import '../components/navbar.dart';
+import '../components/copyright.dart';
+import '../components/card_gradient.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -19,28 +21,8 @@ class _HomeScreenState extends State<HomeScreen> {
     return ClayScaffold(
       useScrollView: true,
       hideAppBarOnScroll: true,
-      clayAppBar: ClayAppBar(
-        title: 'Clay UI Kit',
-        actions: [
-          ClayAppBar.action(
-            Icon(
-              theme.isDark ? Icons.dark_mode_rounded : Icons.wb_sunny_rounded,
-            ),
-            onPressed: () {
-              final newTheme = !isDarkNotifier.value;
 
-              isDarkNotifier.value = newTheme;
-
-              HiveService().put('clay_ui_kit', 'isDark', newTheme);
-            },
-          ),
-          ClayButton.primary(
-            'Start',
-            iconRight: Icon(Icons.arrow_forward_rounded),
-            onPressed: () {},
-          ),
-        ],
-      ),
+      clayAppBar: Navbar(title: 'Clay UI Kit', showStartButton: true),
 
       body: Center(
         child: Column(
@@ -55,7 +37,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 child: Row(
                   children: [
-                    Icon(Icons.token, color: theme.primary, size: 28),
+                    HugeIcon(
+                      icon: HugeIcons.strokeRoundedCodesandbox,
+                      color: theme.primary,
+                    ),
                     SizedBox(width: 8),
                     ClayText.body('Claymorphism Design System'),
                   ],
@@ -73,26 +58,36 @@ class _HomeScreenState extends State<HomeScreen> {
             ClayText.body(
               'A complete collection of Flutter components in a claymorphism style, characterized by an elegant aesthetic and smooth animations.',
               textAlign: TextAlign.center,
-              color: theme.onBackground.withValues(alpha: .80),
+              color: theme.onBackground.withValues(alpha: .7),
             ),
 
             SizedBox(height: 28),
 
             ClayButton.primary(
               'Read documentation',
-              iconRight: Icon(Icons.arrow_forward),
-              onPressed: () {},
+              iconRight: HugeIcon(
+                icon: HugeIcons.strokeRoundedArrowRight02,
+                color: theme.onPrimary,
+              ),
+              onPressed: () {
+                Navigator.pushNamed(context, '/getting-started');
+              },
             ),
             SizedBox(height: 8),
-            ClayButton.base('View components', onPressed: () {}),
+            ClayButton.base(
+              'View components',
+              onPressed: () {
+                Navigator.pushNamed(context, '/catalog');
+              },
+            ),
 
             SizedBox(height: 56),
 
             ClayCard(
               children: [
                 ClayCard.header(
-                  leading: Icon(
-                    Icons.palette_rounded,
+                  leading: HugeIcon(
+                    icon: HugeIcons.strokeRoundedPaintBoard,
                     color: theme.primary,
                     size: 32,
                   ),
@@ -120,8 +115,8 @@ class _HomeScreenState extends State<HomeScreen> {
             ClayCard(
               children: [
                 ClayCard.header(
-                  leading: Icon(
-                    Icons.code_rounded,
+                  leading: HugeIcon(
+                    icon: HugeIcons.strokeRoundedCode,
                     color: theme.primary,
                     size: 32,
                   ),
@@ -149,8 +144,8 @@ class _HomeScreenState extends State<HomeScreen> {
             ClayCard(
               children: [
                 ClayCard.header(
-                  leading: Icon(
-                    Icons.bolt_rounded,
+                  leading: HugeIcon(
+                    icon: HugeIcons.strokeRoundedEnergy,
                     color: theme.primary,
                     size: 32,
                   ),
@@ -178,8 +173,8 @@ class _HomeScreenState extends State<HomeScreen> {
             ClayCard(
               children: [
                 ClayCard.header(
-                  leading: Icon(
-                    Icons.brightness_6_rounded,
+                  leading: HugeIcon(
+                    icon: HugeIcons.strokeRoundedMoonEclipse,
                     color: theme.primary,
                     size: 32,
                   ),
@@ -208,7 +203,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ClayText.body(
               'Buttons, inputs, cards, modals, and much more...',
               textAlign: TextAlign.center,
-              color: theme.onBackground.withValues(alpha: .80),
+              color: theme.onBackground.withValues(alpha: .7),
             ),
 
             SizedBox(height: 28),
@@ -231,40 +226,16 @@ class _HomeScreenState extends State<HomeScreen> {
 
             SizedBox(height: 56),
 
-            ClayCard(
-              backgroundGradient: LinearGradient(
-                colors: [theme.primary, theme.secondary, theme.tertiary],
-                begin: AlignmentGeometry.topStart,
-                end: AlignmentGeometry.bottomEnd,
-              ),
-              children: [
-                ClayCard.header(
-                  child: ClayText.display('Ready to get started?'),
-                ),
-                ClayCard.body(
-                  children: [
-                    ClayCard.subtitle(
-                      'Explore our complete documentation and begin building amazing interfaces.',
-                    ),
-                  ],
-                ),
-                ClayCard.footer(
-                  child: ClayButton.base(
-                    'Get Started Now',
-                    onPressed: () {},
-                    iconRight: Icon(Icons.arrow_forward_rounded),
-                  ),
-                ),
-              ],
+            CardGradient(
+              title: 'Ready to get started?',
+              subtitle: 'Explore our complete documentation and begin building amazing interfaces.',
+              label: 'Get Started Now',
+              onPressed: () {
+                Navigator.pushNamed(context, '/getting-started');
+              },
             ),
 
-            SizedBox(height: 56),
-
-            ClayText.label(
-              'Clay UI Kit © 2026 - Built with Claymorphism and Flutter',
-            ),
-
-            SizedBox(height: 28),
+            Copyright(),
           ],
         ),
       ),

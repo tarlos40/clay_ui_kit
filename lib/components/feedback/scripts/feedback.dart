@@ -10,7 +10,7 @@ class ClayFeedback extends StatefulWidget {
   final ClayFeedbackStatus status;
   final String? title;
   final String? message;
-  final IconData? icon;
+  final Widget? icon;
   final Color? color;
   final bool compact;
   final bool animate;
@@ -136,22 +136,22 @@ class _ClayFeedbackState extends State<ClayFeedback>
     }
   }
 
-  IconData _statusIcon() {
+  Widget _statusIcon() {
     if (widget.icon != null) return widget.icon!;
 
     switch (widget.status) {
       case ClayFeedbackStatus.success:
-        return Icons.check_rounded;
+        return Icon(Icons.check_rounded);
       case ClayFeedbackStatus.error:
-        return Icons.close_rounded;
+        return Icon(Icons.close_rounded);
       case ClayFeedbackStatus.warning:
-        return Icons.priority_high_rounded;
+        return Icon(Icons.priority_high_rounded);
       case ClayFeedbackStatus.info:
-        return Icons.info_outline_rounded;
+        return Icon(Icons.info_outline_rounded);
       case ClayFeedbackStatus.empty:
-        return Icons.inbox_rounded;
+        return Icon(Icons.inbox_rounded);
       case ClayFeedbackStatus.loading:
-        return Icons.hourglass_top_rounded;
+        return Icon(Icons.hourglass_top_rounded);
     }
   }
 
@@ -237,10 +237,12 @@ class _ClayFeedbackState extends State<ClayFeedback>
                           blur: 4,
                         ),
                       ),
-                      child: Icon(
-                        _statusIcon(),
-                        color: accentForeground,
-                        size: isCompact ? 23 : 34,
+                      child: IconTheme(
+                        data: IconThemeData(
+                          color: accentForeground,
+                          size: isCompact ? 23 : 34,
+                        ),
+                        child: _statusIcon(),
                       ),
                     ),
                   ),

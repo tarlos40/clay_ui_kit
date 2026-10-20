@@ -9,7 +9,7 @@ import '../../../theme/scripts/shadows.dart';
 class ClayAvatar extends StatelessWidget {
   final String? name;
   final String? label;
-  final IconData? icon;
+  final Widget? icon;
   final ImageProvider? image;
   final Widget? child;
   final Widget? badge;
@@ -144,7 +144,10 @@ class ClayAvatar extends StatelessWidget {
       return ColoredBox(
         color: background,
         child: Center(
-          child: Icon(icon, size: size * 0.48, color: foreground),
+          child: IconTheme(
+            data: IconThemeData(size: size * 0.48, color: foreground),
+            child: icon!,
+          ),
         ),
       );
     }

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 
 import '../../../app/scripts/context.dart';
-import '../../appbar/scripts/appbar.dart';
+
 import '../../navigationbar/scripts/navigationbar.dart';
 import '../scripts/background.dart';
 import '../../fab/scripts/fab.dart';
-import '../../drawer/scripts/drawer.dart';
 import '../../tabs/scripts/tabs.dart';
 import '../../refresh_indicator/scripts/refresh_indicator.dart';
 
@@ -13,10 +12,7 @@ class ClayScaffold extends StatefulWidget {
   final Color? backgroundColor;
   final Gradient? backgroundGradient;
 
-  final ClayDrawer? clayDrawer;
-  final ClayAppBar? clayAppBar;
-  final ClayTabs? clayTabs;
-  final Widget? body;
+  final Widget? clayDrawer, clayAppBar, body, clayTabs;
   final ClayNavigationBar? clayNavigationBar;
   final ClayFloatingActionButton? clayFloatingActionButton;
 
@@ -70,11 +66,15 @@ class _ClayScaffoldState extends State<ClayScaffold> {
   bool _showTabs = true;
 
   void _handleContentSwipe(DragEndDetails details) {
-    final tabs = widget.clayTabs;
+    final tabsWidget = widget.clayTabs;
 
-    if (tabs == null || !tabs.swipeable || tabs.showContent) {
+    if (tabsWidget is! ClayTabs ||
+        !tabsWidget.swipeable ||
+        tabsWidget.showContent) {
       return;
     }
+
+    final tabs = tabsWidget;
 
     final distance = _horizontalDragDistance;
     final velocity = details.primaryVelocity ?? 0;
@@ -269,10 +269,14 @@ class _ClayScaffoldState extends State<ClayScaffold> {
       );
     }
 
+    final preferredSize = appBar is PreferredSizeWidget
+        ? appBar.preferredSize
+        : Size.fromHeight(80);
+
     final visible = !widget.hideAppBarOnScroll || _showAppBar;
 
     return PreferredSize(
-      preferredSize: appBar.preferredSize,
+      preferredSize: preferredSize,
       child: AnimatedSize(
         duration: const Duration(milliseconds: 320),
         curve: Curves.easeInOutCubic,
@@ -399,12 +403,14 @@ class _ClayScaffoldState extends State<ClayScaffold> {
       );
     }
 
-    final tabs = widget.clayTabs;
+    final tabsWidget = widget.clayTabs;
 
-    if (tabs != null) {
-      if (tabs.showContent) {
-        return tabs;
+    if (tabsWidget != null) {
+      if (tabsWidget is ClayTabs && tabsWidget.showContent) {
+        return tabsWidget;
       }
+
+      final tabs = tabsWidget is ClayTabs ? tabsWidget : null;
 
       return Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -413,15 +419,17 @@ class _ClayScaffoldState extends State<ClayScaffold> {
           Expanded(
             child: GestureDetector(
               behavior: HitTestBehavior.translucent,
-              onHorizontalDragStart: tabs.swipeable
+              onHorizontalDragStart: tabs?.swipeable == true
                   ? (_) => _horizontalDragDistance = 0
                   : null,
-              onHorizontalDragUpdate: tabs.swipeable
+              onHorizontalDragUpdate: tabs?.swipeable == true
                   ? (details) {
                       _horizontalDragDistance += details.delta.dx;
                     }
                   : null,
-              onHorizontalDragEnd: tabs.swipeable ? _handleContentSwipe : null,
+              onHorizontalDragEnd: tabs?.swipeable == true
+                  ? _handleContentSwipe
+                  : null,
               child: content,
             ),
           ),
