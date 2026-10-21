@@ -18,7 +18,13 @@ cp -R build/web/. ../.vercel/output/static/
 # Configuração do deploy pré-compilado da Vercel
 cat > ../.vercel/output/config.json <<'EOF'
 {
-  "version": 3
+  "version": 3,
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
 }
 EOF
 
