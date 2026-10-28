@@ -1,7 +1,7 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
-  <!--
+  <head>
+    <!--
     If you are serving your web app in a path other than the root, change the
     href value below to reflect the base path you are serving from.
 
@@ -14,26 +14,26 @@
     This is a placeholder for base href that will be replaced by the value of
     the `--base-href` argument provided to `flutter build`.
   -->
-  <base href="$FLUTTER_BASE_HREF">
+    <base href="$FLUTTER_BASE_HREF" />
 
-  <meta charset="UTF-8">
-  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="A new Flutter project.">
+    <meta charset="UTF-8" />
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible" />
+    <meta name="description" content="Clay UI Kit." />
 
-  <!-- iOS meta tags & icons -->
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="example">
-  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+    <!-- iOS meta tags & icons -->
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-title" content="example" />
+    <link rel="apple-touch-icon" href="icons/Icon-192.png" />
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png"/>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png" />
 
-  <title>example</title>
-  <link rel="manifest" href="manifest.json">
-</head>
-<body>
-  <!--
+    <title>example</title>
+    <link rel="manifest" href="manifest.json" />
+  </head>
+  <body>
+    <!--
     You can customize the "flutter_bootstrap.js" script.
     This is useful to provide a custom configuration to the Flutter loader
     or to give the user feedback during the initialization process.
@@ -41,6 +41,97 @@
     For more details:
     * https://docs.flutter.dev/platform-integration/web/initialization
   -->
-  <script src="flutter_bootstrap.js" async></script>
-</body>
+
+    <div id="app-loading">
+      <div class="loading-content">
+        <div class="loading-logo">C</div>
+        <div class="loading-spinner"></div>
+        <p>Preparando o Clay UI Kit...</p>
+      </div>
+    </div>
+
+    <style>
+      #app-loading {
+        position: fixed;
+        inset: 0;
+        z-index: 99999;
+        display: grid;
+        place-items: center;
+        background: #f4f6fb;
+        color: #26344a;
+        font-family: Arial, sans-serif;
+        transition: opacity 250ms ease;
+      }
+
+      .loading-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 18px;
+      }
+
+      .loading-logo {
+        display: grid;
+        place-items: center;
+        width: 64px;
+        height: 64px;
+        border-radius: 22px;
+        background: #dce5ff;
+        color: #3559a8;
+        font-size: 30px;
+        font-weight: 700;
+        box-shadow:
+          6px 6px 14px #cdd3df,
+          -6px -6px 14px #ffffff;
+      }
+
+      .loading-spinner {
+        width: 24px;
+        height: 24px;
+        border: 3px solid #d8deea;
+        border-top-color: #526fbd;
+        border-radius: 50%;
+        animation: loading-spin 700ms linear infinite;
+      }
+
+      .loading-content p {
+        font-size: 14px;
+        opacity: 0.75;
+      }
+
+      @keyframes loading-spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      @media (prefers-color-scheme: dark) {
+        #app-loading {
+          background: #171b25;
+          color: #edf0fa;
+        }
+
+        .loading-logo {
+          background: #29334b;
+          color: #c5d3ff;
+          box-shadow:
+            6px 6px 14px #10131b,
+            -6px -6px 14px #202633;
+        }
+      }
+    </style>
+
+    <script>
+      window.addEventListener("flutter-first-frame", function () {
+        const loader = document.getElementById("app-loading");
+        if (!loader) return;
+
+        loader.style.opacity = "0";
+
+        setTimeout(() => loader.remove(), 250);
+      });
+    </script>
+
+    <script src="flutter_bootstrap.js" async></script>
+  </body>
 </html>

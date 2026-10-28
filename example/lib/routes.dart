@@ -16,16 +16,31 @@ class Routes {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case home:
-        return MaterialPageRoute(builder: (_) => const HomeScreen());
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (_) => const HomeScreen(),
+        );
       case gettingStarted:
-        return MaterialPageRoute(builder: (_) => const GettingStartedScreen());
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (_) => const GettingStartedScreen(),
+        );
       case catalog:
-        return MaterialPageRoute(builder: (_) => const CatalogScreen());
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (_) => const CatalogScreen(),
+        );
 
       case labTests:
-        return MaterialPageRoute(builder: (_) => const LabScreen());
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (_) => const LabScreen(),
+        );
       default:
-        return MaterialPageRoute(builder: (_) => const NotFoundScreen());
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (_) => const NotFoundScreen(),
+        );
     }
   }
 }
