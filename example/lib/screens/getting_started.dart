@@ -164,6 +164,8 @@ class MyScreen extends StatelessWidget {
                 ClayCard.body(
                   children: [
                     Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
                       children: [
                         Row(
                           children: [
@@ -184,6 +186,8 @@ class MyScreen extends StatelessWidget {
                     SizedBox(height: 8),
 
                     Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
                       children: [
                         Row(
                           children: [
@@ -204,6 +208,8 @@ class MyScreen extends StatelessWidget {
                     SizedBox(height: 8),
 
                     Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
                       children: [
                         Row(
                           children: [
@@ -224,6 +230,8 @@ class MyScreen extends StatelessWidget {
                     SizedBox(height: 8),
 
                     Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
                       children: [
                         Row(
                           children: [

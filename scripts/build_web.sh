@@ -19,10 +19,10 @@ cp -R build/web/. ../.vercel/output/static/
 cat > ../.vercel/output/config.json <<'EOF'
 {
   "version": 3,
-  "rewrites": [
+  "routes": [
     {
-      "source": "/(.*)",
-      "destination": "/index.html"
+      "src": "/(.*)",
+      "dest": "/index.html"
     }
   ]
 }
