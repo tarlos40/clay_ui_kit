@@ -12,15 +12,12 @@ class Search extends StatefulWidget {
 }
 
 class _SearchState extends State<Search> {
-  String? _routeForTitle(String title) {
-    for (final item in ListComponents.itemsFull) {
-      if (item['title'] == title) {
-        final route = item['route'];
-        if (route is String && route.isNotEmpty) return route;
-      }
-    }
+  final TextEditingController _controller = TextEditingController();
 
-    return null;
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   String? _routeFromQuery(String query) {
@@ -58,7 +55,7 @@ class _SearchState extends State<Search> {
 
     return ClayInput.search(
       hintText: 'Search components',
-      showSearchButton: false,
+      controller: _controller,
       maxSuggestions: 3,
       suggestions: ListComponents.itemsFull.map((item) {
         return ClaySearchSuggestion(
@@ -71,7 +68,12 @@ class _SearchState extends State<Search> {
         );
       }).toList(),
       onSuggestionSelected: (suggestion) {
-        _goToRoute(_routeForTitle(suggestion.title));
+        _controller.value = TextEditingValue(
+          text: suggestion.queryValue,
+          selection: TextSelection.collapsed(
+            offset: suggestion.queryValue.length,
+          ),
+        );
       },
       onSearch: (query) {
         _goToRoute(_routeFromQuery(query));

@@ -207,7 +207,7 @@ class ClayInput extends StatefulWidget {
     bool showSuggestionsOnFocus = true,
     bool clearable = true,
     int maxSuggestions = 6,
-    String searchButtonLabel = 'Search',
+    String searchButtonLabel = '',
     Widget? searchIcon,
     Color? backgroundColor,
     Color? accentColor,

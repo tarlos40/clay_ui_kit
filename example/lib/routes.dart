@@ -17,11 +17,15 @@ class Routes {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     final routeName = settings.name ?? '';
 
-    if (routeName.startsWith('/component/') || routeName.startsWith('/foundation/')) {
-      final slug = routeName.split('/').where((segment) => segment.isNotEmpty).last;
+    if (routeName.startsWith('/component/') ||
+        routeName.startsWith('/foundation/')) {
+      final slug = routeName
+          .split('/')
+          .where((segment) => segment.isNotEmpty)
+          .last;
       return MaterialPageRoute(
         settings: settings,
-        builder: (_) => ComponentDocumentationScreen(slug: slug),
+        builder: (_) => DocumentationScreen(slug: slug),
       );
     }
 

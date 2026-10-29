@@ -8,15 +8,11 @@ import '../components/search.dart';
 import '../components/show_case.dart';
 import '../components/copyright.dart';
 import '../components/card_gradient.dart';
+import '../components/guide_step.dart';
 
-class GettingStartedScreen extends StatefulWidget {
+class GettingStartedScreen extends StatelessWidget {
   const GettingStartedScreen({super.key});
 
-  @override
-  State<GettingStartedScreen> createState() => _GettingStartedScreenState();
-}
-
-class _GettingStartedScreenState extends State<GettingStartedScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = context.clayTheme;
@@ -34,116 +30,182 @@ class _GettingStartedScreenState extends State<GettingStartedScreen> {
       ),
 
       body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            final gap = 12.0;
+            final columns = constraints.maxWidth >= 760
+                ? 4
+                : constraints.maxWidth >= 500
+                ? 2
+                : 1;
+            final itemWidth =
+                (constraints.maxWidth - gap * (columns - 1)) / columns;
 
-          children: [
-            SizedBox(height: 20),
+            return Column(
+              children: [
+                const SizedBox(height: 16),
+                
+                Search(),
 
-            Search(),
+                const SizedBox(height: 20),
 
-            SizedBox(height: 20),
+                Column(
+                  crossAxisAlignment: .start,
+                  children: [
+                    ClayBreadcrumbs(
+                      items: [
+                        ClayBreadcrumbItem(
+                          label: 'Home',
+                          onTap: () => Navigator.pushNamed(context, '/'),
+                        ),
+                        ClayBreadcrumbItem(
+                          label: 'Getting Started',
+                          onTap: () =>
+                              Navigator.pushNamed(context, '/getting-started'),
+                        ),
+                      ],
+                    ),
 
-            ClayBreadcrumbs(
-              items: [
-                ClayBreadcrumbItem(
-                  label: 'Home',
-                  onTap: () {
-                    Navigator.pushNamed(context, '/');
-                  },
+                    const SizedBox(height: 28),
+
+                    ClayText.display('Start building with Clay'),
+
+                    const SizedBox(height: 8),
+
+                    ClayText.body(
+                      'Add the package, configure your theme, and use your first components in a few clear steps.',
+                      color: theme.onBackground.withValues(alpha: .72),
+                    ),
+                  ],
                 ),
-                ClayBreadcrumbItem(
-                  label: 'Getting Started',
-                  onTap: () {
-                    Navigator.pushNamed(context, '/getting-started');
-                  },
+
+                const SizedBox(height: 24),
+
+                Wrap(
+                  spacing: gap,
+                  runSpacing: gap,
+                  children: [
+                    SizedBox(
+                      width: itemWidth,
+                      child: GuideStep(
+                        number: '01',
+                        title: 'Install',
+                        icon: HugeIcons.strokeRoundedBlockchain01,
+                      ),
+                    ),
+                    SizedBox(
+                      width: itemWidth,
+                      child: GuideStep(
+                        number: '02',
+                        title: 'Configure',
+                        icon: HugeIcons.strokeRoundedCode,
+                      ),
+                    ),
+                    SizedBox(
+                      width: itemWidth,
+                      child: GuideStep(
+                        number: '03',
+                        title: 'Choose a theme',
+                        icon: HugeIcons.strokeRoundedPaintBoard,
+                      ),
+                    ),
+                    SizedBox(
+                      width: itemWidth,
+                      child: GuideStep(
+                        number: '04',
+                        title: 'Build a screen',
+                        icon: HugeIcons.strokeRoundedTouchpad04,
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
 
-            SizedBox(height: 20),
+                const SizedBox(height: 28),
 
-            ClayText.display('Getting Started'),
-            ClayText.display(
-              'Start using the Clay UI Kit in your Flutter projects',
-              color: theme.onBackground.withValues(alpha: .7),
-              textAlign: TextAlign.center,
-            ),
+                ClayCard(
+                  children: [
+                    ClayCard.header(
+                      leading: HugeIcon(
+                        icon: HugeIcons.strokeRoundedInformationCircle,
+                        color: theme.primary,
+                      ),
+                      child: ClayText.title('Before you begin'),
+                    ),
+                    ClayCard.body(
+                      children: [
+                        ClayText.body(
+                          'You will need a Flutter project. Run the install command from its root folder, then restart the app after adding the dependency.',
+                          color: theme.onContainer.withValues(alpha: .76),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
 
-            SizedBox(height: 28),
+                const SizedBox(height: 36),
 
-            ShowCase(
-              title: '1. Installation',
-              description:
-                  'Install the necessary dependencies in your Flutter project',
-              icon: HugeIcons.strokeRoundedBlockchain01,
-              showOnlyCode: true,
-              code: '''
+                ShowCase(
+                  title: '1. Installation',
+                  description: 'Install the necessary dependencies in your Flutter project',
+                  icon: HugeIcons.strokeRoundedBlockchain01,
+                  showOnlyCode: true,
+                  code: '''
 flutter pub add clay_ui_kit
 ''',
-            ),
+                ),
 
-            SizedBox(height: 20),
+                const SizedBox(height: 16),
 
-            ShowCase(
-              title: '2. Configure application',
-              description: 'Copy the ClayApp file to your proect to start using the Clay UI Kit',
-              icon: HugeIcons.strokeRoundedCode,
-              showOnlyCode: true,
-              code: '''
+                ShowCase(
+                  title: '2. Configure your app',
+                  description: 'Wrap your app in ClayApp and provide a theme configuration.',
+                  icon: HugeIcons.strokeRoundedCode,
+                  showOnlyCode: true,
+                  code: '''
 import 'package:flutter/material.dart';
 import 'package:clay_ui_kit/clay_ui_kit.dart';
 
 class MyApp extends StatelessWidget {
-@override
+  const MyApp({super.key});
+
+  @override
   Widget build(BuildContext context) {
     return ClayApp(
       title: 'My App',
+      clayThemeData: ClayThemeData(seedColor: ClayColors.cobalt),
       debugShowCheckedModeBanner: false,
-      home: const MyScreen();
+      home: const MyScreen(),
     );
   }
 }
 ''',
-            ),
+                ),
 
-            SizedBox(height: 20),
+                const SizedBox(height: 16),
 
-            ShowCase(
-              title: '3. Configure style',
-              description:
-                  'Define the color used in your application and the theme',
-              icon: HugeIcons.strokeRoundedPaintBoard,
-              showOnlyCode: true,
-              code: '''
-import 'package:flutter/material.dart';
+                ShowCase(
+                  title: '3. Choose your theme',
+                  description: 'Pick a seed palette and choose whether the app starts in light or dark mode.',
+                  icon: HugeIcons.strokeRoundedPaintBoard,
+                  showOnlyCode: true,
+                  code: '''
 import 'package:clay_ui_kit/clay_ui_kit.dart';
 
-class MyApp extends StatelessWidget {
-@override
-  Widget build(BuildContext context) {
-    return ClayApp(
-      title: 'My App',
-      clayThemeData: ClayThemeData(
-        seedColor: ClayColors.cobalt,
-        isDark: false,
-      ),
-      debugShowCheckedModeBanner: false,
-      home: const MyScreen();
-    );
-  }
-}
+ClayThemeData(
+  seedColor: ClayColors.cobalt,
+  isDark: false,
+)
 ''',
-            ),
+                ),
 
-            SizedBox(height: 20),
+                const SizedBox(height: 16),
 
-            ShowCase(
-              title: '4. Obtaining style',
-              description: 'Retrieve `clayTheme` and `clayPalette`from the context to access the theme and color palette, respectively',
-              icon: HugeIcons.strokeRoundedDrawingMode,
-              showOnlyCode: true,
-              code: '''
+                ShowCase(
+                  title: '4. Use theme values in a screen',
+                  description: 'Read the active theme and palette from BuildContext to keep components consistent.',
+                  icon: HugeIcons.strokeRoundedDrawingMode,
+                  showOnlyCode: true,
+                  code: '''
 import 'package:flutter/material.dart';
 import 'package:clay_ui_kit/clay_ui_kit.dart';
 
@@ -160,11 +222,9 @@ class MyScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ClayButton.base(
-              'Theme',
+            ClayButton.primary(
+              'Primary action',
               onPressed: () {},
-              backgroundColor: theme.primary,
-              foregroundColor: theme.onPrimary,
             ),
             ClayText.body('Palette', color: palette.s500),
           ],
@@ -174,114 +234,116 @@ class MyScreen extends StatelessWidget {
   }
 }
 ''',
-            ),
+                ),
 
-            SizedBox(height: 20),
+                const SizedBox(height: 24),
 
-            ClayCard(
-              children: [
-                ClayCard.header(title: 'Design Principles'),
-                ClayCard.body(
+                ClayCard(
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    ClayCard.header(title: 'Design Principles'),
+                    ClayCard.body(
                       children: [
-                        Row(
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            HugeIcon(
-                              icon: HugeIcons.strokeRoundedDrawingMode,
-                              color: theme.primary,
+                            Row(
+                              children: [
+                                HugeIcon(
+                                  icon: HugeIcons.strokeRoundedDrawingMode,
+                                  color: theme.primary,
+                                ),
+                                SizedBox(width: 8),
+                                ClayCard.title('Claymorphism'),
+                              ],
                             ),
-                            SizedBox(width: 8),
-                            ClayCard.title('Claymorphism'),
+                            ClayCard.label(
+                              'Layered light and shadow create soft surfaces with a clear sense of depth.',
+                            ),
                           ],
                         ),
-                        ClayCard.label(
-                          'A soft 3D effect using multiple shadows (inset + outset) to create depth',
-                        ),
-                      ],
-                    ),
 
-                    SizedBox(height: 8),
+                        SizedBox(height: 8),
 
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            HugeIcon(
-                              icon: HugeIcons.strokeRoundedPaintBoard,
-                              color: theme.primary,
+                            Row(
+                              children: [
+                                HugeIcon(
+                                  icon: HugeIcons.strokeRoundedPaintBoard,
+                                  color: theme.primary,
+                                ),
+                                SizedBox(width: 8),
+                                ClayCard.title('Pastel Colors'),
+                              ],
                             ),
-                            SizedBox(width: 8),
-                            ClayCard.title('Pastel Colors'),
+                            ClayCard.label(
+                              'Semantic colors help distinguish primary actions, supporting content, and status.',
+                            ),
                           ],
                         ),
-                        ClayCard.label(
-                          'A palette based on pastel tones, with variations for differents states',
-                        ),
-                      ],
-                    ),
 
-                    SizedBox(height: 8),
+                        SizedBox(height: 8),
 
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            HugeIcon(
-                              icon: HugeIcons.strokeRoundedTextFont,
-                              color: theme.primary,
+                            Row(
+                              children: [
+                                HugeIcon(
+                                  icon: HugeIcons.strokeRoundedTextFont,
+                                  color: theme.primary,
+                                ),
+                                SizedBox(width: 8),
+                                ClayCard.title('Typography'),
+                              ],
                             ),
-                            SizedBox(width: 8),
-                            ClayCard.title('Typography'),
+                            ClayCard.label(
+                              'Display, title, and body styles establish hierarchy across the interface.',
+                            ),
                           ],
                         ),
-                        ClayCard.label(
-                          'Serif (Crimson Text) for titles and headings, Sans Serif (inter) for body text and UI elements',
-                        ),
-                      ],
-                    ),
 
-                    SizedBox(height: 8),
+                        SizedBox(height: 8),
 
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            HugeIcon(
-                              icon: HugeIcons.strokeRoundedMoonEclipse,
-                              color: theme.primary,
+                            Row(
+                              children: [
+                                HugeIcon(
+                                  icon: HugeIcons.strokeRoundedMoonEclipse,
+                                  color: theme.primary,
+                                ),
+                                SizedBox(width: 8),
+                                ClayCard.title('Dark Mode'),
+                              ],
                             ),
-                            SizedBox(width: 8),
-                            ClayCard.title('Dark Mode'),
+                            ClayCard.label(
+                              'Theme tokens adapt surfaces and text for both light and dark modes.',
+                            ),
                           ],
-                        ),
-                        ClayCard.label(
-                          'Full support for a dark theme, with optimized colors',
                         ),
                       ],
                     ),
                   ],
                 ),
+
+                const SizedBox(height: 28),
+
+                CardGradient(
+                  title: 'Your next step',
+                  subtitle: 'Browse the catalog to find a component and see its examples in context.',
+                  label: 'Explore components',
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/catalog');
+                  },
+                ),
+
+                const Copyright(),
               ],
-            ),
-
-            SizedBox(height: 20),
-
-            CardGradient(
-              title: 'Next Steps',
-              subtitle: 'Explore all avaliable components and their variations',
-              label: 'Explore Components',
-              onPressed: () {
-                Navigator.pushNamed(context, '/catalog');
-              },
-            ),
-
-            Copyright(),
-          ],
+            );
+          },
         ),
       ),
     );

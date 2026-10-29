@@ -5,14 +5,12 @@ class DocumentationLegend {
   final String label;
   final Color color;
 
-  const DocumentationLegend({
-    required this.label,
-    required this.color,
-  });
+  const DocumentationLegend({required this.label, required this.color});
 }
 
 class ComponentDoc {
   final String title;
+  final String subtitle;
   final String description;
   final List<DocumentationLegend> legends;
   final List<Widget> showcases;
@@ -20,6 +18,7 @@ class ComponentDoc {
 
   const ComponentDoc({
     required this.title,
+    required this.subtitle,
     required this.description,
     this.legends = const [],
     this.showcases = const [],

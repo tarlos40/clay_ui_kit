@@ -1,34 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:clay_ui_kit/clay_ui_kit.dart';
 
+import '../components/navbar.dart';
+
 import '../docs/registry.dart';
 
-class ComponentDocumentationScreen extends StatelessWidget {
+class DocumentationScreen extends StatelessWidget {
   final String slug;
 
-  const ComponentDocumentationScreen({
-    super.key,
-    required this.slug,
-  });
+  const DocumentationScreen({super.key, required this.slug});
 
   @override
   Widget build(BuildContext context) {
-    final doc = ComponentDocRegistry.resolve(slug);
+    final doc = ComponentDocRegistry.resolve(context, slug);
 
     return ClayScaffold(
       useScrollView: true,
       hideAppBarOnScroll: false,
-      clayAppBar: ClayAppBar(
-        title: 'Component docs',
-        leading: IconButton(
-          onPressed: () => Navigator.pop(context),
-          icon: const Icon(Icons.arrow_back_rounded),
-        ),
+
+      clayAppBar: Navbar(
+        title: doc.title,
+        subtitle: doc.subtitle,
+        showBackButton: true,
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(20),
+      body: Center(
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
+
           children: [
             ClayText.display(doc.title),
             const SizedBox(height: 8),
@@ -81,10 +80,7 @@ class ComponentDocumentationScreen extends StatelessWidget {
             ),
             if (doc.props.isNotEmpty) ...[
               const SizedBox(height: 8),
-              ClayPropsTable(
-                title: 'Props',
-                props: doc.props,
-              ),
+              ClayPropsTable(title: 'Props', props: doc.props),
             ],
           ],
         ),

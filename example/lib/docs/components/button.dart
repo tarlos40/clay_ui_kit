@@ -1,10 +1,12 @@
 import 'package:clay_ui_kit/clay_ui_kit.dart';
 
-import 'models.dart';
+import '../classes/models.dart';
 
 ComponentDoc buttonDocumentation = ComponentDoc(
   title: 'Button',
-  description: 'Botão principal para ações primárias, secundárias e estados auxiliares.',
+  subtitle: 'Components',
+  description:
+      'Botão principal para ações primárias, secundárias e estados auxiliares.',
   legends: [
     DocumentationLegend(label: 'Default', color: ClayColors.sky.s500),
     DocumentationLegend(label: 'Primary', color: ClayColors.forest.s500),
