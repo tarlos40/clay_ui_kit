@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:clay_ui_kit/clay_ui_kit.dart';
 import 'package:hugeicons/hugeicons.dart';
 
+import '../utils/list_components.dart';
+
 class DrawerNavbar extends StatefulWidget {
   final String? selected;
 
@@ -28,47 +30,22 @@ class _DrawerNavbarState extends State<DrawerNavbar> {
 
         ClayDrawer.subtitle('Documentation'),
 
-        ClayDrawer.action(
-          icon: HugeIcon(
-            icon: HugeIcons.strokeRoundedHome03,
-            color: widget.selected == 'home'
-                ? theme.onPrimary
-                : theme.onBackground,
-          ),
-          label: "Home",
-          selected: widget.selected == 'home' ? true : false,
-          onPressed: () {
-            Navigator.pushReplacementNamed(context, '/');
-          },
-        ),
+        ...ListComponents.byCategory('Documentation').map((item) {
+          final route = item['route'] as String? ?? '/${item['value']}';
+          final isSelected = widget.selected == route;
 
-        ClayDrawer.action(
-          icon: HugeIcon(
-            icon: HugeIcons.strokeRoundedBookOpen02,
-            color: widget.selected == 'getting-started'
-                ? theme.onPrimary
-                : theme.onBackground,
-          ),
-          label: "Getting Started",
-          selected: widget.selected == 'getting-started' ? true : false,
-          onPressed: () {
-            Navigator.pushReplacementNamed(context, '/getting-started');
-          },
-        ),
-
-        ClayDrawer.action(
-          icon: HugeIcon(
-            icon: HugeIcons.strokeRoundedCatalogue,
-            color: widget.selected == 'catalog'
-                ? theme.onPrimary
-                : theme.onBackground,
-          ),
-          label: "Catalog",
-          selected: widget.selected == 'catalog' ? true : false,
-          onPressed: () {
-            Navigator.pushReplacementNamed(context, '/catalog');
-          },
-        ),
+          return ClayDrawer.action(
+            icon: HugeIcon(
+              icon: item['icon'],
+              color: isSelected ? theme.onPrimary : theme.onBackground,
+            ),
+            label: item['title'],
+            selected: isSelected,
+            onPressed: () {
+              Navigator.pushNamed(context, route);
+            },
+          );
+        }),
 
         ClayDrawer.subtitle('Foundations'),
 
@@ -78,74 +55,23 @@ class _DrawerNavbarState extends State<DrawerNavbar> {
             color: theme.onBackground,
           ),
           label: "Foundations",
-          children: [
-            ClayDrawer.action(
+          children: ListComponents.byCategory('Foundations').map((item) {
+            final route = item['route'] as String? ?? '/${item['value']}';
+            final isSelected = widget.selected == route;
+
+            return ClayDrawer.action(
               icon: HugeIcon(
-                icon: HugeIcons.strokeRoundedPaintBucket,
-                color: theme.onBackground,
+                icon: item['icon'],
+                color: isSelected ? theme.onPrimary : theme.onBackground,
               ),
-              label: 'Colors',
+              label: item['title'],
+              selected: isSelected,
               compact: true,
-              selected: widget.selected == 'foundations-colors' ? true : false,
-              onPressed: () {},
-            ),
-            ClayDrawer.action(
-              icon: HugeIcon(
-                icon: HugeIcons.strokeRoundedSolidLine02,
-                color: theme.onBackground,
-              ),
-              label: 'Containers',
-              compact: true,
-              selected: widget.selected == 'foundations-containers'
-                  ? true
-                  : false,
-              onPressed: () {},
-            ),
-            ClayDrawer.action(
-              icon: HugeIcon(
-                icon: HugeIcons.strokeRoundedMaterialAndTexture,
-                color: theme.onBackground,
-              ),
-              label: 'Scaffold',
-              compact: true,
-              selected: widget.selected == 'foundations-scaffold'
-                  ? true
-                  : false,
-              onPressed: () {},
-            ),
-            ClayDrawer.action(
-              icon: HugeIcon(
-                icon: HugeIcons.strokeRoundedLayerMask01,
-                color: theme.onBackground,
-              ),
-              label: 'Shadows',
-              compact: true,
-              selected: widget.selected == 'foundations-shadows' ? true : false,
-              onPressed: () {},
-            ),
-            ClayDrawer.action(
-              icon: HugeIcon(
-                icon: HugeIcons.strokeRoundedPaintBoard,
-                color: theme.onBackground,
-              ),
-              label: 'Palette',
-              compact: true,
-              selected: widget.selected == 'foundations-palette' ? true : false,
-              onPressed: () {},
-            ),
-            ClayDrawer.action(
-              icon: HugeIcon(
-                icon: HugeIcons.strokeRoundedTextFont,
-                color: theme.onBackground,
-              ),
-              label: 'Typography',
-              compact: true,
-              selected: widget.selected == 'foundations-typography'
-                  ? true
-                  : false,
-              onPressed: () {},
-            ),
-          ],
+              onPressed: () {
+                Navigator.pushNamed(context, route);
+              },
+            );
+          }).toList(),
         ),
 
         ClayDrawer.subtitle('Components'),
@@ -156,17 +82,23 @@ class _DrawerNavbarState extends State<DrawerNavbar> {
             color: theme.onBackground,
           ),
           label: "Components",
-          children: [
-            ClayDrawer.action(
+          children: ListComponents.byCategory('Components').map((item) {
+            final route = item['route'] as String? ?? '/${item['value']}';
+            final isSelected = widget.selected == route;
+
+            return ClayDrawer.action(
               icon: HugeIcon(
-                icon: HugeIcons.strokeRoundedTouchpad04,
-                color: theme.onBackground,
+                icon: item['icon'],
+                color: isSelected ? theme.onPrimary : theme.onBackground,
               ),
-              label: 'Buttons',
+              label: item['title'],
+              selected: isSelected,
               compact: true,
-              onPressed: () {},
-            ),
-          ],
+              onPressed: () {
+                Navigator.pushNamed(context, route);
+              },
+            );
+          }).toList(),
         ),
       ],
     );

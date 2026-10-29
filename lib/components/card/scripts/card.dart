@@ -396,7 +396,7 @@ class _ClayCardState extends State<ClayCard> {
 
     final backgroundColor = widget.backgroundColor ?? theme.container;
 
-    Widget card = Padding(
+    final cardContent = Padding(
       padding: const EdgeInsets.symmetric(horizontal: 4),
       child: CustomPaint(
         foregroundPainter: ClayInnerShadowPainter(
@@ -416,7 +416,6 @@ class _ClayCardState extends State<ClayCard> {
             width: widget.width,
             height: widget.height,
             constraints: widget.constraints,
-            margin: widget.margin,
             padding: widget.padding,
             clipBehavior: widget.clipBehavior,
             decoration: BoxDecoration(
@@ -436,6 +435,10 @@ class _ClayCardState extends State<ClayCard> {
         ),
       ),
     );
+
+    Widget card = widget.margin != null
+        ? Container(margin: widget.margin, child: cardContent)
+        : cardContent;
 
     if (!_interactive && widget.onHover == null) {
       return card;

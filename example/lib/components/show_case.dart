@@ -6,6 +6,7 @@ class ShowCase extends StatefulWidget {
   final String title, description, code;
   final Widget? preview;
   final bool? showOnlyCode;
+  final String? copyToastMessage;
   final IconData? icon;
 
   const ShowCase({
@@ -15,6 +16,7 @@ class ShowCase extends StatefulWidget {
     required this.code,
     this.icon,
     this.showOnlyCode,
+    this.copyToastMessage,
     this.preview,
   });
 
@@ -32,6 +34,7 @@ class _ShowCaseState extends State<ShowCase> {
       description: widget.description,
       code: widget.code,
       showOnlyCode: widget.showOnlyCode ?? false,
+      copyToastMessage: widget.copyToastMessage ?? 'Code copied to clipboard',
       preview: widget.preview,
       headerTrailing: widget.icon != null
           ? CustomPaint(

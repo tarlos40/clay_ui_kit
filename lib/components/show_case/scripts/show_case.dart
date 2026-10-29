@@ -5,6 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../app/scripts/context.dart';
 import '../../text/scripts/text.dart';
 import '../../../theme/scripts/shadows.dart';
+import '../../toast/scripts/toast.dart';
+import '../../toast/types/positions.dart';
 
 class ClayShowcase extends StatefulWidget {
   final String title;
@@ -12,11 +14,14 @@ class ClayShowcase extends StatefulWidget {
 
   final Widget? preview;
   final String code;
+  final String? fileName;
+  final String? codeLanguage;
 
   final bool initiallyShowCode;
   final bool showCode;
   final bool showCopyButton;
   final bool showOnlyCode;
+  final String? copyToastMessage;
 
   final Widget? headerTrailing;
 
@@ -26,12 +31,15 @@ class ClayShowcase extends StatefulWidget {
     super.key,
     required this.title,
     required this.code,
+    this.fileName,
+    this.codeLanguage,
     this.preview,
     this.description,
     this.initiallyShowCode = false,
     this.showCode = true,
     this.showOnlyCode = false,
     this.showCopyButton = true,
+    this.copyToastMessage = 'Code copied to clipboard',
     this.headerTrailing,
     this.padding = const EdgeInsets.all(20),
   });
@@ -49,6 +57,11 @@ class _ClayShowcaseState extends State<ClayShowcase> {
     super.initState();
     _showOnlyCode = widget.showOnlyCode;
     _showCode = widget.showOnlyCode || widget.initiallyShowCode;
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      ClayToast.init(context);
+    });
   }
 
   void _toggleCode() {
@@ -177,7 +190,7 @@ class _ClayShowcaseState extends State<ClayShowcase> {
           width: double.infinity,
           padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 4),
           decoration: BoxDecoration(
-            color: theme.background,
+            color: const Color(0xFF282A36),
             borderRadius: BorderRadius.circular(18),
             boxShadow: ClayShadows.external(theme: theme, offset: 2, blur: 5),
           ),
@@ -192,33 +205,102 @@ class _ClayShowcaseState extends State<ClayShowcase> {
   }
 
   Widget _buildCodeHeader(BuildContext context) {
-    final theme = context.clayTheme;
+    final safeTitle = widget.title.isEmpty ? 'component' : widget.title;
+    final fileNameValue = widget.fileName ??
+        '${safeTitle.toLowerCase().replaceAll(RegExp(r'[^a-z0-9]+'), '_')}.dart';
+    final safeFileName = fileNameValue.trim();
+    final languageValue = widget.codeLanguage ?? 'dart';
+    final safeLanguage = languageValue.trim().isEmpty
+        ? 'dart'
+        : languageValue.trim().toLowerCase();
 
-    return Padding(
+    return Container(
       padding: const EdgeInsets.fromLTRB(14, 10, 10, 10),
+      color: const Color(0xFF1F2333),
       child: Row(
         children: [
-          Icon(
-            Icons.code_rounded,
-            size: 18,
-            color: theme.onBackground.withValues(alpha: 0.6),
+          Flexible(
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+              decoration: BoxDecoration(
+                color: const Color(0xFF2E3440),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(
+                    Icons.code_rounded,
+                    size: 14,
+                    color: Color(0xFFE5E9F0),
+                  ),
+                  const SizedBox(width: 6),
+                  Flexible(
+                    child: Text(
+                      safeFileName,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: GoogleFonts.jetBrainsMono(
+                        color: const Color(0xFFE5E9F0),
+                        fontSize: 10.5,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
 
-          const SizedBox(width: 8),
-
-          ClayText.label(
-            'Code',
-            color: theme.onBackground.withValues(alpha: 0.65),
-            fontWeight: FontWeight.w600,
+          const SizedBox(width: 10),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            decoration: BoxDecoration(
+              color: const Color(0xFF44475A),
+              borderRadius: BorderRadius.circular(999),
+            ),
+            child: Text(
+              safeLanguage,
+              style: GoogleFonts.jetBrainsMono(
+                color: const Color(0xFF8BE9FD),
+                fontSize: 10,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
           ),
 
           const Spacer(),
 
           if (widget.showCopyButton)
-            _ClayShowcaseButton(
-              icon: Icon(Icons.copy_rounded),
-              label: 'Copy',
-              onPressed: _copyCode,
+            GestureDetector(
+              onTap: _copyCode,
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                decoration: BoxDecoration(
+                  color: const Color(0xFF44475A),
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: const Color(0xFF6272A4), width: 1),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Icon(
+                      Icons.copy_rounded,
+                      size: 14,
+                      color: Color(0xFFE5E9F0),
+                    ),
+                    const SizedBox(width: 6),
+                    Text(
+                      'Copy',
+                      style: GoogleFonts.jetBrainsMono(
+                        color: const Color(0xFFE5E9F0),
+                        fontSize: 11,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
         ],
       ),
@@ -226,18 +308,55 @@ class _ClayShowcaseState extends State<ClayShowcase> {
   }
 
   Widget _buildCodeContent(BuildContext context) {
-    final theme = context.clayTheme;
+    final lines = widget.code.trim().split('\n');
 
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      padding: const EdgeInsets.fromLTRB(16, 4, 16, 18),
-      child: SelectableText(
-        widget.code.trim(),
-        style: GoogleFonts.inter(
-          color: theme.onBackground,
-          fontSize: 13,
-          height: 1.6,
-          fontWeight: FontWeight.w500,
+    return Container(
+      width: double.infinity,
+      decoration: const BoxDecoration(
+        color: Color(0xFF282A36),
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(18),
+          bottomRight: Radius.circular(18),
+        ),
+      ),
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.fromLTRB(12, 8, 16, 18),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              padding: const EdgeInsets.only(top: 2),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: List.generate(lines.length, (index) {
+                  return Text(
+                    '${index + 1}',
+                    style: GoogleFonts.jetBrainsMono(
+                      color: const Color(0xFF6272A4),
+                      fontSize: 11,
+                      height: 1.75,
+                    ),
+                  );
+                }),
+              ),
+            ),
+            const SizedBox(width: 12),
+            SizedBox(
+              width: MediaQuery.sizeOf(context).width > 760
+                  ? MediaQuery.sizeOf(context).width
+                  : 760,
+              child: SelectableText.rich(
+                _DartCodeSyntaxHighlight(widget.code.trim()),
+                style: GoogleFonts.jetBrainsMono(
+                  color: const Color(0xFFF8F8F2),
+                  fontSize: 12.5,
+                  height: 1.7,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -245,6 +364,141 @@ class _ClayShowcaseState extends State<ClayShowcase> {
 
   Future<void> _copyCode() async {
     await Clipboard.setData(ClipboardData(text: widget.code));
+
+    if (!mounted) return;
+
+    ClayToast.init(context);
+
+    final message = (widget.copyToastMessage ?? '').trim();
+    ClayToast.success(
+      message.isEmpty ? 'Code copied to clipboard' : message,
+      position: ClayToastPosition.topCenter,
+      duration: const Duration(seconds: 2),
+    );
+  }
+}
+
+class _DartCodeSyntaxHighlight extends TextSpan {
+  _DartCodeSyntaxHighlight(String source)
+    : super(
+        children: _buildSpans(source),
+        style: const TextStyle(
+          color: Color(0xFFF8F8F2),
+          fontFamily: 'monospace',
+        ),
+      );
+
+  static List<TextSpan> _buildSpans(String source) {
+    final spans = <TextSpan>[];
+    final pattern = RegExp(
+      r'''(///.*|//.*|/\*.*?\*/|"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|\b(?:abstract|as|assert|await|break|case|catch|class|const|continue|covariant|default|deferred|do|else|enum|extends|false|final|finally|for|if|implements|import|in|interface|is|late|library|mixin|new|null|on|operator|part|rethrow|return|set|show|static|super|switch|sync|this|throw|true|try|typedef|var|void|while|with|yield)\b|\b(?:bool|double|dynamic|int|String|List|Map|Set|Widget|BuildContext|VoidCallback|Color|IconData|EdgeInsetsGeometry)\b|\b\d+(?:\.\d+)?\b|[{}()[\].,;:+\-*/%<>=!&|?]+|\s+)''',
+      multiLine: true,
+      dotAll: true,
+    );
+
+    final matches = pattern.allMatches(source);
+    var cursor = 0;
+
+    for (final match in matches) {
+      if (match.start > cursor) {
+        spans.add(_baseSpan(source.substring(cursor, match.start)));
+      }
+
+      final token = match.group(0)!;
+      spans.add(_spanForToken(token));
+      cursor = match.end;
+    }
+
+    if (cursor < source.length) {
+      spans.add(_baseSpan(source.substring(cursor)));
+    }
+
+    return spans;
+  }
+
+  static TextSpan _baseSpan(String text) {
+    return TextSpan(
+      text: text,
+      style: const TextStyle(
+        color: Color(0xFFF8F8F2),
+      ),
+    );
+  }
+
+  static TextSpan _spanForToken(String token) {
+    if (token.trim().isEmpty) {
+      return _baseSpan(token);
+    }
+
+    final trimmed = token.trim();
+
+    if (trimmed.startsWith('//') || trimmed.startsWith('///')) {
+      return TextSpan(
+        text: token,
+        style: const TextStyle(color: Color(0xFF6272A4)),
+      );
+    }
+
+    if (trimmed.startsWith('/*') || trimmed.endsWith('*/')) {
+      return TextSpan(
+        text: token,
+        style: const TextStyle(color: Color(0xFF6272A4)),
+      );
+    }
+
+    if ((token.startsWith('"') && token.endsWith('"')) ||
+        (token.startsWith("'") && token.endsWith("'"))) {
+      return TextSpan(
+        text: token,
+        style: const TextStyle(color: Color(0xFFF1FA8C)),
+      );
+    }
+
+    if (RegExp(r'^\d+(?:\.\d+)?$').hasMatch(trimmed)) {
+      return TextSpan(
+        text: token,
+        style: const TextStyle(color: Color(0xFFBD93F9)),
+      );
+    }
+
+    if (RegExp(r'^(?:abstract|as|assert|await|break|case|catch|class|const|continue|covariant|default|deferred|do|else|enum|extends|false|final|finally|for|if|implements|import|in|interface|is|late|library|mixin|new|null|on|operator|part|rethrow|return|set|show|static|super|switch|sync|this|throw|true|try|typedef|var|void|while|with|yield)$').hasMatch(trimmed)) {
+      return TextSpan(
+        text: token,
+        style: const TextStyle(
+          color: Color(0xFF8BE9FD),
+          fontWeight: FontWeight.w700,
+        ),
+      );
+    }
+
+    if (RegExp(r'^(?:bool|double|dynamic|int|String|List|Map|Set|Widget|BuildContext|VoidCallback|Color|IconData|EdgeInsetsGeometry)$').hasMatch(trimmed)) {
+      return TextSpan(
+        text: token,
+        style: const TextStyle(
+          color: Color(0xFF50FA7B),
+          fontWeight: FontWeight.w600,
+        ),
+      );
+    }
+
+    if (RegExp(r'^[A-Z][A-Za-z0-9_]*$').hasMatch(trimmed)) {
+      return TextSpan(
+        text: token,
+        style: const TextStyle(color: Color(0xFF50FA7B)),
+      );
+    }
+
+    if (RegExp(r'^[{}()[\].,;:+\-*/%<>=!&|?]+$').hasMatch(trimmed)) {
+      return TextSpan(
+        text: token,
+        style: const TextStyle(color: Color(0xFFF8F8F2)),
+      );
+    }
+
+    return TextSpan(
+      text: token,
+      style: const TextStyle(color: Color(0xFFF8F8F2)),
+    );
   }
 }
 

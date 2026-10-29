@@ -4,6 +4,33 @@ All notable changes to **Clay UI Kit** will be documented in this file.
 
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [1.0.2] - 2026-10-29
+
+### Added
+- Reusable component documentation flow using a single generic screen
+- Per-component documentation entries can be defined in dedicated Dart files
+- Showcase supports custom file names, code language labels and copy toast messages
+- Code panel now includes syntax highlighting with a VS Code / Dracula-inspired editor style
+- Toast feedback for copy actions through the library toast system
+
+### Improved
+- Fixed showcase runtime errors for null `codeLanguage` and missing file names
+- Prevented layout overflow when long file names are used in the code header
+- Improved code panel header layout and copy button visual consistency
+- Hardened showcase rendering for long labels and missing optional values
+- Cleaned up toast visuals by removing underline-like visual artifacts from text content
+- Toasts now have a cleaner, more minimal visual treatment without noisy decorative lines
+
+### Fixed
+- Fixed null access errors in `ClayShowcase` copy action and code header generation
+- Fixed copy feedback so it uses `ClayToast.success` instead of ad-hoc snackbars
+- Fixed Dark theme code block consistency for the showcase editor panel
+- Fixed documentation example routes and component registry usage issues
+
+### Notes
+- Documentation system is now easier to extend by adding new component doc files without rewriting the screen shell
+- This release focuses on polish, maintainability and the showcase/editor experience for component docs
+
 ## [1.0.1] - 2026-10-20
 
 ### Added

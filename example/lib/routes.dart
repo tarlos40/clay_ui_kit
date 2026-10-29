@@ -5,6 +5,7 @@ import './screens/tests/lab.dart';
 import './screens/home.dart';
 import './screens/getting_started.dart';
 import './screens/catalog.dart';
+import './screens/documentation.dart';
 
 class Routes {
   static const home = '/';
@@ -14,7 +15,17 @@ class Routes {
   static const labTests = '/tests/lab';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
-    switch (settings.name) {
+    final routeName = settings.name ?? '';
+
+    if (routeName.startsWith('/component/') || routeName.startsWith('/foundation/')) {
+      final slug = routeName.split('/').where((segment) => segment.isNotEmpty).last;
+      return MaterialPageRoute(
+        settings: settings,
+        builder: (_) => ComponentDocumentationScreen(slug: slug),
+      );
+    }
+
+    switch (routeName) {
       case home:
         return MaterialPageRoute(
           settings: settings,

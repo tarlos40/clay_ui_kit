@@ -55,7 +55,7 @@ class ClayContainer extends StatelessWidget {
     final shadows =
         boxShadow ?? ClayShadows.external(theme: theme, offset: 2.5, blur: 7);
 
-    return CustomPaint(
+    final containerContent = CustomPaint(
       foregroundPainter: ClayInnerShadowPainter(
         shadowColor: theme.shadow,
         lightColor: theme.light,
@@ -67,7 +67,6 @@ class ClayContainer extends StatelessWidget {
         width: width,
         height: height,
         constraints: constraints,
-        margin: margin,
         alignment: alignment,
         padding: padding,
         clipBehavior: clipBehavior,
@@ -81,5 +80,11 @@ class ClayContainer extends StatelessWidget {
         child: child,
       ),
     );
+
+    if (margin == null) {
+      return containerContent;
+    }
+
+    return Container(margin: margin, child: containerContent);
   }
 }

@@ -25,7 +25,7 @@ class _GettingStartedScreenState extends State<GettingStartedScreen> {
       useScrollView: true,
       hideAppBarOnScroll: true,
 
-      clayDrawer: DrawerNavbar(selected: 'getting-started'),
+      clayDrawer: DrawerNavbar(selected: '/getting-started'),
 
       clayAppBar: Navbar(
         title: 'Getting Started',
@@ -39,7 +39,27 @@ class _GettingStartedScreenState extends State<GettingStartedScreen> {
 
           children: [
             SizedBox(height: 20),
+
             Search(),
+
+            SizedBox(height: 20),
+
+            ClayBreadcrumbs(
+              items: [
+                ClayBreadcrumbItem(
+                  label: 'Home',
+                  onTap: () {
+                    Navigator.pushNamed(context, '/');
+                  },
+                ),
+                ClayBreadcrumbItem(
+                  label: 'Getting Started',
+                  onTap: () {
+                    Navigator.pushNamed(context, '/getting-started');
+                  },
+                ),
+              ],
+            ),
 
             SizedBox(height: 20),
 
@@ -164,8 +184,7 @@ class MyScreen extends StatelessWidget {
                 ClayCard.body(
                   children: [
                     Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
                           children: [
@@ -186,8 +205,7 @@ class MyScreen extends StatelessWidget {
                     SizedBox(height: 8),
 
                     Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
                           children: [
@@ -208,8 +226,7 @@ class MyScreen extends StatelessWidget {
                     SizedBox(height: 8),
 
                     Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
                           children: [
@@ -230,8 +247,7 @@ class MyScreen extends StatelessWidget {
                     SizedBox(height: 8),
 
                     Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
                           children: [
