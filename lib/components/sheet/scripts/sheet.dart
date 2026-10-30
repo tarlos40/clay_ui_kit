@@ -7,6 +7,7 @@ import 'package:flutter/gestures.dart';
 import '../../../app/scripts/context.dart';
 import '../../../theme/scripts/shadows.dart';
 import '../types/positions.dart';
+import '../../../palette/types/colors.dart';
 
 class ClaySheet {
   const ClaySheet._();
@@ -59,7 +60,8 @@ class ClaySheet {
         showDragHandle: showDragHandle,
         backgroundColor: backgroundColor,
         backgroundGradient: backgroundGradient,
-        barrierColor: barrierColor ?? Colors.black.withValues(alpha: 0.30),
+        barrierColor:
+            barrierColor ?? ClayColors.slate.s950.withValues(alpha: 0.30),
         borderRadius: borderRadius,
         padding: padding,
         duration: duration,

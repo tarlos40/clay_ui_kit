@@ -34,37 +34,42 @@ class DocumentationScreen extends StatelessWidget {
             ClayText.body(doc.description),
             const SizedBox(height: 24),
             if (doc.legends.isNotEmpty) ...[
-              ClayText.label('Legends'),
-              const SizedBox(height: 12),
+              ClayText.label(
+                'VARIANTS & STATES',
+                color: context.clayTheme.onBackgroundVariant,
+                fontWeight: FontWeight.w700,
+              ),
+              const SizedBox(height: 10),
               Wrap(
-                spacing: 12,
-                runSpacing: 12,
+                spacing: 8,
+                runSpacing: 8,
                 children: doc.legends.map((legend) {
                   return Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 8,
-                    ),
+                    padding: const EdgeInsets.fromLTRB(9, 7, 11, 7),
                     decoration: BoxDecoration(
-                      color: legend.color.withValues(alpha: 0.12),
-                      borderRadius: BorderRadius.circular(999),
+                      color: legend.color.withValues(alpha: 0.08),
+                      borderRadius: BorderRadius.circular(8),
                       border: Border.all(
-                        color: legend.color.withValues(alpha: 0.25),
+                        color: legend.color.withValues(alpha: 0.20),
                       ),
                     ),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Container(
-                          width: 10,
-                          height: 10,
+                          width: 9,
+                          height: 9,
                           decoration: BoxDecoration(
                             color: legend.color,
-                            shape: BoxShape.circle,
+                            borderRadius: BorderRadius.circular(3),
                           ),
                         ),
-                        const SizedBox(width: 8),
-                        ClayText.label(legend.label),
+                        const SizedBox(width: 7),
+                        ClayText.label(
+                          legend.label,
+                          fontSize: 11,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ],
                     ),
                   );

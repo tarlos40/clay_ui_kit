@@ -6,6 +6,7 @@ import '../../../app/scripts/context.dart';
 import '../types/variants.dart';
 import '../../../theme/scripts/shadows.dart';
 import '../../text/scripts/text.dart';
+import '../../../palette/types/colors.dart';
 
 class ClayProgress extends StatefulWidget {
   const ClayProgress.bar({
@@ -292,12 +293,12 @@ class _ClayProgressState extends State<ClayProgress>
               color: track,
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.07),
+                  color: ClayColors.slate.s950.withValues(alpha: 0.07),
                   offset: const Offset(3, 4),
                   blurRadius: 8,
                 ),
                 BoxShadow(
-                  color: Colors.white.withValues(alpha: 0.5),
+                  color: ClayColors.ocean.s50.withValues(alpha: 0.5),
                   offset: const Offset(-3, -3),
                   blurRadius: 8,
                 ),
@@ -337,7 +338,7 @@ class _ClayProgressState extends State<ClayProgress>
                   ClayText.label(
                     widget.value == null ? '…' : '${(value * 100).round()}%',
                     color: value > 0.55
-                        ? Colors.white
+                        ? ClayColors.ocean.s50
                         : context.clayTheme.onBackground,
                     fontWeight: FontWeight.w700,
                     fontSize: widget.size * 0.18,
@@ -434,7 +435,8 @@ class _WaveProgressPainter extends CustomPainter {
     final paint = Paint()..color = color;
     canvas.drawPath(path, paint);
 
-    final highlight = Paint()..color = Colors.white.withValues(alpha: 0.13);
+    final highlight = Paint()
+      ..color = ClayColors.ocean.s50.withValues(alpha: 0.13);
     final secondPath = Path()..moveTo(0, level + waveAmplitude * 0.35);
     for (double x = 0; x <= size.width + 1; x += 1) {
       final y =

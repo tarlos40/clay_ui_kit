@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../button/scripts/button.dart';
 import '../../text/scripts/text.dart';
+import '../../../palette/types/colors.dart';
 
 class ClayCarousel extends StatefulWidget {
   const ClayCarousel({
@@ -199,7 +200,7 @@ class _ClayCarouselState extends State<ClayCarousel> {
       width: widget.arrowSize,
       height: widget.arrowSize,
       child: Material(
-        color: Colors.black.withValues(alpha: enabled ? 0.38 : 0.15),
+        color: ClayColors.slate.s950.withValues(alpha: enabled ? 0.38 : 0.15),
         shape: const CircleBorder(),
         clipBehavior: Clip.antiAlias,
         child: InkWell(
@@ -207,7 +208,7 @@ class _ClayCarouselState extends State<ClayCarousel> {
           customBorder: const CircleBorder(),
           child: IconTheme(
             data: IconThemeData(
-              color: Colors.white.withValues(alpha: enabled ? 1 : 0.35),
+              color: ClayColors.ocean.s50.withValues(alpha: enabled ? 1 : 0.35),
               size: 21,
             ),
             child: icon,
@@ -229,7 +230,7 @@ class _ClayCarouselState extends State<ClayCarousel> {
         width: 76,
         height: 4,
         decoration: BoxDecoration(
-          color: Colors.white.withValues(alpha: 0.3),
+          color: ClayColors.ocean.s50.withValues(alpha: 0.3),
           borderRadius: BorderRadius.circular(99),
         ),
         clipBehavior: Clip.antiAlias,
@@ -241,7 +242,7 @@ class _ClayCarouselState extends State<ClayCarousel> {
             widthFactor: (_realIndex + 1) / _count,
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: ClayColors.ocean.s50,
                 borderRadius: BorderRadius.circular(99),
               ),
             ),
@@ -272,7 +273,9 @@ class _ClayCarouselState extends State<ClayCarousel> {
               width: selected ? 22 : 7,
               height: 7,
               decoration: BoxDecoration(
-                color: Colors.white.withValues(alpha: selected ? 1 : 0.5),
+                color: ClayColors.ocean.s50.withValues(
+                  alpha: selected ? 1 : 0.5,
+                ),
                 borderRadius: BorderRadius.circular(99),
               ),
             ),
@@ -423,8 +426,8 @@ class ClayCarouselItem {
         gradientColors ??
         [
           Colors.transparent,
-          Colors.black.withValues(alpha: 0.18),
-          Colors.black.withValues(alpha: 0.88),
+          ClayColors.slate.s950.withValues(alpha: 0.18),
+          ClayColors.slate.s950.withValues(alpha: 0.88),
         ];
 
     return ClipRRect(
@@ -465,7 +468,7 @@ class ClayCarouselItem {
                 color: Colors.transparent,
                 child: InkWell(
                   onTap: this.onTap ?? onTap,
-                  splashColor: Colors.white.withValues(alpha: 0.08),
+                  splashColor: ClayColors.ocean.s50.withValues(alpha: 0.08),
                   highlightColor: Colors.transparent,
                 ),
               ),
@@ -493,13 +496,15 @@ class ClayCarouselItem {
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
           decoration: BoxDecoration(
-            color: Colors.white.withValues(alpha: 0.16),
+            color: ClayColors.ocean.s50.withValues(alpha: 0.16),
             borderRadius: BorderRadius.circular(99),
-            border: Border.all(color: Colors.white.withValues(alpha: 0.22)),
+            border: Border.all(
+              color: ClayColors.ocean.s50.withValues(alpha: 0.22),
+            ),
           ),
           child: ClayText.label(
             tag!,
-            color: Colors.white,
+            color: ClayColors.ocean.s50,
             fontSize: 10,
             fontWeight: FontWeight.w700,
             letterSpacing: 1.1,
@@ -512,7 +517,7 @@ class ClayCarouselItem {
       children.add(
         ClayText.label(
           subtitle!,
-          color: Colors.white.withValues(alpha: 0.85),
+          color: ClayColors.ocean.s50.withValues(alpha: 0.85),
           fontSize: 13,
           fontWeight: FontWeight.w500,
           height: 1.35,
@@ -526,7 +531,7 @@ class ClayCarouselItem {
           title!,
           maxLines: 3,
           overflow: TextOverflow.ellipsis,
-          color: Colors.white,
+          color: ClayColors.ocean.s50,
           fontSize: 28,
           fontWeight: FontWeight.w800,
           height: 1.08,
@@ -541,7 +546,7 @@ class ClayCarouselItem {
           description!,
           maxLines: 3,
           overflow: TextOverflow.ellipsis,
-          color: Colors.white.withValues(alpha: 0.82),
+          color: ClayColors.ocean.s50.withValues(alpha: 0.82),
           fontSize: 13,
           height: 1.45,
         ),

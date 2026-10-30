@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../button/scripts/button.dart';
+import '../../../palette/types/colors.dart';
 
 class ClayImageViewer extends StatelessWidget {
   final ImageProvider? image;
@@ -59,7 +60,11 @@ class ClayImageViewer extends StatelessWidget {
               alignment: Alignment.center,
 
               children: [
-                Positioned.fill(child: const ColoredBox(color: Colors.black87)),
+                Positioned.fill(
+                  child: ColoredBox(
+                    color: ClayColors.slate.s950.withValues(alpha: .70),
+                  ),
+                ),
 
                 Center(
                   child: SizedBox(
@@ -88,8 +93,8 @@ class ClayImageViewer extends StatelessWidget {
                     child: ClayButton.icon(
                       const Icon(Icons.close_rounded),
                       onPressed: () => Navigator.of(context).maybePop(),
-                      backgroundColor: Colors.white,
-                      iconColor: Colors.black,
+                      backgroundColor: ClayColors.ocean.s50,
+                      iconColor: ClayColors.slate.s950,
                     ),
                   ),
               ],

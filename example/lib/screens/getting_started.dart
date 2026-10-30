@@ -44,39 +44,45 @@ class GettingStartedScreen extends StatelessWidget {
             return Column(
               children: [
                 const SizedBox(height: 16),
-                
+
                 Search(),
 
                 const SizedBox(height: 20),
 
-                Column(
-                  crossAxisAlignment: .start,
-                  children: [
-                    ClayBreadcrumbs(
-                      items: [
-                        ClayBreadcrumbItem(
-                          label: 'Home',
-                          onTap: () => Navigator.pushNamed(context, '/'),
-                        ),
-                        ClayBreadcrumbItem(
-                          label: 'Getting Started',
-                          onTap: () =>
-                              Navigator.pushNamed(context, '/getting-started'),
-                        ),
-                      ],
-                    ),
+                Align(
+                  alignment: .centerStart,
+                  child: Column(
+                    mainAxisSize: .min,
+                    crossAxisAlignment: .start,
+                    children: [
+                      ClayBreadcrumbs(
+                        items: [
+                          ClayBreadcrumbItem(
+                            label: 'Home',
+                            onTap: () => Navigator.pushNamed(context, '/'),
+                          ),
+                          ClayBreadcrumbItem(
+                            label: 'Getting Started',
+                            onTap: () => Navigator.pushNamed(
+                              context,
+                              '/getting-started',
+                            ),
+                          ),
+                        ],
+                      ),
 
-                    const SizedBox(height: 28),
+                      const SizedBox(height: 28),
 
-                    ClayText.display('Start building with Clay'),
+                      ClayText.display('Start building with Clay'),
 
-                    const SizedBox(height: 8),
+                      const SizedBox(height: 8),
 
-                    ClayText.body(
-                      'Add the package, configure your theme, and use your first components in a few clear steps.',
-                      color: theme.onBackground.withValues(alpha: .72),
-                    ),
-                  ],
+                      ClayText.body(
+                        'Add the package, configure your theme, and use your first components in a few clear steps.',
+                        color: theme.onBackground.withValues(alpha: .72),
+                      ),
+                    ],
+                  ),
                 ),
 
                 const SizedBox(height: 24),

@@ -4,6 +4,7 @@ import '../../../app/scripts/context.dart';
 import '../../button/scripts/button.dart';
 import '../../text/scripts/text.dart';
 import '../../../theme/scripts/shadows.dart';
+import '../../../palette/types/colors.dart';
 import './image_viewer.dart';
 
 class ClayCard extends StatefulWidget {
@@ -297,20 +298,20 @@ class ClayCard extends StatefulWidget {
                   child: imageContent,
                 ),
               ),
-              const Positioned(
+              Positioned(
                 right: 10,
                 bottom: 10,
                 child: IgnorePointer(
                   child: DecoratedBox(
                     decoration: BoxDecoration(
-                      color: Color(0x99000000),
+                      color: ClayColors.slate.s950,
                       borderRadius: BorderRadius.all(Radius.circular(20)),
                     ),
                     child: Padding(
-                      padding: EdgeInsets.all(8),
+                      padding: const EdgeInsets.all(8),
                       child: Icon(
                         Icons.zoom_out_map_rounded,
-                        color: Colors.white,
+                        color: ClayColors.ocean.s50,
                         size: 18,
                       ),
                     ),

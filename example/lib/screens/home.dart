@@ -46,14 +46,17 @@ class _HomeScreenState extends State<HomeScreen> {
 
                 const SizedBox(height: 36),
 
-                Wrap(
-                  spacing: 12,
-                  runSpacing: 12,
-                  children: const [
-                    Metric(value: '40+', label: 'components'),
-                    Metric(value: '2', label: 'theme modes'),
-                    Metric(value: '100%', label: 'Flutter'),
-                  ],
+                Align(
+                  alignment: .centerStart,
+                  child: Wrap(
+                    spacing: 12,
+                    runSpacing: 12,
+                    children: const [
+                      Metric(value: '40+', label: 'components'),
+                      Metric(value: '2', label: 'theme modes'),
+                      Metric(value: '100%', label: 'Flutter'),
+                    ],
+                  ),
                 ),
 
                 const SizedBox(height: 56),
@@ -117,6 +120,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ClayText.display('Small details, considered'),
 
                 const SizedBox(height: 20),
+
                 Wrap(
                   spacing: gap,
                   runSpacing: gap,

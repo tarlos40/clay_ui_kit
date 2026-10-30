@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../app/scripts/context.dart';
 import '../types/shapes.dart';
+import '../../../palette/types/colors.dart';
 
 class ClaySkeleton extends StatefulWidget {
   const ClaySkeleton({
@@ -123,13 +124,13 @@ class _ClaySkeletonState extends State<ClaySkeleton>
         borderRadius: radius,
         boxShadow: [
           BoxShadow(
-            color: Colors.white.withValues(alpha: 0.18),
+            color: ClayColors.ocean.s50.withValues(alpha: 0.18),
             offset: const Offset(-1, -1),
             blurRadius: 3,
             spreadRadius: 0,
           ),
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.025),
+            color: ClayColors.slate.s950.withValues(alpha: 0.025),
             offset: const Offset(1, 2),
             blurRadius: 5,
             spreadRadius: 0,

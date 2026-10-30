@@ -351,7 +351,9 @@ class _ClayScaffoldState extends State<ClayScaffold> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus(
+          disposition: UnfocusDisposition.scope,
+        );
       },
       child: ClayBackground(
         color: widget.backgroundColor,

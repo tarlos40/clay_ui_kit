@@ -8,6 +8,7 @@ import '../types/status.dart';
 import '../../../theme/scripts/shadows.dart';
 import '../../button/scripts/button.dart';
 import '../../text/scripts/text.dart';
+import '../../../palette/types/colors.dart';
 
 class ClayUploadFile {
   ClayUploadFile({
@@ -574,12 +575,12 @@ class _ClayUploadState extends State<ClayUpload> {
                   onPressed: _uploading || !widget.enabled ? null : _uploadAll,
                   isLoading: _uploading,
                   iconLeft: _uploading
-                      ? const SizedBox(
+                      ? SizedBox(
                           width: 17,
                           height: 17,
                           child: CircularProgressIndicator(
                             strokeWidth: 2,
-                            color: Colors.white,
+                            color: ClayColors.ocean.s50,
                           ),
                         )
                       : const Icon(Icons.cloud_upload_rounded),

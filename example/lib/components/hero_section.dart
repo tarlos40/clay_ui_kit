@@ -19,35 +19,38 @@ class HeroSection extends StatelessWidget {
         Row(
           mainAxisAlignment: .center,
           children: [
-             ClayContainer(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              HugeIcon(
-                icon: HugeIcons.strokeRoundedCodesandbox,
-                color: theme.primary,
-                size: 18,
+            ClayContainer(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  HugeIcon(
+                    icon: HugeIcons.strokeRoundedCodesandbox,
+                    color: theme.primary,
+                    size: 18,
+                  ),
+                  const SizedBox(width: 8),
+                  ClayText.label('CLAYMORPHISM DESIGN SYSTEM'),
+                ],
               ),
-              const SizedBox(width: 8),
-              ClayText.label('CLAYMORPHISM DESIGN SYSTEM'),
-            ],
-          ),
-        ),
+            ),
           ],
         ),
+
         const SizedBox(height: 24),
+
         ClayText.display('Beautiful Components'),
         ClayText.display('with Depth 3D', color: theme.primary),
+
         const SizedBox(height: 16),
-        ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 560),
-          child: ClayText.body(
-            'A complete collection of Flutter components in a claymorphism style, characterized by an elegant aesthetic and smooth animations.',
-            color: theme.onBackground.withValues(alpha: .72),
-          ),
+
+        ClayText.body(
+          'A complete collection of Flutter components in a claymorphism style, characterized by an elegant aesthetic and smooth animations.',
+          color: theme.onBackground.withValues(alpha: .72),
         ),
+
         const SizedBox(height: 24),
+        
         Wrap(
           spacing: 12,
           runSpacing: 12,

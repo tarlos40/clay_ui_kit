@@ -6,6 +6,7 @@ import '../../../app/scripts/context.dart';
 import '../types/styles.dart';
 import '../../../theme/scripts/shadows.dart';
 import '../../text/scripts/text.dart';
+import '../../../palette/types/colors.dart';
 
 class ClayLoading extends StatefulWidget {
   const ClayLoading({
@@ -52,7 +53,8 @@ class ClayLoading extends StatefulWidget {
       context: context,
       useRootNavigator: useRootNavigator,
       barrierDismissible: barrierDismissible,
-      barrierColor: barrierColor ?? Colors.black.withValues(alpha: .28),
+      barrierColor:
+          barrierColor ?? ClayColors.slate.s950.withValues(alpha: .28),
       builder: (dialogContext) => PopScope(
         canPop: barrierDismissible,
         child: Center(

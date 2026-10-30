@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import '../../../app/scripts/context.dart';
 import '../../../theme/scripts/shadows.dart';
+import '../../../palette/types/colors.dart';
 
 class ClayRefreshIndicator extends StatefulWidget {
   final Widget child;
@@ -247,7 +248,7 @@ class _ClayRefreshIndicatorState extends State<ClayRefreshIndicator>
                                     offset: const Offset(0, 5),
                                   ),
                                   BoxShadow(
-                                    color: Colors.white.withAlpha(90),
+                                    color: ClayColors.ocean.s50.withAlpha(90),
                                     blurRadius: 5,
                                     offset: const Offset(-2, -2),
                                   ),

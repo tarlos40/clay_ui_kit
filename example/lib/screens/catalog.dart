@@ -74,28 +74,34 @@ class _CatalogScreenState extends State<CatalogScreen> {
               children: [
                 const SizedBox(height: 16),
 
-                Row(
-                  crossAxisAlignment: .start,
-                  children: [
-                    ClayBreadcrumbs(
-                      items: [
-                        ClayBreadcrumbItem(
-                          label: 'Home',
-                          onTap: () => Navigator.pushNamed(context, '/'),
-                        ),
-                        ClayBreadcrumbItem(
-                          label: 'Catalog',
-                          onTap: () => Navigator.pushNamed(context, '/catalog'),
-                        ),
-                      ],
-                    ),
-                  ],
+                Align(
+                  alignment: .centerStart,
+                  child: Column(
+                    mainAxisSize: .min,
+                    crossAxisAlignment: .start,
+                    children: [
+                      ClayBreadcrumbs(
+                        items: [
+                          ClayBreadcrumbItem(
+                            label: 'Home',
+                            onTap: () => Navigator.pushNamed(context, '/'),
+                          ),
+                          ClayBreadcrumbItem(
+                            label: 'Catalog',
+                            onTap: () =>
+                                Navigator.pushNamed(context, '/catalog'),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
 
                 const SizedBox(height: 28),
 
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: .min,
                   children: [
                     Expanded(
                       child: Column(
@@ -134,37 +140,34 @@ class _CatalogScreenState extends State<CatalogScreen> {
 
                 const SizedBox(height: 16),
 
-                Row(
-                  crossAxisAlignment: .start,
-                  children: [
-                    Wrap(
-                      spacing: 10,
-                      runSpacing: 10,
-                      children: [
-                        CategoryFilter(
-                          label: 'All',
-                          count: allItems.length,
-                          selected: _selectedCategory == 'All',
-                          onTap: () =>
-                              setState(() => _selectedCategory = 'All'),
-                        ),
-                        CategoryFilter(
-                          label: 'Components',
-                          count: ListComponents.itemsComponents.length,
-                          selected: _selectedCategory == 'Components',
-                          onTap: () =>
-                              setState(() => _selectedCategory = 'Components'),
-                        ),
-                        CategoryFilter(
-                          label: 'Foundations',
-                          count: ListComponents.itemsFoundations.length,
-                          selected: _selectedCategory == 'Foundations',
-                          onTap: () =>
-                              setState(() => _selectedCategory = 'Foundations'),
-                        ),
-                      ],
-                    ),
-                  ],
+                Align(
+                  alignment: .centerStart,
+                  child: Wrap(
+                    spacing: 10,
+                    runSpacing: 10,
+                    children: [
+                      CategoryFilter(
+                        label: 'All',
+                        count: allItems.length,
+                        selected: _selectedCategory == 'All',
+                        onTap: () => setState(() => _selectedCategory = 'All'),
+                      ),
+                      CategoryFilter(
+                        label: 'Components',
+                        count: ListComponents.itemsComponents.length,
+                        selected: _selectedCategory == 'Components',
+                        onTap: () =>
+                            setState(() => _selectedCategory = 'Components'),
+                      ),
+                      CategoryFilter(
+                        label: 'Foundations',
+                        count: ListComponents.itemsFoundations.length,
+                        selected: _selectedCategory == 'Foundations',
+                        onTap: () =>
+                            setState(() => _selectedCategory = 'Foundations'),
+                      ),
+                    ],
+                  ),
                 ),
 
                 const SizedBox(height: 24),

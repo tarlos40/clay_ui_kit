@@ -5,6 +5,7 @@ import '../../../app/scripts/context.dart';
 import '../types/styles.dart';
 import '../../../theme/scripts/shadows.dart';
 import '../../../components/text/scripts/text.dart';
+import '../../../palette/types/colors.dart';
 
 class ClayTabItem {
   const ClayTabItem({
@@ -185,12 +186,12 @@ class _ClayTabsState extends State<ClayTabs> {
               borderRadius: BorderRadius.circular(widget.borderRadius + 4),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.055),
+                  color: ClayColors.slate.s950.withValues(alpha: 0.055),
                   offset: const Offset(2, 3),
                   blurRadius: 6,
                 ),
                 BoxShadow(
-                  color: Colors.white.withValues(alpha: 0.45),
+                  color: ClayColors.ocean.s50.withValues(alpha: 0.45),
                   offset: const Offset(-2, -2),
                   blurRadius: 5,
                 ),
@@ -302,7 +303,7 @@ class _ClayTabsState extends State<ClayTabs> {
                         ),
                         if (isSegmented)
                           BoxShadow(
-                            color: Colors.white.withValues(alpha: 0.16),
+                            color: ClayColors.ocean.s50.withValues(alpha: 0.16),
                             offset: const Offset(-1, -1),
                             blurRadius: 3,
                           ),

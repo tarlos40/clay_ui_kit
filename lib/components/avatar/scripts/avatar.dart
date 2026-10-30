@@ -99,8 +99,30 @@ class ClayAvatar extends StatelessWidget {
       size: avatarSize,
     );
 
-    final avatar = ClipOval(
-      child: SizedBox(width: avatarSize, height: avatarSize, child: content),
+    final avatar = CustomPaint(
+      foregroundPainter: ClayInnerShadowPainter(
+        shadowColor: theme.shadow,
+        lightColor: theme.light,
+        borderRadius: avatarSize / 2,
+        shadowSize: 2.5,
+        blurRadius: 7.0,
+      ),
+      child: Container(
+        width: avatarSize,
+        height: avatarSize,
+        decoration: BoxDecoration(
+          color: background,
+          shape: BoxShape.circle,
+          boxShadow: ClayShadows.external(theme: theme, offset: 1, blur: 3),
+        ),
+        child: ClipOval(
+          child: SizedBox(
+            width: avatarSize,
+            height: avatarSize,
+            child: content,
+          ),
+        ),
+      ),
     );
 
     if (badge == null) {
@@ -127,8 +149,6 @@ class ClayAvatar extends StatelessWidget {
     required Color foreground,
     required double size,
   }) {
-    final theme = context.clayTheme;
-
     if (image != null) {
       return Image(image: image!, width: size, height: size, fit: BoxFit.cover);
     }
@@ -154,27 +174,11 @@ class ClayAvatar extends StatelessWidget {
 
     final text = label ?? (name != null ? _initials(name!) : '');
 
-    return CustomPaint(
-      foregroundPainter: ClayInnerShadowPainter(
-        shadowColor: theme.shadow,
-        lightColor: theme.light,
-        borderRadius: 100,
-        shadowSize: 2.5,
-        blurRadius: 7.0,
-      ),
-      child: Container(
-        decoration: BoxDecoration(
-          color: background,
-          borderRadius: BorderRadius.circular(100),
-          boxShadow: ClayShadows.external(theme: theme, offset: 1, blur: 3),
-        ),
-        child: Center(
-          child: ClayText.label(
-            text,
-            color: foreground,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
+    return Center(
+      child: ClayText.label(
+        text,
+        color: foreground,
+        fontWeight: FontWeight.w700,
       ),
     );
   }

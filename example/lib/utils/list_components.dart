@@ -75,6 +75,14 @@ class ListComponents {
       'route': '/foundation/palette',
     },
     {
+      'icon': HugeIcons.strokeRoundedMoonEclipse,
+      'title': 'Theme',
+      'category': 'Foundations',
+      'description': 'Configure a seed palette and light or dark mode, then use semantic theme tokens throughout your app.',
+      'value': 'theme',
+      'route': '/foundation/theme',
+    },
+    {
       'icon': HugeIcons.strokeRoundedTextFont,
       'title': 'Typography',
       'category': 'Foundations',
@@ -161,6 +169,14 @@ class ListComponents {
       'description': 'Collect a date from users with a focused picker interaction and clear selection feedback.',
       'value': 'date-pick',
       'route': '/component/date-pick',
+    },
+    {
+      'icon': HugeIcons.strokeRoundedSidebarLeft,
+      'title': 'Drawer',
+      'category': 'Components',
+      'description': 'Provide access to navigation and supporting actions in a panel that slides in from the edge of the screen.',
+      'value': 'drawer',
+      'route': '/component/drawer',
     },
     {
       'icon': HugeIcons.strokeRoundedFileNotFound,

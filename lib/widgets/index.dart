@@ -4,3 +4,4 @@ export './scaffold/scripts/scaffold.dart';
 export './fab/index.dart';
 export './drawer/scripts/drawer.dart';
 export './tabs/index.dart';
+export './refresh_indicator/scripts/refresh_indicator.dart';

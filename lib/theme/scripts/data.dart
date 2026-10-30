@@ -48,8 +48,8 @@ class ClayThemeData {
       error = ClayColors.ruby.s400;
       onError = ClayColors.ruby.s50;
 
-      light = Colors.white.withAlpha(100);
-      shadow = Colors.black.withAlpha(100);
+      light = ClayColors.ocean.s50.withAlpha(100);
+      shadow = ClayColors.slate.s950.withAlpha(100);
       border = seedColor.s50.withAlpha(175);
     } else {
       background = seedColor.s950;
@@ -77,8 +77,8 @@ class ClayThemeData {
       error = ClayColors.ruby.s600;
       onError = ClayColors.ruby.s50;
 
-      light = Colors.white.withAlpha(25);
-      shadow = Colors.black.withAlpha(150);
+      light = ClayColors.ocean.s50.withAlpha(25);
+      shadow = ClayColors.slate.s950.withAlpha(150);
       border = seedColor.s950.withAlpha(200);
     }
   }
